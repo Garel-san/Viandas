@@ -1,0 +1,77 @@
+/* =========================
+   ABeeZee
+   ========================= */
+@font-face {
+  font-family: "ABeeZee";
+  src: url("/fonts/ABeeZee-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ABeeZee";
+  src: url("/fonts/ABeeZee-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =========================
+   Mark Pro
+   ========================= */
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Heavy.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MarkPro";
+  src: url("/fonts/MarkPro-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

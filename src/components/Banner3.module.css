@@ -1,0 +1,60 @@
+.banner {
+  width: 100%;
+  min-height: 330px;
+
+  background-image: url("/hero-image.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+}
+
+.inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textBlock {
+  max-width: 520px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 38px;
+  font-weight: 800;
+  color: #000000;
+  margin-left: 130px;
+}
+
+.subtitle {
+  font-size: 20px;
+  line-height: 1.6;
+  font-weight: 400; /* ← MÁS GRUESO */
+  color: #000000;
+  margin-left: 130px;
+  margin-top: -12px;
+}
+
+.button {
+  padding: 14px 66px;
+  border-radius: 30px;
+  border: none;
+
+  background-color: #f2a900;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 100px;
+}

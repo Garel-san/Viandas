@@ -1,0 +1,17 @@
+@import "./fonts.css";
+
+:root {
+  --font-primary: "MarkPro", system-ui, sans-serif;
+  --font-secondary: "ABeeZee", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: #ffffff;
+  color: #111;
+}

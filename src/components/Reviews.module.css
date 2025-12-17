@@ -1,0 +1,131 @@
+/* ======================
+   WRAPPER
+   ====================== */
+.wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 80px 0;
+}
+
+/* ======================
+   TRACK (contenedor scroll)
+   ====================== */
+.track {
+  width: 92%;
+  max-width: 1400px;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 48px) / 3); /* 3 cards visibles */
+  gap: 24px;
+
+  overflow-x: auto;
+  padding-bottom: 12px;
+
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:active {
+  cursor: grabbing;
+}
+
+/* Estado mientras se arrastra */
+.dragging {
+  scroll-snap-type: none;
+  cursor: grabbing;
+}
+
+/* ======================
+   CARD
+   ====================== */
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 26px 24px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  scroll-snap-align: start;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: transform 0.15s ease;
+}
+
+/* Feedback visual al presionar */
+.card:active {
+  transform: scale(0.97);
+}
+
+/* ======================
+   ESTRELLAS
+   ====================== */
+.stars {
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.filled {
+  color: #fbbc04;
+}
+
+.empty {
+  color: #e0e0e0;
+}
+
+/* ======================
+   TEXTO
+   ====================== */
+.text {
+  font-size: 18px;
+  line-height: 1.4;
+  color: #222;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+/* ======================
+   USUARIO
+   ====================== */
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user strong {
+  display: block;
+  font-size: 14px;
+}
+
+.user span {
+  font-size: 13px;
+  color: #777;
+}
+
+/* ======================
+   UX: evitar selección de texto
+   ====================== */
+.track,
+.card,
+.card * {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

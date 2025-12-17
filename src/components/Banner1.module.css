@@ -1,0 +1,44 @@
+.bannerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.banner {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 48px 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 80px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.item img {
+  width: 80px;
+  height: auto;
+}
+
+.item h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.item p {
+  font-size: 15px;
+  line-height: 1.2;
+  color: #333333;
+  max-width: 300px;
+  font-weight: 500;
+}
