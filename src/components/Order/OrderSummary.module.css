@@ -1,0 +1,13 @@
+.sidebar {
+  width: 280px;
+  height: 100%;
+  background: transparent; /* ✅ deja que cada bloque pinte lo suyo */
+
+  display: flex;
+  flex-direction: column;
+
+  position: sticky;
+  top: 80px; /* altura navbar */
+
+  border-left: 1px solid #e5e5e5;
+}

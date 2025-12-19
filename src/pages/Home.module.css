@@ -18,7 +18,7 @@
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: 80%;
   object-fit: cover;
   z-index: 1;
 }
@@ -55,22 +55,25 @@
 
 /* Título */
 .title {
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  line-height: 1;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.05;
+  max-width: 640px; /* CLAVE: achica el bloque */
+  letter-spacing: -0.04em;
+  margin-top: 20px;
   margin-bottom: 10px;
-  margin-top: 100px;
+  margin-left: 30px;
 }
 
 /* Subtítulo */
 .subtitle {
-  max-width: 600px;
-  font-size: 22px;
-  line-height: 1.6;
+  max-width: 400px;
+  font-size: 18px;
+  line-height: 1.2;
   color: #000000;
-  margin-bottom: 28px;
-  font-weight: 500;
-  margin-left: 40px;
+  margin-bottom: 20px;
+  font-weight: 400;
+  margin-left: 140px;
 }
 
 /* Botón */
@@ -79,8 +82,8 @@
   color: #ffffff;
   border: none;
   border-radius: 999px;
-  padding: 14px 24px;
-  font-size: 14px;
+  padding: 10px 28px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -99,7 +102,7 @@
 .banner1Wrapper {
   position: absolute;
   left: 50%;
-  bottom: -300px; /* invade el siguiente bloque como en la imagen */
+  bottom: -90px; /* invade el siguiente bloque como en la imagen */
   transform: translateX(-50%);
   width: 100%;
   max-width: 1100px;
@@ -116,7 +119,7 @@
   background: #ffffff;
 
   /* mantenemos el top grande por Banner1 */
-  padding: 360px 0 40px; /* ⬅️ antes 120px */
+  padding: 100px 0 40px; /* ⬅️ antes 120px */
 }
 
 .carrouselInner {
@@ -125,7 +128,7 @@
   padding: 0 24px;
 
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 180px 1fr;
   gap: 56px;
 
   align-items: center;
@@ -139,15 +142,15 @@
 }
 
 .carrouselTitle {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1;
   color: #f59e0b; /* naranja Viandas */
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .carrouselSubtitle {
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.4;
   color: #000000; /* gris moderno */
   max-width: 360px;
@@ -166,7 +169,6 @@
 .banner2Section {
   width: 100%;
   background: #ffffff;
-  padding: 60px 0 -10px; /* ⬅️ antes 120px arriba */
 }
 
 .banner2Wrapper {

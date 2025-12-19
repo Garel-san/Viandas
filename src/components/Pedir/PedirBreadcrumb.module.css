@@ -1,0 +1,90 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  padding: 6px 32px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+  top: 0;
+  position: sticky;
+}
+
+/* LOGO */
+.logo img {
+  height: 40px;
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-left: 260px;
+  gap: 18px;
+}
+
+/* STEP */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* DOT BASE */
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+
+/* INACTIVE TEXT */
+.text {
+  font-size: 10px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+/* ACTIVE */
+.dot.active {
+  border-color: #f59e0b;
+}
+
+.dot.active::after {
+  background: #f59e0b;
+}
+
+.textActive {
+  color: #f59e0b;
+}
+
+/* COMPLETED */
+.dot.completed {
+  border-color: #374151; /* gris oscuro */
+}
+
+.dot.completed::after {
+  background: #374151;
+}
+
+.textCompleted {
+  color: #374151;
+}
+
+/* LINE */
+.line {
+  width: 200px;
+  height: 2px;
+  background: #e5e7eb;
+}

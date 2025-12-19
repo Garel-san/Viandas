@@ -1,0 +1,149 @@
+.card {
+  position: relative; /* 👈 CONTEXTO PARA EL BOTÓN */
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 280px;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ───────────────────────────── */
+/* IMAGEN */
+/* ───────────────────────────── */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ───────────────────────────── */
+/* PRECIO */
+/* ───────────────────────────── */
+.price {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ffffff;
+  color: #16a34a;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ───────────────────────────── */
+/* FAVORITO */
+/* ───────────────────────────── */
+.favoriteBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #111827;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* ───────────────────────────── */
+/* BOTÓN + FLOTANTE (PRIORIDAD TOTAL) */
+/* ───────────────────────────── */
+.addFloatingBtn {
+  position: absolute;
+  top: 160px; /* 👈 JUSTO ENTRE IMAGEN Y FOOTER */
+  right: 12px;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+
+  background: #f59e0b;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  z-index: 10;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.addFloatingBtn:hover {
+  background: #d97706;
+  transform: scale(1.08);
+}
+
+/* ───────────────────────────── */
+/* FOOTER */
+/* ───────────────────────────── */
+.footer {
+  padding: 10px 12px 14px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #f59e0b;
+}
+
+/* ───────────────────────────── */
+/* ÍCONO ESTRELLA */
+/* ───────────────────────────── */
+.star {
+  color: #ffffff;
+  font-size: 18px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.starActive {
+  color: #facc15;
+  animation: starPop 0.25s ease-out;
+}
+
+@keyframes starPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}

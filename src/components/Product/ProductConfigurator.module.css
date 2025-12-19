@@ -1,0 +1,205 @@
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Texto informativo */
+.info {
+  font-size: 11px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Labels */
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* Fila Tamaño + Cantidad */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ───────────────────────────── */
+/* TAMAÑO (SEGMENTED CONTROL) */
+/* ───────────────────────────── */
+.pills {
+  display: inline-flex;
+  background: #e5e7eb;
+  border-radius: 999px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.pills button {
+  min-width: 34px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: none;
+
+  background: transparent;
+  color: #6b7280;
+
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.pills button.active {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.pills button:not(.active):hover {
+  color: #374151;
+}
+
+/* ───────────────────────────── */
+/* CANTIDAD (SIN FONDO GRIS) */
+/* ───────────────────────────── */
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qtyControls button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.qtyControls button:hover {
+  background: #f3f4f6;
+}
+
+.qty {
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* ───────────────────────────── */
+/* DROPDOWN GUARNICIÓN */
+/* ───────────────────────────── */
+.dropdown {
+  position: relative;
+}
+
+.dropdownHeader {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #d1d5db;
+  background: transparent;
+  padding: 6px 2px;
+  font-size: 12px;
+  color: #374151;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  margin-top: 6px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.option {
+  padding: 8px 10px;
+  font-size: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #fff7ed;
+}
+
+.selected {
+  background: #ffedd5;
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+/* ───────────────────────────── */
+/* TOTAL */
+/* ───────────────────────────── */
+.total {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ───────────────────────────── */
+/* ACCIONES */
+/* ───────────────────────────── */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cancel {
+  background: none;
+  border: none;
+  color: #f59e0b;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.confirm {
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
