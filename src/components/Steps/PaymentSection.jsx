@@ -1,15 +1,32 @@
+import { useNavigate } from "react-router-dom";
+
 import { useCheckout } from "../../context/CheckoutContext";
+import { useOrder } from "../../context/OrderDataContext";
+
 import styles from "./PaymentSection.module.css";
 
 export default function PaymentSection() {
-  const { payment, actions } = useCheckout();
+  const navigate = useNavigate();
+
+  const { payment, selectPaymentMethod, confirmOrder, prevStep } =
+    useCheckout();
+
+  const { getOrderSnapshot } = useOrder();
 
   const handleSelect = (method) => {
-    actions.selectPaymentMethod(method);
+    selectPaymentMethod(method);
   };
 
   const handleSubmit = () => {
-    actions.confirmOrder();
+    const orderSnapshot = getOrderSnapshot();
+    const ok = confirmOrder(orderSnapshot);
+
+    if (!ok) {
+      alert("No se pudo confirmar el pedido. Verificá los datos.");
+      return;
+    }
+
+    navigate("/success");
   };
 
   return (
@@ -21,7 +38,6 @@ export default function PaymentSection() {
 
       <p className={styles.subtitle}>¿Cómo vas a abonar?</p>
 
-      {/* MÉTODOS */}
       <div className={styles.methods}>
         <button
           type="button"
@@ -54,14 +70,12 @@ export default function PaymentSection() {
         </button>
       </div>
 
-      {/* FUTURO MODAL TARJETA */}
       {payment.method === "card" && (
         <div className={styles.cardNotice}>
           Ingresá los datos de tu tarjeta (funcionalidad en desarrollo)
         </div>
       )}
 
-      {/* ACCIONES */}
       <div className={styles.actions}>
         <button
           type="button"
@@ -69,10 +83,10 @@ export default function PaymentSection() {
           onClick={handleSubmit}
           disabled={!payment.method}
         >
-          PROCEDER AL PAGO
+          CONFIRMAR PEDIDO
         </button>
 
-        <button type="button" className={styles.linkBtn}>
+        <button type="button" className={styles.linkBtn} onClick={prevStep}>
           Volver
         </button>
       </div>

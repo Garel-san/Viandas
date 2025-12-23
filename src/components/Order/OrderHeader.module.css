@@ -1,17 +1,89 @@
 .header {
-  padding: 0px 20px 16px;
+  padding: 12px 20px;
   background: #f2f2f2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Lado izquierdo */
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título */
 .title {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
-  color: #f59e0b; /* naranja marca */
-  margin-bottom: 4px;
+  color: #f59e0b;
+  line-height: 1.2;
 }
 
+/* Subtítulo */
 .subtitle {
   font-size: 14px;
-  color: #000000;
-  font-weight: 400;
+  color: #111827;
+}
+
+/* Lado derecho */
+.right {
+  display: flex;
+  align-items: center;
+}
+
+/* Botón principal */
+.primary {
+  background: #f59e0b;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Botón secundario */
+.secondary {
+  background: none;
+  border: none;
+  color: #f59e0b;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================
+   MOBILE – FIXED BAR
+========================== */
+@media (max-width: 1023px) {
+  .header {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1200;
+
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.openBtn {
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .openBtn {
+    display: none;
+  }
 }

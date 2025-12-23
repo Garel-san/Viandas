@@ -9,8 +9,8 @@
   background: #ffffff;
   border-radius: 28px;
 
-  padding: 36px 48px; /* ↓ antes 60px 40px */
-  gap: 48px; /* ↓ antes 80px */
+  padding: 36px 48px;
+  gap: 48px;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -26,12 +26,13 @@
 .item img {
   width: 60px;
   height: auto;
+  margin-bottom: 12px;
 }
 
 .item h3 {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 1px;
+  margin-bottom: 4px;
   color: #000000;
 }
 
@@ -41,4 +42,43 @@
   color: #333333;
   max-width: 300px;
   font-weight: 500;
+}
+
+/* ======================
+   MOBILE
+====================== */
+@media (max-width: 768px) {
+  .banner {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 12px;
+    background: transparent;
+    box-shadow: none;
+    justify-items: center;
+  }
+
+  .item {
+    width: 100%;
+    max-width: 200px; /* ⬅️ más angosto */
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 14px; /* ⬅️ más apretado */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .item img {
+    width: 80px; /* ⬅️ icono más grande */
+    margin-bottom: 6px;
+  }
+
+  .item h3 {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .item p {
+    font-size: 13px;
+    line-height: 1.25;
+    max-width: none;
+  }
 }

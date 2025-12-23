@@ -1,13 +1,31 @@
+/* ==========================
+   BASE
+========================== */
 .sidebar {
-  width: 280px;
-  height: 100%;
-  background: transparent; /* ✅ deja que cada bloque pinte lo suyo */
-
+  width: 100%;
+  background: transparent;
   display: flex;
   flex-direction: column;
+}
 
-  position: sticky;
-  top: 80px; /* altura navbar */
+/* ==========================
+   MOBILE
+========================== */
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none; /* 👈 se oculta el resumen completo */
+  }
+}
 
-  border-left: 1px solid #e5e5e5;
+/* ==========================
+   DESKTOP
+========================== */
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 280px;
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    border-left: 1px solid #e5e5e5;
+  }
 }

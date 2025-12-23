@@ -14,8 +14,6 @@ const items = [
   { title: "Tortilla española", img: "/Carousel/Carousel10.png" },
 ];
 
-const GAP = 24;
-
 export default function Carrousel() {
   const TOTAL = items.length;
   const extendedItems = [...items, ...items, ...items];
@@ -27,12 +25,22 @@ export default function Carrousel() {
   const cardRef = useRef(null);
   const trackRef = useRef(null);
 
-  // Medimos ancho real de una card + gap
+  /* 🔑 MEDICIÓN RESPONSIVE REAL */
   useEffect(() => {
-    if (cardRef.current) {
-      const cardWidth = cardRef.current.offsetWidth;
-      setStep(cardWidth + GAP);
-    }
+    const measure = () => {
+      if (!cardRef.current) return;
+
+      const isMobile = window.innerWidth <= 768;
+
+      const cardWidth = cardRef.current.getBoundingClientRect().width;
+      const gap = isMobile ? 12 : 24;
+
+      setStep(cardWidth + gap);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
   const next = () => {
@@ -45,7 +53,7 @@ export default function Carrousel() {
     setIndex((i) => i - 1);
   };
 
-  // 🔑 RESET SINCRONIZADO CON LA ANIMACIÓN REAL
+  /* RESET INFINITO */
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;

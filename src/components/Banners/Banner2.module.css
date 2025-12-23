@@ -6,18 +6,18 @@
 }
 
 .container {
-  width: 92%;
-  max-width: 1600px; /* MÁS ANCHO */
-  min-height: 460px; /* MÁS BAJO */
+  width: 100%;
+  max-width: 1600px;
+  min-height: 460px;
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr; /* Imagen domina más */
+  grid-template-columns: 0.9fr 1.1fr;
   border-radius: 36px;
   overflow: hidden;
 }
 
 /* ======================
-   IZQUIERDA
-   ====================== */
+   IZQUIERDA (DESKTOP)
+====================== */
 .imageBox {
   position: relative;
 }
@@ -30,31 +30,29 @@
 }
 
 /* ======================
-   DERECHA
-   ====================== */
+   DERECHA (DESKTOP)
+====================== */
 .content {
   background: #f2a100;
-  padding: 56px 64px; /* Menos padding vertical */
+  padding: 56px 64px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* TÍTULO */
 .content h2 {
   font-size: 42px;
   font-weight: 600;
   line-height: 1;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   max-width: 460px;
 }
 
-/* FEATURES */
 .features {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Más compacto */
+  gap: 12px;
 }
 
 .feature {
@@ -77,6 +75,65 @@
   max-width: 420px;
   font-weight: 400;
 }
+
 .featureFirst img {
   margin-top: 26px;
+}
+
+/* ======================
+   MOBILE (EXACTO A LA IMAGEN)
+====================== */
+@media (max-width: 768px) {
+  .wrapper {
+    margin: 0; /* sin márgenes verticales */
+    justify-content: flex-start;
+  }
+
+  .container {
+    width: 100vw; /* edge-to-edge real */
+    max-width: none;
+    grid-template-columns: 1fr;
+    border-radius: 0;
+    min-height: auto;
+  }
+
+  /* Imagen arriba */
+  .imageBox img {
+    height: 240px;
+    border-radius: 0;
+  }
+
+  /* Bloque naranja abajo */
+  .content {
+    padding: 24px 16px 28px; /* toca laterales */
+    justify-content: flex-start;
+  }
+
+  .content h2 {
+    font-size: 28px;
+    line-height: 1.05;
+    max-width: 260px;
+    margin-bottom: 18px;
+  }
+
+  .features {
+    gap: 14px;
+  }
+
+  .feature {
+    grid-template-columns: 26px 1fr;
+    gap: 14px;
+  }
+
+  .feature img {
+    width: 28px;
+    margin-top: 6px;
+    margin-left: 0;
+  }
+
+  .feature p {
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: none;
+  }
 }

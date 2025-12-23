@@ -5,7 +5,7 @@
 
 /* ======================
    HERO
-   ====================== */
+====================== */
 
 .hero {
   position: relative;
@@ -13,7 +13,6 @@
   min-height: 100vh;
 }
 
-/* Imagen de fondo */
 .heroBg {
   position: absolute;
   inset: 0;
@@ -23,12 +22,10 @@
   z-index: 1;
 }
 
-/* Capa de contraste con gradiente superior MUY concentrado */
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
-
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.85) 0%,
@@ -38,11 +35,9 @@
     rgba(0, 0, 0, 0.06) 30%,
     rgba(0, 0, 0, 0) 36%
   );
-
   pointer-events: none;
 }
 
-/* Contenido central */
 .heroContent {
   position: relative;
   z-index: 3;
@@ -53,19 +48,17 @@
   color: #111;
 }
 
-/* Título */
 .title {
   font-size: 34px;
   font-weight: 800;
   line-height: 1.05;
-  max-width: 640px; /* CLAVE: achica el bloque */
+  max-width: 640px;
   letter-spacing: -0.04em;
   margin-top: 20px;
   margin-bottom: 10px;
   margin-left: 30px;
 }
 
-/* Subtítulo */
 .subtitle {
   max-width: 400px;
   font-size: 18px;
@@ -76,7 +69,6 @@
   margin-left: 140px;
 }
 
-/* Botón */
 .ctaButton {
   background: #f59e0b;
   color: #ffffff;
@@ -97,12 +89,12 @@
 
 /* ======================
    BANNER 1
-   ====================== */
+====================== */
 
 .banner1Wrapper {
   position: absolute;
   left: 50%;
-  bottom: -90px; /* invade el siguiente bloque como en la imagen */
+  bottom: -90px;
   transform: translateX(-50%);
   width: 100%;
   max-width: 1100px;
@@ -111,30 +103,25 @@
 }
 
 /* ======================
-   SECCIÓN CARROUSEL
-   ====================== */
+   CARROUSEL
+====================== */
 
 .carrouselSection {
   width: 100%;
   background: #ffffff;
-
-  /* mantenemos el top grande por Banner1 */
-  padding: 100px 0 40px; /* ⬅️ antes 120px */
+  padding: 100px 0 40px;
 }
 
 .carrouselInner {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-
   display: grid;
   grid-template-columns: 180px 1fr;
   gap: 56px;
-
   align-items: center;
 }
 
-/* Texto */
 .carrouselText {
   display: flex;
   flex-direction: column;
@@ -145,14 +132,14 @@
   font-size: 30px;
   font-weight: 700;
   line-height: 1;
-  color: #f59e0b; /* naranja Viandas */
+  color: #f59e0b;
   margin-bottom: 10px;
 }
 
 .carrouselSubtitle {
   font-size: 15px;
   line-height: 1.4;
-  color: #000000; /* gris moderno */
+  color: #000000;
   max-width: 360px;
 }
 
@@ -164,7 +151,7 @@
 
 /* ======================
    BANNER 2
-   ====================== */
+====================== */
 
 .banner2Section {
   width: 100%;
@@ -175,14 +162,13 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-
   display: flex;
   justify-content: center;
 }
 
 /* ======================
    REVIEWS
-   ====================== */
+====================== */
 
 .reviewsSection {
   width: 100%;
@@ -195,7 +181,7 @@
 
 /* ======================
    DIET SELECTOR
-   ====================== */
+====================== */
 
 .dietSection {
   width: 100%;
@@ -203,11 +189,9 @@
   padding: 0px 0 10px;
 }
 
-/* Header */
 .dietHeader {
   max-width: 900px;
   margin: 0 auto 40px;
-
   text-align: center;
 }
 
@@ -226,14 +210,13 @@
   font-weight: 400;
 }
 
-/* Componente */
 .dietSelectorWrapper {
   margin: 0 auto;
 }
 
 /* ======================
    FAQ
-   ====================== */
+====================== */
 
 .faqSection {
   width: 100%;
@@ -247,7 +230,7 @@
 
 /* ======================
    BANNER 3
-   ====================== */
+====================== */
 
 .banner3Section {
   width: 100%;
@@ -258,4 +241,127 @@
 .banner3Wrapper {
   max-width: 100%;
   margin: 0 auto;
+}
+
+/* ======================
+   MOBILE
+====================== */
+
+@media (max-width: 768px) {
+  /* ======================
+     HERO (se mantiene)
+  ====================== */
+  .heroContent {
+    padding: 220px 20px 320px;
+    text-align: center;
+  }
+
+  .title {
+    margin: 0 auto 12px;
+    font-size: 36px;
+    max-width: 320px;
+  }
+
+  .subtitle {
+    margin: 0 auto 18px;
+    font-size: 16px;
+    max-width: 300px;
+  }
+
+  .ctaButton {
+    padding: 10px 40px;
+    font-size: 16px;
+  }
+
+  /* ======================
+     BANNER 1 (más abajo)
+  ====================== */
+  .banner1Wrapper {
+    bottom: -620px;
+    padding: 0 12px;
+  }
+
+  /* ======================
+     CARROUSEL (FIX REAL)
+  ====================== */
+
+  /* Sección completa */
+  .carrouselSection {
+    padding: 700px 0 40px;
+  }
+
+  /* Rompemos cualquier límite de desktop */
+  .carrouselInner {
+    max-width: none; /* ⬅️ clave */
+    margin: 0;
+    padding: 0 16px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+  }
+
+  /* Texto centrado y ancho real */
+  .carrouselText {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .carrouselTitle {
+    font-size: 26px; /* ⬅️ más grande */
+    line-height: 1.15;
+    max-width: 330px; /* ⬅️ más ancho */
+    margin: 0 auto 10px;
+    padding: 0; /* ⬅️ elimina corrimiento */
+    font-weight: 900;
+  }
+
+  .carrouselSubtitle {
+    font-size: 17px;
+    line-height: 1.4;
+    max-width: 300px; /* ⬅️ más ancho */
+    margin: 0 auto;
+    padding: 0; /* ⬅️ elimina corrimiento */
+  }
+
+  .carrouselWrapper {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .banner2Wrapper {
+      padding: 0;
+      max-width: none;
+      width: 100%;
+    }
+  }
+
+  /* ======================
+   DIET HEADER (MOBILE)
+====================== */
+
+  .dietSection {
+    padding: 40px 10px;
+  }
+
+  .dietHeader {
+    margin-bottom: 28px;
+  }
+
+  .dietTitle {
+    font-size: 26px;
+    line-height: 1.25;
+    font-weight: 800;
+
+    margin: 0 auto;
+  }
+
+  .dietSubtitle {
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: normal; /* ⬅️ clave */
+    max-width: 300px;
+    margin: 0 auto;
+    color: #374151; /* gris legible */
+  }
 }

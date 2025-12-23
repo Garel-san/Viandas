@@ -1,21 +1,16 @@
 .navbar {
   width: 100%;
   height: 60px;
-
   position: fixed;
   top: 0;
   left: 0;
-
   z-index: 9000;
   isolation: isolate;
-
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-
   padding: 0 40px;
   box-sizing: border-box;
-
   transition: background 0.25s ease, border-bottom 0.25s ease;
 }
 
@@ -30,8 +25,8 @@
 }
 
 /* ======================
-   REDES
-   ====================== */
+   REDES (DESKTOP)
+====================== */
 .socials {
   display: flex;
   gap: 10px;
@@ -42,16 +37,18 @@
   font-size: 18px;
   transition: color 0.25s ease, opacity 0.2s ease;
 }
+
 .socialsTop a {
   color: #ffffff;
 }
+
 .socialsScrolled a {
   color: #000000;
 }
 
 /* ======================
    LOGO
-   ====================== */
+====================== */
 .logoWrapper {
   display: flex;
   justify-content: center;
@@ -63,8 +60,8 @@
 }
 
 /* ======================
-   BOTONES
-   ====================== */
+   BOTONES (DESKTOP)
+====================== */
 .actions {
   display: flex;
   justify-content: flex-end;
@@ -74,14 +71,13 @@
 .loginBtn {
   padding: 8px 16px;
   border-radius: 999px;
-
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-
-  background: #ffffff; /* SIEMPRE blanco */
+  background: #ffffff;
   transition: border 0.25s ease, background 0.25s ease;
 }
+
 .loginBtnTop {
   border: 1.5px solid rgba(0, 0, 0, 0.25);
 }
@@ -97,7 +93,121 @@
   background: #f2a300;
   color: #ffffff;
   font-size: 11px;
-  font-weight: 00;
+  font-weight: 700;
   cursor: pointer;
   transition: opacity 0.2s ease;
+}
+
+/* ======================
+   MOBILE EXTRA
+====================== */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menuBtn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 8999;
+}
+
+/* DRAWER */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 9001;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.drawerOpen {
+  transform: translateX(0);
+}
+
+.closeBtn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* LOGIN MOBILE */
+.drawerLogin {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #000000;
+  background: #ffffff;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.drawerLogin:active {
+  transform: scale(0.97);
+}
+
+/* SOCIALES MOBILE */
+.drawerSocials {
+  display: flex;
+  gap: 22px;
+  font-size: 22px;
+}
+
+.drawerSocials a {
+  color: #000000;
+}
+
+/* ======================
+   MEDIA QUERY
+====================== */
+@media (max-width: 768px) {
+  .socials {
+    display: none;
+  }
+
+  .menuBtn {
+    display: block;
+    color: #ffffff;
+  }
+
+  .navbarScrolled .menuBtn {
+    color: #000000;
+  }
+
+  .loginBtn {
+    display: none;
+  }
+
+  .logoWrapper {
+    justify-content: flex-start;
+    padding-right: 30px;
+  }
+
+  .navbar {
+    padding: 0 16px;
+  }
 }

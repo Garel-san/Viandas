@@ -8,11 +8,6 @@ export default function OrderFooter({
   isMinReached,
   onStartCheckout,
 }) {
-  const handleProceed = () => {
-    if (!isMinReached) return;
-    onStartCheckout?.();
-  };
-
   return (
     <footer className={styles.footer}>
       {/* Mensaje mínimo */}
@@ -51,7 +46,7 @@ export default function OrderFooter({
       <button
         className={styles.cta}
         disabled={!isMinReached}
-        onClick={handleProceed}
+        onClick={onStartCheckout}
       >
         PROCEDER AL PAGO
       </button>

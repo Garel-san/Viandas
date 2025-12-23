@@ -1,11 +1,13 @@
 import styles from "./OrderSummary.module.css";
+
 import { useOrder } from "../../context/OrderDataContext";
+import { useCheckout } from "../../context/CheckoutContext";
 
 import OrderHeader from "./OrderHeader";
 import OrderItemsList from "./OrderItemsList";
 import OrderFooter from "./OrderFooter";
 
-export default function OrderSummary({ onStartCheckout }) {
+export default function OrderSummary() {
   const {
     orderItems,
 
@@ -22,6 +24,8 @@ export default function OrderSummary({ onStartCheckout }) {
     decrementItem,
     removeItem,
   } = useOrder();
+
+  const { startCheckout } = useCheckout();
 
   return (
     <aside className={styles.sidebar}>
@@ -43,7 +47,7 @@ export default function OrderSummary({ onStartCheckout }) {
         totalFinal={total}
         faltantesParaMinimo={missingItems}
         isMinReached={canProceed}
-        onStartCheckout={onStartCheckout}
+        onStartCheckout={startCheckout}
       />
     </aside>
   );

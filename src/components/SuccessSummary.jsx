@@ -1,12 +1,23 @@
 import styles from "./SuccessSummary.module.css";
-import { useCheckout } from "../context/CheckoutContext";
-import { useOrder } from "../context/OrderDataContext";
 
-export default function SuccessSummary() {
-  const { guest, delivery, payment, result } = useCheckout();
-  const { orderItems, total } = useOrder();
-
-  if (!result.orderId) return null;
+export default function SuccessSummary({
+  guest,
+  delivery,
+  payment,
+  result,
+  orderItems,
+  total,
+}) {
+  if (!result?.id) {
+    return (
+      <section className={styles.wrapper}>
+        <h2 className={styles.title}>Pedido no disponible</h2>
+        <p className={styles.subtitle}>
+          No se encontró información del pedido.
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.wrapper}>
@@ -19,14 +30,17 @@ export default function SuccessSummary() {
       </div>
 
       <p className={styles.subtitle}>
-        Tu pedido ID <strong>#{result.orderId}</strong> ya está activo.
+        Tu pedido ID <strong>#{result.id}</strong> ya está activo.
         <br />
         Este es un resumen de lo que recibirás:
       </p>
 
       {/* PRODUCTOS */}
       {orderItems.map((item) => (
-        <div key={item.productId} className={styles.productCard}>
+        <div
+          key={`${item.productId}-${item.size}-${item.garnishId}`}
+          className={styles.productCard}
+        >
           <img
             src={item.image}
             alt={item.title}
@@ -68,12 +82,6 @@ export default function SuccessSummary() {
             : "con tarjeta"}{" "}
           al momento de la entrega
         </div>
-      </div>
-
-      {/* ACTIONS */}
-      <div className={styles.actions}>
-        <button className={styles.primaryBtn}>IR A MI PERFIL</button>
-        <button className={styles.secondaryBtn}>VOLVER AL INICIO</button>
       </div>
     </section>
   );

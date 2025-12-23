@@ -243,3 +243,92 @@
   background: #555;
   color: white;
 }
+
+/* ======================
+   DIET SELECTOR – MOBILE
+====================== */
+
+@media (max-width: 768px) {
+  /* Contenedor botones (ok, solo aire) */
+  .container {
+    gap: 10px;
+    padding: 0 12px;
+  }
+
+  /* BLOQUE PRINCIPAL */
+  .detail {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px 28px;
+    height: auto; /* ⬅️ CLAVE */
+    gap: 18px;
+    border-radius: 16px;
+    background-position: center top;
+  }
+
+  /* IMAGEN ARRIBA */
+  .right {
+    order: 1;
+    padding: 0;
+    align-items: center;
+  }
+
+  .right img {
+    height: auto;
+    width: 100%;
+    max-width: 280px;
+    transform: none; /* ⬅️ CLAVE */
+  }
+
+  /* TEXTO ABAJO */
+  .left {
+    order: 2;
+    align-items: center;
+    text-align: center;
+  }
+
+  .left h2 {
+    font-size: 39px;
+    font-weight: 800;
+  }
+
+  .left p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    max-width: 360px;
+  }
+
+  /* STATS */
+  .stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .stat {
+    padding: 10px 14px;
+    border-radius: 12px;
+    min-width: 120px;
+  }
+
+  .stat strong {
+    font-size: 18px;
+  }
+
+  /* NOTA */
+  .note {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 4px;
+  }
+
+  /* BOTÓN */
+  .cta {
+    margin-top: 16px;
+    padding: 14px 22px;
+    font-size: 13px;
+    width: 100%;
+    max-width: 260px;
+  }
+}

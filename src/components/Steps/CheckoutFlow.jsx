@@ -1,6 +1,5 @@
 import { useCheckout } from "../../context/CheckoutContext";
 
-// Estos componentes los crearemos luego
 import GuestSection from "./GuestSection";
 import DeliverySection from "./DeliverySection";
 import PaymentSection from "./PaymentSection";
@@ -8,18 +7,17 @@ import PaymentSection from "./PaymentSection";
 export default function CheckoutFlow() {
   const { step } = useCheckout();
 
-  if (step === "guest") {
-    return <GuestSection />;
-  }
+  switch (step) {
+    case 1:
+      return <GuestSection />;
 
-  if (step === "delivery") {
-    return <DeliverySection />;
-  }
+    case 2:
+      return <DeliverySection />;
 
-  if (step === "payment") {
-    return <PaymentSection />;
-  }
+    case 3:
+      return <PaymentSection />;
 
-  // Estado terminal (success)
-  return null;
+    default:
+      return null;
+  }
 }

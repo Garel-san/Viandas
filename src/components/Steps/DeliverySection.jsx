@@ -1,11 +1,12 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useCheckout } from "../../context/CheckoutContext";
+
 import styles from "./DeliverySection.module.css";
 
 const WEEK_DAYS = ["lu", "ma", "mi", "ju", "vi", "sá", "do"];
 
 export default function DeliverySection() {
-  const { delivery, actions } = useCheckout();
+  const { delivery, completeDelivery, prevStep } = useCheckout();
 
   const [form, setForm] = useState({
     address: {
@@ -32,7 +33,7 @@ export default function DeliverySection() {
 
   const minDate = useMemo(() => {
     const d = new Date(today);
-    d.setDate(d.getDate() + 1); // +24hs
+    d.setDate(d.getDate() + 2);
     return d;
   }, [today]);
 
@@ -59,7 +60,7 @@ export default function DeliverySection() {
   const daysInMonth = (y, m) => new Date(y, m + 1, 0).getDate();
 
   const firstWeekday = (y, m) => {
-    const d = new Date(y, m, 1).getDay(); // 0 domingo
+    const d = new Date(y, m, 1).getDay();
     return d === 0 ? 6 : d - 1; // lunes = 0
   };
 
@@ -77,7 +78,7 @@ export default function DeliverySection() {
   const isDisabled = (date) => {
     if (!date) return true;
     if (date < minDate) return true;
-    if (date.getDay() === 0) return true; // domingo
+    if (date.getDay() === 0) return true;
     return false;
   };
 
@@ -85,14 +86,10 @@ export default function DeliverySection() {
     form.date && date && date.toDateString() === form.date.toDateString();
 
   /* ======================
-     HANDLERS EXISTENTES
+     HANDLERS
   ====================== */
   const handleDateSelect = (date) => {
     if (isDisabled(date)) return;
-
-    const ok = actions.setDeliveryDate(date);
-    if (!ok) return;
-
     setForm((prev) => ({ ...prev, date }));
     setOpen(false);
   };
@@ -113,7 +110,6 @@ export default function DeliverySection() {
   };
 
   const handleModeChange = (mode) => {
-    actions.setDeliveryMode(mode);
     setForm((prev) => ({
       ...prev,
       mode,
@@ -122,7 +118,10 @@ export default function DeliverySection() {
   };
 
   const handleSubmit = () => {
-    actions.completeDelivery({ ...delivery, ...form });
+    const ok = completeDelivery(form);
+    if (!ok) {
+      alert("Datos de entrega inválidos.");
+    }
   };
 
   /* ======================
@@ -180,9 +179,7 @@ export default function DeliverySection() {
           </>
         )}
 
-        {/* ======================
-            FECHA (CUSTOM)
-        ====================== */}
+        {/* FECHA */}
         <div className={`${styles.field} ${styles.dateField}`} ref={fieldRef}>
           <label>Fecha de entrega</label>
           <input
@@ -308,7 +305,7 @@ export default function DeliverySection() {
           CONTINUAR &gt;
         </button>
 
-        <button type="button" className={styles.linkBtn}>
+        <button type="button" className={styles.linkBtn} onClick={prevStep}>
           Volver
         </button>
       </div>

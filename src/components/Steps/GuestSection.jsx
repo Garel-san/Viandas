@@ -1,23 +1,23 @@
 import { useState, useMemo } from "react";
 import { useCheckout } from "../../context/CheckoutContext";
+
 import styles from "./GuestSection.module.css";
 
 export default function GuestSection() {
-  const { guest, actions } = useCheckout();
+  const { guest, completeGuest } = useCheckout();
 
   const [form, setForm] = useState({
     fullName: guest.fullName,
     email: guest.email,
     phone: guest.phone,
-    remember: guest.remember,
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
@@ -30,7 +30,10 @@ export default function GuestSection() {
   }, [form]);
 
   const handleSubmit = () => {
-    actions.completeGuest(form);
+    const ok = completeGuest(form);
+    if (!ok) {
+      alert("Datos inválidos. Verificá la información.");
+    }
   };
 
   return (
@@ -40,6 +43,7 @@ export default function GuestSection() {
         <span className={styles.step}>1</span>
         Continuar el pedido como invitado
       </h2>
+
       <p className={styles.subtitle}>Completá los datos para continuar</p>
 
       {/* Grid de inputs */}
@@ -75,17 +79,6 @@ export default function GuestSection() {
         </div>
       </div>
 
-      {/* Checkbox */}
-      <label className={styles.checkbox}>
-        <input
-          type="checkbox"
-          name="remember"
-          checked={form.remember}
-          onChange={handleChange}
-        />
-        Autocompletar el próximo pedido
-      </label>
-
       {/* Acciones */}
       <div className={styles.actions}>
         <button
@@ -96,13 +89,12 @@ export default function GuestSection() {
         >
           CONTINUAR &gt;
         </button>
-
-        <button type="button" className={styles.linkBtn}>
-          VOLVER
-        </button>
       </div>
 
-      <button className={styles.loginLink}>YA TENGO UNA CUENTA</button>
+      {/* Placeholder futuro */}
+      <button className={styles.loginLink} disabled>
+        YA TENGO UNA CUENTA
+      </button>
     </section>
   );
 }

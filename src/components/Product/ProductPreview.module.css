@@ -147,3 +147,34 @@
     transform: scale(1.1);
   }
 }
+
+/* ───────────────────────────── */
+/* MOBILE ADJUSTMENTS */
+/* ───────────────────────────── */
+@media (max-width: 1023px) {
+  .card {
+    height: 300px; /* ⬆️ más aire */
+    border-radius: 20px;
+  }
+
+  .imageWrapper {
+    height: 200px; /* imagen más protagonista */
+  }
+
+  .price {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .addFloatingBtn {
+    top: 170px; /* mantiene equilibrio visual */
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 14px; /* más legible en mobile */
+    line-height: 1.3;
+  }
+}

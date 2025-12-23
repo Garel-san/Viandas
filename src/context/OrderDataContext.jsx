@@ -2,42 +2,27 @@ import { createContext, useContext, useMemo, useState } from "react";
 
 /* ======================
    CONTEXT
-   ====================== */
+====================== */
 const OrderContext = createContext(null);
 
 /* ======================
-   CONSTANTES DE NEGOCIO
-   ====================== */
+   CONSTANTES
+====================== */
 const MIN_ITEMS_REQUIRED = 5;
 const SHIPPING_COST = 0;
 
 /* ======================
    PROVIDER
-   ====================== */
+====================== */
 export function OrderProvider({ children }) {
-  /* ======================
-     ESTADO BASE
-     ====================== */
   const [orderItems, setOrderItems] = useState([]);
-  /*
-    orderItems: [
-      {
-        productId,
-        title,
-        image,
-        size,          // "M" | "XL"
-        garnishId,     // string | null
-        garnishLabel,  // opcional (para UI)
-        unitPrice,
-        garnishExtra,  // number
-        quantity
-      }
-    ]
-  */
+
+  /* 🔹 NUEVO: overlay mobile */
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
 
   /* ======================
      HELPERS
-     ====================== */
+  ====================== */
   const findItemIndex = (identity) =>
     orderItems.findIndex(
       (item) =>
@@ -48,9 +33,7 @@ export function OrderProvider({ children }) {
 
   /* ======================
      ACTIONS
-     ====================== */
-
-  // ➕ Agregar item (o sumar cantidad si existe)
+  ====================== */
   const addItem = (newItem) => {
     setOrderItems((prev) => {
       const index = findItemIndex(newItem);
@@ -68,7 +51,6 @@ export function OrderProvider({ children }) {
     });
   };
 
-  // ➕➖ Incrementar cantidad
   const incrementItem = (identity) => {
     setOrderItems((prev) =>
       prev.map((item) =>
@@ -81,7 +63,6 @@ export function OrderProvider({ children }) {
     );
   };
 
-  // ➖ Decrementar cantidad (si llega a 0, elimina)
   const decrementItem = (identity) => {
     setOrderItems((prev) =>
       prev
@@ -96,7 +77,6 @@ export function OrderProvider({ children }) {
     );
   };
 
-  // 🗑️ Eliminar todas las cantidades de un item
   const removeItem = (identity) => {
     setOrderItems((prev) =>
       prev.filter(
@@ -110,22 +90,19 @@ export function OrderProvider({ children }) {
     );
   };
 
-  // 🧹 Vaciar pedido (futuro)
   const clearOrder = () => {
     setOrderItems([]);
+    setIsOrderOpen(false);
   };
 
   /* ======================
-     DERIVADOS (NO ESTADO)
-     ====================== */
-
-  // Cantidad total de viandas
+     DERIVADOS
+  ====================== */
   const totalItems = useMemo(
     () => orderItems.reduce((sum, item) => sum + item.quantity, 0),
     [orderItems]
   );
 
-  // Subtotal del pedido
   const subtotal = useMemo(
     () =>
       orderItems.reduce(
@@ -136,31 +113,41 @@ export function OrderProvider({ children }) {
     [orderItems]
   );
 
-  // Envío (por ahora fijo)
   const shipping = SHIPPING_COST;
-
-  // Total final
   const total = subtotal + shipping;
 
-  // Regla mínimo de viandas
   const missingItems = Math.max(0, MIN_ITEMS_REQUIRED - totalItems);
   const canProceed = totalItems >= MIN_ITEMS_REQUIRED;
 
   /* ======================
+     SNAPSHOT
+  ====================== */
+  const getOrderSnapshot = () => ({
+    items: orderItems.map((item) => ({ ...item })),
+    totalItems,
+    subtotal,
+    shipping,
+    total,
+  });
+
+  /* ======================
+     OVERLAY ACTIONS
+  ====================== */
+  const openOrder = () => setIsOrderOpen(true);
+  const closeOrder = () => setIsOrderOpen(false);
+
+  /* ======================
      CONTEXT VALUE
-     ====================== */
+  ====================== */
   const value = {
-    /* estado */
     orderItems,
 
-    /* acciones */
     addItem,
     incrementItem,
     decrementItem,
     removeItem,
     clearOrder,
 
-    /* derivados */
     totalItems,
     subtotal,
     shipping,
@@ -168,7 +155,13 @@ export function OrderProvider({ children }) {
     missingItems,
     canProceed,
 
-    /* constantes (útil para UI) */
+    getOrderSnapshot,
+
+    /* 🔹 overlay */
+    isOrderOpen,
+    openOrder,
+    closeOrder,
+
     MIN_ITEMS_REQUIRED,
   };
 
@@ -179,7 +172,7 @@ export function OrderProvider({ children }) {
 
 /* ======================
    HOOK
-   ====================== */
+====================== */
 export function useOrder() {
   const context = useContext(OrderContext);
   if (!context) {

@@ -152,3 +152,71 @@
 .clearFilters:hover {
   text-decoration: underline;
 }
+
+/* ======================
+   MOBILE – SCROLL HORIZONTAL
+====================== */
+.scrollRow {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  padding-bottom: 4px;
+}
+
+.scrollRow::-webkit-scrollbar {
+  display: none;
+}
+
+/* Evita que los chips se achiquen */
+.scrollRow .chip {
+  flex: 0 0 auto;
+}
+
+/* Separación visual tipo carrusel */
+.scrollRow::after {
+  content: "";
+  flex: 0 0 12px;
+}
+
+/* ======================
+   MOBILE – CHIPS MÁS GRANDES
+====================== */
+@media (max-width: 1023px) {
+  .chip {
+    padding: 8px 14px; /* ⬆️ más área táctil */
+    font-size: 13px; /* ⬆️ texto más grande */
+    font-weight: 500;
+    border-radius: 999px;
+  }
+
+  .chipsRow {
+    gap: 10px; /* ⬆️ más aire entre chips */
+  }
+
+  /* scrollRow hereda esto */
+  .scrollRow {
+    padding-bottom: 6px;
+  }
+}
+
+/* ======================
+   MOBILE – STICKY FILTERS BAR
+====================== */
+@media (max-width: 1023px) {
+  .wrapper {
+    position: sticky;
+    top: 56px; /* altura del breadcrumb cuando está compacto */
+    z-index: 900;
+    background: #ffffff;
+
+    /* para que no se “pegue” visualmente al contenido */
+    padding: 12px 16px;
+
+    /* mantiene el separador y tapa lo que pasa por debajo */
+    border-bottom: 1px solid #e5e7eb;
+  }
+}

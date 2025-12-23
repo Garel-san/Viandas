@@ -40,9 +40,9 @@ export default function FiltersBar() {
   return (
     <section className={styles.wrapper}>
       {/* ======================
-          FILA SUPERIOR
-          ====================== */}
-      <div className={styles.chipsRow}>
+      FILA SUPERIOR
+      ====================== */}
+      <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
         {topFilters.map((filter) => {
           const isActive = activeFilters.includes(filter.id);
 
@@ -62,10 +62,10 @@ export default function FiltersBar() {
       <div className={styles.divider} />
 
       {/* ======================
-          FILA INFERIOR + SEARCH
-          ====================== */}
+      FILA INFERIOR + SEARCH
+      ====================== */}
       <div className={styles.bottomRow}>
-        <div className={styles.chipsRow}>
+        <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
           {bottomFilters.map((filter) => {
             const isActive = activeFilters.includes(filter.id);
 
@@ -81,6 +81,8 @@ export default function FiltersBar() {
             );
           })}
         </div>
+
+        {/* Search + limpiar queda igual */}
 
         {/* Search */}
         <div className={`${styles.search} ${isSearchOpen ? styles.open : ""}`}>

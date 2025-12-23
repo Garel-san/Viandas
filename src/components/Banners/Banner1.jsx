@@ -1,4 +1,3 @@
-// Banner1.jsx
 import styles from "./Banner1.module.css";
 
 export default function Banner1() {

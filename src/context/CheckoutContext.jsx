@@ -1,211 +1,144 @@
-import { createContext, useContext, useState, useMemo, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
+import { orderApi } from "../api";
 
 /* =====================================================
    CONTEXT
 ===================================================== */
 const CheckoutContext = createContext(null);
 
-const STORAGE_KEY = "viandas_checkout_progress";
+export function CheckoutProvider({ children }) {
+  const [checkoutStarted, setCheckoutStarted] = useState(false);
+  const [step, setStep] = useState(1); // 1: guest | 2: delivery | 3: payment
 
-export const CheckoutProvider = ({ children }) => {
-  const [state, setState] = useState(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return initialState;
+  const [guest, setGuest] = useState(initialState.guest);
+  const [delivery, setDelivery] = useState(initialState.delivery);
+  const [payment, setPayment] = useState(initialState.payment);
+
+  const [result, setResult] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  /* ======================
+     FLUJO
+  ====================== */
+  function startCheckout() {
+    setCheckoutStarted(true);
+    setStep(1);
+  }
+
+  function nextStep() {
+    setStep((s) => Math.min(s + 1, 3));
+  }
+
+  function prevStep() {
+    setStep((s) => Math.max(s - 1, 1));
+  }
+
+  /* ======================
+     ACCIONES DE DOMINIO
+  ====================== */
+  function completeGuest(data) {
+    if (!isValidGuest(data)) return false;
+    setGuest({ ...data });
+    nextStep();
+    return true;
+  }
+
+  function completeDelivery(data) {
+    if (!isValidDelivery(data)) return false;
+    setDelivery({ ...data });
+    nextStep();
+    return true;
+  }
+
+  function selectPaymentMethod(method) {
+    if (!["card", "cash", "pos"].includes(method)) return false;
+    setPayment({ method });
+    return true;
+  }
+
+  /* ======================
+     CONFIRMACIÓN FINAL
+  ====================== */
+  async function confirmOrder(orderSnapshot) {
+    if (!guest || !delivery || !payment) return false;
+    if (!orderSnapshot || orderSnapshot.items?.length === 0) return false;
+
+    setIsConfirming(true);
 
     try {
-      const parsed = JSON.parse(stored);
-
-      return {
-        ...initialState,
-        step: parsed.step ?? "guest",
-        guest: {
-          ...initialState.guest,
-          completed: parsed.guest?.completed ?? false,
-        },
-        delivery: {
-          ...initialState.delivery,
-          completed: parsed.delivery?.completed ?? false,
-          mode: parsed.delivery?.mode ?? initialState.delivery.mode,
-          date: parsed.delivery?.date ? new Date(parsed.delivery.date) : null,
-        },
-        payment: {
-          ...initialState.payment,
-          completed: parsed.payment?.completed ?? false,
-        },
+      const payload = {
+        guest,
+        delivery,
+        payment,
+        order: orderSnapshot,
       };
-    } catch {
-      return initialState;
+
+      const response = await orderApi.createOrder(payload);
+
+      setResult(response);
+      return true;
+    } catch (error) {
+      console.error("❌ Error al confirmar orden:", error);
+      return false;
+    } finally {
+      setIsConfirming(false);
     }
-  });
+  }
 
-  /* ======================
-     PERSISTENCIA
-  ====================== */
-  useEffect(() => {
-    const progressToStore = {
-      step: state.step,
-      guest: { completed: state.guest.completed },
-      delivery: {
-        completed: state.delivery.completed,
-        mode: state.delivery.mode,
-        date: state.delivery.date,
-      },
-      payment: { completed: state.payment.completed },
-    };
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(progressToStore));
-  }, [
-    state.step,
-    state.guest.completed,
-    state.delivery.completed,
-    state.delivery.mode,
-    state.delivery.date,
-    state.payment.completed,
-  ]);
-
-  /* ======================
-     ACCIONES
-  ====================== */
-  const completeGuest = (guestData) => {
-    if (!isValidGuest(guestData)) return false;
-
-    setState((prev) => ({
-      ...prev,
-      guest: { ...guestData, completed: true },
-      step: "delivery",
-    }));
-
-    return true;
-  };
-
-  const setDeliveryMode = (mode) => {
-    setState((prev) => ({
-      ...prev,
-      delivery: {
-        ...prev.delivery,
-        mode,
-        specificTime: mode === "specific" ? prev.delivery.specificTime : null,
-      },
-    }));
-  };
-
-  const setDeliveryDate = (date) => {
-    if (!isValidDeliveryDate(date)) return false;
-
-    setState((prev) => ({
-      ...prev,
-      delivery: { ...prev.delivery, date },
-    }));
-
-    return true;
-  };
-
-  const completeDelivery = (deliveryData) => {
-    const { mode, address, date, specificTime } = deliveryData;
-
-    if (!isValidDeliveryDate(date)) return false;
-
-    if (mode !== "pickup") {
-      if (!address.street || !address.number) return false;
-    }
-
-    if (mode === "specific" && !specificTime) return false;
-
-    setState((prev) => ({
-      ...prev,
-      delivery: {
-        ...deliveryData,
-        completed: true,
-      },
-      step: "payment",
-    }));
-
-    return true;
-  };
-
-  const selectPaymentMethod = (method) => {
-    if (!["card", "cash", "pos"].includes(method)) return false;
-
-    setState((prev) => ({
-      ...prev,
-      payment: {
-        ...prev.payment,
-        method,
-        completed: true,
-      },
-    }));
-
-    return true;
-  };
-
-  const confirmOrder = () => {
-    localStorage.removeItem(STORAGE_KEY);
-
-    setState((prev) => ({
-      ...prev,
-      step: "success",
-      result: {
-        orderId: Math.floor(Math.random() * 100000).toString(),
-        createdAt: new Date(),
-      },
-    }));
-  };
-
-  const actions = {
-    completeGuest,
-    setDeliveryMode,
-    setDeliveryDate,
-    completeDelivery,
-    selectPaymentMethod,
-    confirmOrder,
-  };
-
-  /* ======================
-     DERIVED STATE
-  ====================== */
-  const derived = useMemo(
-    () => ({
-      canProceedGuest: isValidGuest(state.guest),
-      canProceedDelivery: state.delivery.completed,
-      canProceedPayment: state.payment.completed,
-      isCompleted: state.step === "success",
-    }),
-    [state]
-  );
+  function resetCheckout() {
+    setCheckoutStarted(false);
+    setStep(1);
+    setGuest(initialState.guest);
+    setDelivery(initialState.delivery);
+    setPayment(initialState.payment);
+    setResult(null);
+    setIsConfirming(false);
+  }
 
   return (
     <CheckoutContext.Provider
       value={{
-        ...state,
-        ...derived,
-        actions,
+        checkoutStarted,
+        step,
+
+        guest,
+        delivery,
+        payment,
+        result,
+        isConfirming,
+
+        startCheckout,
+        nextStep,
+        prevStep,
+
+        completeGuest,
+        completeDelivery,
+        selectPaymentMethod,
+        confirmOrder,
+        resetCheckout,
       }}
     >
       {children}
     </CheckoutContext.Provider>
   );
-};
+}
 
-export const useCheckout = () => {
+export function useCheckout() {
   const ctx = useContext(CheckoutContext);
   if (!ctx) {
     throw new Error("useCheckout debe usarse dentro de CheckoutProvider");
   }
   return ctx;
-};
+}
 
 /* =====================================================
    ESTADO INICIAL
 ===================================================== */
 const initialState = {
-  step: "guest",
-
   guest: {
     fullName: "",
     email: "",
     phone: "",
-    remember: false,
-    completed: false,
   },
 
   delivery: {
@@ -221,23 +154,15 @@ const initialState = {
       to: "16:00",
     },
     specificTime: null,
-    completed: false,
   },
 
   payment: {
     method: null,
-    cardReady: false,
-    completed: false,
-  },
-
-  result: {
-    orderId: null,
-    createdAt: null,
   },
 };
 
 /* =====================================================
-   VALIDACIONES DE DOMINIO
+   VALIDACIONES
 ===================================================== */
 const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 const isValidPhone = (phone) => phone.trim().length >= 6;
@@ -247,14 +172,21 @@ const isValidGuest = (guest) =>
   isValidEmail(guest.email) &&
   isValidPhone(guest.phone);
 
-const isValidDeliveryDate = (date) => {
-  if (!date) return false;
+const isValidDelivery = (delivery) => {
+  if (!delivery.date) return false;
 
   const today = new Date();
   const minDate = new Date();
   minDate.setDate(today.getDate() + 2);
 
-  const day = date.getDay(); // 0 = domingo
+  const day = delivery.date.getDay();
+  if (delivery.date < minDate || day === 0) return false;
 
-  return date >= minDate && day !== 0;
+  if (delivery.mode !== "pickup") {
+    if (!delivery.address.street || !delivery.address.number) return false;
+  }
+
+  if (delivery.mode === "specific" && !delivery.specificTime) return false;
+
+  return true;
 };

@@ -1,0 +1,46 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* MOBILE FIRST */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.left {
+  width: 100%;
+  min-width: 0;
+}
+
+.products {
+  width: 100%;
+  padding-bottom: 72px; /* espacio para OrderHeader fijo */
+}
+
+/* DESKTOP */
+@media (min-width: 1024px) {
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+    padding-left: 32px;
+    padding-right: 0;
+    align-items: start;
+    min-height: calc(100vh - 80px);
+  }
+
+  .products {
+    padding-bottom: 0;
+  }
+
+  .right {
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 60px);
+  }
+}
