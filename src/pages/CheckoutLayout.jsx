@@ -35,6 +35,7 @@ function LeftContent() {
 export default function CheckoutLayout() {
   const [isMobile, setIsMobile] = useState(false);
   const { totalItems, isOrderOpen } = useOrder();
+  const { checkoutStarted } = useCheckout();
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);
@@ -45,14 +46,18 @@ export default function CheckoutLayout() {
 
   return (
     <main className={styles.page}>
+      {/* ================= HEADER ================= */}
       <PedirBreadcrumb />
-      <FiltersBar />
 
+      {/* ================= CONTENIDO ================= */}
       <div className={styles.content}>
+        {/* ===== COLUMNA IZQUIERDA ===== */}
         <section className={styles.left}>
+          {!checkoutStarted && <FiltersBar />}
           <LeftContent />
         </section>
 
+        {/* ===== DESKTOP: SIDEBAR PEDIDO ===== */}
         {!isMobile && (
           <aside className={styles.right}>
             <OrderSummary />
@@ -60,10 +65,12 @@ export default function CheckoutLayout() {
         )}
       </div>
 
-      {/* HEADER FIJO MOBILE */}
-      {isMobile && totalItems > 0 && <OrderHeader totalViandas={totalItems} />}
+      {/* ================= MOBILE ================= */}
 
-      {/* OVERLAY MOBILE */}
+      {isMobile && totalItems > 0 && !isOrderOpen && (
+        <OrderHeader variant="bar" totalViandas={totalItems} />
+      )}
+
       {isMobile && isOrderOpen && <OrderOverlay />}
     </main>
   );

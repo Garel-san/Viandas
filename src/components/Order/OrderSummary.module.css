@@ -22,10 +22,10 @@
 ========================== */
 @media (min-width: 1024px) {
   .sidebar {
-    width: 280px;
+    width: 100%;
     position: sticky;
-    top: 80px;
-    height: calc(100vh - 80px);
+
+    height: calc(100vh);
     border-left: 1px solid #e5e5e5;
   }
 }

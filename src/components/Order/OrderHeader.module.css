@@ -5,15 +5,49 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  border-bottom: 1px solid #e5e7eb;
 }
 
-/* Lado izquierdo */
+/* ==========================
+   VARIANTS
+========================== */
+
+.bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1200;
+
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.panel {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* ==========================
+   STRUCTURE
+========================== */
+
 .left {
   display: flex;
   flex-direction: column;
 }
 
-/* Título */
+.right {
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================
+   TEXT
+========================== */
+
 .title {
   font-size: 18px;
   font-weight: 700;
@@ -21,19 +55,15 @@
   line-height: 1.2;
 }
 
-/* Subtítulo */
 .subtitle {
   font-size: 14px;
   color: #111827;
 }
 
-/* Lado derecho */
-.right {
-  display: flex;
-  align-items: center;
-}
+/* ==========================
+   BUTTONS
+========================== */
 
-/* Botón principal */
 .primary {
   background: #f59e0b;
   color: #ffffff;
@@ -45,7 +75,6 @@
   cursor: pointer;
 }
 
-/* Botón secundario */
 .secondary {
   background: none;
   border: none;
@@ -55,35 +84,22 @@
   cursor: pointer;
 }
 
+.primary:hover,
+.secondary:hover {
+  text-decoration: underline;
+}
+
 /* ==========================
-   MOBILE – FIXED BAR
+   DESKTOP
 ========================== */
-@media (max-width: 1023px) {
-  .header {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    z-index: 1200;
-
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
-  }
-}
-
-.openBtn {
-  background: #f59e0b;
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
 
 @media (min-width: 1024px) {
-  .openBtn {
+  .bar {
+    display: none;
+  }
+
+  /* 🔑 botones SOLO mobile */
+  .right {
     display: none;
   }
 }

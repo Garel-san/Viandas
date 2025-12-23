@@ -29,8 +29,8 @@ export default function OrderSummary() {
 
   return (
     <aside className={styles.sidebar}>
-      {/* HEADER */}
-      <OrderHeader totalViandas={totalItems} />
+      {/* HEADER — visible en desktop como PANEL */}
+      <OrderHeader variant="panel" totalViandas={totalItems} />
 
       {/* LISTA SCROLLEABLE */}
       <OrderItemsList

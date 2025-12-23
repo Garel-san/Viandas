@@ -1,4 +1,5 @@
 import styles from "./OrderFooter.module.css";
+import { useCheckout } from "../../context/CheckoutContext";
 
 export default function OrderFooter({
   totalPedido,
@@ -8,6 +9,8 @@ export default function OrderFooter({
   isMinReached,
   onStartCheckout,
 }) {
+  const { startCheckout } = useCheckout();
+
   return (
     <footer className={styles.footer}>
       {/* Mensaje mínimo */}
@@ -46,7 +49,10 @@ export default function OrderFooter({
       <button
         className={styles.cta}
         disabled={!isMinReached}
-        onClick={onStartCheckout}
+        onClick={() => {
+          onStartCheckout(); // cierra overlay (Order)
+          startCheckout(); // 🔥 inicia checkout (Steps)
+        }}
       >
         PROCEDER AL PAGO
       </button>

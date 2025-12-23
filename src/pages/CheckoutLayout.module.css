@@ -1,46 +1,65 @@
+/* =========================
+   PAGE
+========================= */
 .page {
-  width: 100%;
   min-height: 100vh;
-}
-
-/* MOBILE FIRST */
-.content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  padding: 0 16px;
+  background: #fafafa;
 }
 
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+}
+
+/* =========================
+   COLUMNA IZQUIERDA
+========================= */
 .left {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+
+  /* ⬇️ el espacio que antes tenía .content */
+  padding: 16px 24px 24px 24px;
+  box-sizing: border-box;
 }
 
+/* Grid de productos */
 .products {
-  width: 100%;
-  padding-bottom: 72px; /* espacio para OrderHeader fijo */
+  flex: 1;
 }
 
-/* DESKTOP */
-@media (min-width: 1024px) {
+/* =========================
+   COLUMNA DERECHA (ORDER)
+========================= */
+.right {
+  position: sticky;
+  top: 0; /* se pega justo debajo del breadcrumb */
+  height: 100vh;
+  display: flex;
+  box-sizing: border-box;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1023px) {
   .content {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 32px;
-    padding-left: 32px;
-    padding-right: 0;
-    align-items: start;
-    min-height: calc(100vh - 80px);
+    grid-template-columns: 1fr;
+    padding-top: 0;
   }
 
-  .products {
-    padding-bottom: 0;
+  .left {
+    padding: 16px;
   }
 
   .right {
-    position: sticky;
-    top: 56px;
-    height: calc(100vh - 60px);
+    display: none;
   }
 }

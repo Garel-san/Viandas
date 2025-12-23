@@ -1,11 +1,10 @@
 /* ───────────────────────────── */
-/* OVERLAY FULLSCREEN */
+/* OVERLAY (SOLO MOBILE) */
 /* ───────────────────────────── */
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: 3000; /* mayor que breadcrumb y filters */
-
+  z-index: 3000;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(2px);
 
@@ -14,16 +13,37 @@
   justify-content: center;
 }
 
+/* ───────────────────────────── */
+/* CARD MOBILE (MODAL) */
+/* ───────────────────────────── */
 .card {
   background: #fff;
   border-radius: 18px;
   padding: 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  height: 280px;
+
+  width: 92%;
+  max-width: 380px;
+  height: auto;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ───────────────────────────── */
+/* CARD DESKTOP (INLINE) */
+/* ───────────────────────────── */
+.cardDesktop {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
+  width: 240px;
+  height: fit-content;
+
+  position: relative;
 }
 
 /* Texto informativo */
@@ -48,9 +68,7 @@
   gap: 12px;
 }
 
-/* ───────────────────────────── */
-/* TAMAÑO (SEGMENTED CONTROL) */
-/* ───────────────────────────── */
+/* ───────── TAMAÑO ───────── */
 .pills {
   display: inline-flex;
   background: #e5e7eb;
@@ -64,32 +82,20 @@
   padding: 4px 10px;
   border-radius: 999px;
   border: none;
-
   background: transparent;
   color: #6b7280;
-
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
-    transform 0.15s ease;
 }
 
 .pills button.active {
-  background: #ffffff;
+  background: #fff;
   color: #111827;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);
 }
 
-.pills button:not(.active):hover {
-  color: #374151;
-}
-
-/* ───────────────────────────── */
-/* CANTIDAD (SIN FONDO GRIS) */
-/* ───────────────────────────── */
+/* ───────── CANTIDAD ───────── */
 .qtyControls {
   display: flex;
   align-items: center;
@@ -102,27 +108,15 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #374151;
-  font-size: 14px;
-  font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.qtyControls button:hover {
-  background: #f3f4f6;
 }
 
 .qty {
   font-size: 13px;
   font-weight: 600;
-  min-width: 16px;
-  text-align: center;
 }
 
-/* ───────────────────────────── */
-/* DROPDOWN GUARNICIÓN */
-/* ───────────────────────────── */
+/* ───────── DROPDOWN ───────── */
 .dropdown {
   position: relative;
 }
@@ -134,12 +128,8 @@
   background: transparent;
   padding: 6px 2px;
   font-size: 12px;
-  color: #374151;
-
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
   cursor: pointer;
 }
 
@@ -148,23 +138,18 @@
   top: 100%;
   left: 0;
   right: 0;
-
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
   margin-top: 6px;
   z-index: 10;
-  overflow: hidden;
 }
 
 .option {
   padding: 8px 10px;
   font-size: 12px;
-
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
   cursor: pointer;
 }
 
@@ -178,9 +163,7 @@
   font-weight: 600;
 }
 
-/* ───────────────────────────── */
-/* TOTAL */
-/* ───────────────────────────── */
+/* ───────── TOTAL ───────── */
 .total {
   border-top: 1px solid #e5e7eb;
   padding-top: 6px;
@@ -188,12 +171,9 @@
   justify-content: space-between;
   font-size: 13px;
   font-weight: 600;
-  color: #111827;
 }
 
-/* ───────────────────────────── */
-/* ACCIONES */
-/* ───────────────────────────── */
+/* ───────── ACCIONES ───────── */
 .actions {
   display: flex;
   justify-content: space-between;
@@ -218,87 +198,4 @@
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-}
-
-/* ───────────────────────────── */
-/* MOBILE – CONFIGURATOR SCALE */
-/* ───────────────────────────── */
-@media (max-width: 1023px) {
-  .card {
-    width: 92%;
-    max-width: 380px;
-    height: auto;
-
-    padding: 20px;
-    gap: 14px;
-  }
-
-  /* Texto informativo */
-  .info {
-    font-size: 13px;
-  }
-
-  /* Labels */
-  .label {
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  /* Tamaño */
-  .pills {
-    padding: 4px;
-  }
-
-  .pills button {
-    min-width: 44px;
-    padding: 8px 14px;
-    font-size: 14px;
-  }
-
-  /* Cantidad */
-  .qtyControls {
-    gap: 14px;
-  }
-
-  .qtyControls button {
-    width: 34px;
-    height: 34px;
-    font-size: 18px;
-  }
-
-  .qty {
-    font-size: 15px;
-    min-width: 22px;
-  }
-
-  /* Dropdown */
-  .dropdownHeader {
-    font-size: 14px;
-    padding: 10px 4px;
-  }
-
-  .option {
-    padding: 12px 14px;
-    font-size: 14px;
-  }
-
-  /* Total */
-  .total {
-    font-size: 15px;
-    padding-top: 10px;
-  }
-
-  /* Acciones */
-  .actions {
-    gap: 16px;
-  }
-
-  .cancel {
-    font-size: 14px;
-  }
-
-  .confirm {
-    padding: 10px 18px;
-    font-size: 14px;
-  }
 }

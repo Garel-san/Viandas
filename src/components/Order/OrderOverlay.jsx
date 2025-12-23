@@ -1,13 +1,13 @@
 import styles from "./OrderOverlay.module.css";
 import { useOrder } from "../../context/OrderDataContext";
 
+import OrderHeader from "./OrderHeader";
 import OrderItemsList from "./OrderItemsList";
 import OrderFooter from "./OrderFooter";
 
 export default function OrderOverlay() {
   const {
     orderItems,
-    totalItems,
     subtotal,
     shipping,
     total,
@@ -22,23 +22,8 @@ export default function OrderOverlay() {
   return (
     <div className={styles.overlay}>
       <aside className={styles.panel}>
-        {/* HEADER PROPIO DEL OVERLAY */}
-        <header className={styles.header}>
-          <div>
-            <h2 className={styles.title}>Tu pedido</h2>
-            <span className={styles.subtitle}>
-              {totalItems} {totalItems === 1 ? "vianda" : "viandas"}
-            </span>
-          </div>
-
-          <button
-            className={styles.closeBtn}
-            onClick={closeOrder}
-            aria-label="Seguir pidiendo"
-          >
-            Seguir pidiendo
-          </button>
-        </header>
+        {/* HEADER PANEL */}
+        <OrderHeader variant="panel" />
 
         {/* LISTA */}
         <OrderItemsList

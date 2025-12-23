@@ -74,3 +74,45 @@
   color: #f59e0b;
   cursor: pointer;
 }
+
+/* ==========================
+   MOBILE – OVERLAY FULLSCREEN
+========================== */
+@media (max-width: 1023px) {
+  .notice {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+
+  .summary {
+    padding: 12px 20px 16px;
+  }
+
+  .row {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .label {
+    gap: 8px;
+  }
+
+  .label img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .total {
+    font-size: 20px;
+    padding-top: 10px;
+    margin-top: 8px;
+  }
+
+  .cta {
+    margin: 12px 20px 20px;
+    height: 42px;
+
+    font-size: 14px;
+    letter-spacing: 0.8px;
+  }
+}
