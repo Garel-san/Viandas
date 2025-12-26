@@ -5,7 +5,7 @@ export default function Banner1() {
     <section className={styles.bannerWrapper}>
       <div className={styles.banner}>
         <div className={styles.item}>
-          <img src="/clickmenu.png" alt="Elegí tus platos" />
+          <img src="/Banners/clickmenu.png" alt="Elegí tus platos" />
           <h3>Elegí tus platos</h3>
           <p>
             Cientos de combinaciones posibles entre platos principales y
@@ -14,7 +14,7 @@ export default function Banner1() {
         </div>
 
         <div className={styles.item}>
-          <img src="/orderman.png" alt="Cocinamos y entregamos" />
+          <img src="/Banners/orderman.png" alt="Cocinamos y entregamos" />
           <h3>Cocinamos y entregamos</h3>
           <p>
             Nuestros chefs elaboran tu comida y te enviamos todo fresco en
@@ -23,7 +23,7 @@ export default function Banner1() {
         </div>
 
         <div className={styles.item}>
-          <img src="/microwave.png" alt="Calentá, disfrutá y repetí" />
+          <img src="/Banners/microwave.png" alt="Calentá, disfrutá y repetí" />
           <h3>Calentá, disfrutá y repetí</h3>
           <p>
             Al micro 2 minutos y está listo. Disfrutá de tus comidas semanales,

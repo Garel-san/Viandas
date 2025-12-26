@@ -1,6 +1,6 @@
 /* ======================
    WRAPPER
-   ====================== */
+====================== */
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -10,55 +10,81 @@
 }
 
 /* ======================
-   FILAS DE CHIPS
-   ====================== */
+   INDICADOR FILTROS
+====================== */
+.filtersInfo {
+  font-size: 11px;
+  font-weight: 600;
+  color: #f59e0b;
+  padding-left: 2px;
+}
+
+/* ======================
+   CHIPS ROW (BASE)
+====================== */
 .chipsRow {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
 }
 
 /* ======================
    CHIP
-   ====================== */
+====================== */
 .chip {
+  position: relative;
   padding: 4px 10px;
   border-radius: 999px;
   background: #e5e7eb;
   border: none;
+
   font-size: 10px;
-  font-weight: 400;
   color: #111827;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+
+  flex: 0 0 auto;
+
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .chip:hover {
   background: #d1d5db;
 }
 
+.chip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #f59e0b;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transition: width 0.2s ease;
+}
+
 .chip.active {
   background: #ffe7bf;
   color: #f59e0b;
+  transform: scale(1.05);
 }
 
-.chip.active:hover {
-  background: #ffdfa8;
+.chip.active::after {
+  width: 60%;
 }
 
 /* ======================
    DIVIDER
-   ====================== */
+====================== */
 .divider {
-  width: 100%;
   height: 1px;
   background: #e5e7eb;
   margin: 6px 0;
 }
 
 /* ======================
-   FILA INFERIOR
-   ====================== */
+   BOTTOM ROW
+====================== */
 .bottomRow {
   display: flex;
   align-items: center;
@@ -67,12 +93,27 @@
 }
 
 /* ======================
+   SEARCH GROUP
+====================== */
+.searchGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ======================
    SEARCH
-   ====================== */
+====================== */
 .search {
   display: flex;
   align-items: center;
-  position: relative;
+  border-radius: 999px;
+  background: transparent;
+  transition: background 0.25s ease;
+}
+
+.search.open {
+  background: #fff7ed;
 }
 
 .searchButton {
@@ -81,13 +122,15 @@
   cursor: pointer;
   font-size: 15px;
   color: #6b7280;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
+  padding: 6px;
+  transition: transform 0.25s ease, color 0.25s ease;
 }
 
-/* input cerrado */
+.search.open .searchButton {
+  color: #f59e0b;
+  transform: rotate(-8deg) scale(1.1);
+}
+
 .search input {
   width: 0;
   opacity: 0;
@@ -97,37 +140,23 @@
 
   transition: width 0.25s ease, opacity 0.2s ease, transform 0.25s ease;
 
-  border: 1px solid #d1d5db;
-  border-radius: 999px;
+  border: none;
+  background: transparent;
   font-size: 12px;
   outline: none;
 }
 
-/* input abierto */
 .search.open input {
-  width: 200px;
+  width: 220px;
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
-  margin-left: 6px;
   padding: 6px 10px;
 }
 
-.search input:focus {
-  border-color: #f59e0b;
-}
-
-/* feedback visual */
-.search.open .searchButton {
-  color: #f59e0b;
-}
-
 /* ======================
-   LIMPIAR FILTROS
-   ====================== */
-/* ======================
-   LIMPIAR FILTROS
-   ====================== */
+   LIMPIAR
+====================== */
 .clearFilters {
   display: inline-flex;
   align-items: center;
@@ -135,7 +164,6 @@
 
   background: none;
   border: none;
-  padding: 0;
 
   font-size: 12px;
   font-weight: 500;
@@ -143,80 +171,43 @@
 
   cursor: pointer;
   white-space: nowrap;
-}
 
-.clearFilters svg {
-  font-size: 13px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .clearFilters:hover {
+  opacity: 1;
+  transform: translateY(-1px);
   text-decoration: underline;
 }
 
 /* ======================
    MOBILE – SCROLL HORIZONTAL
 ====================== */
-.scrollRow {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-
-  padding-bottom: 4px;
-}
-
-.scrollRow::-webkit-scrollbar {
-  display: none;
-}
-
-/* Evita que los chips se achiquen */
-.scrollRow .chip {
-  flex: 0 0 auto;
-}
-
-/* Separación visual tipo carrusel */
-.scrollRow::after {
-  content: "";
-  flex: 0 0 12px;
-}
-
-/* ======================
-   MOBILE – CHIPS MÁS GRANDES
-====================== */
 @media (max-width: 1023px) {
-  .chip {
-    padding: 8px 14px; /* ⬆️ más área táctil */
-    font-size: 13px; /* ⬆️ texto más grande */
-    font-weight: 500;
-    border-radius: 999px;
-  }
-
   .chipsRow {
-    gap: 10px; /* ⬆️ más aire entre chips */
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
 
-  /* scrollRow hereda esto */
-  .scrollRow {
-    padding-bottom: 6px;
+  .chipsRow::-webkit-scrollbar {
+    display: none;
   }
-}
 
-/* ======================
-   MOBILE – STICKY FILTERS BAR
-====================== */
-@media (max-width: 1023px) {
+  .chip {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
   .wrapper {
     position: sticky;
-    top: 56px; /* altura del breadcrumb cuando está compacto */
+    top: 56px;
     z-index: 900;
     background: #ffffff;
-
-    /* para que no se “pegue” visualmente al contenido */
     padding: 12px 16px;
-
-    /* mantiene el separador y tapa lo que pasa por debajo */
-    border-bottom: 1px solid #e5e7eb;
   }
 }

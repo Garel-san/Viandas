@@ -25,7 +25,7 @@ export default function OrderFooter({
       <div className={styles.summary}>
         <div className={styles.row}>
           <div className={styles.label}>
-            <img src="/shop1.png" alt="" />
+            <img src="/Order/shop1.png" alt="" />
             Pedido
           </div>
           <span>${totalPedido}</span>
@@ -33,7 +33,7 @@ export default function OrderFooter({
 
         <div className={styles.row}>
           <div className={styles.label}>
-            <img src="/shop2.png" alt="" />
+            <img src="/Order/shop2.png" alt="" />
             Envío
           </div>
           <span>{envio === 0 ? "GRATIS" : `$${envio}`}</span>
@@ -51,7 +51,7 @@ export default function OrderFooter({
         disabled={!isMinReached}
         onClick={() => {
           onStartCheckout(); // cierra overlay (Order)
-          startCheckout(); // 🔥 inicia checkout (Steps)
+          startCheckout(); // inicia checkout (Steps)
         }}
       >
         PROCEDER AL PAGO

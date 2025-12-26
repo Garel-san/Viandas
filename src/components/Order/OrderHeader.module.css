@@ -1,6 +1,6 @@
 .header {
-  padding: 12px 20px;
-  background: #f2f2f2;
+  padding: 4px 20px;
+  background: #f9fafb;
 
   display: flex;
   justify-content: space-between;
@@ -28,6 +28,8 @@
   position: sticky;
   top: 0;
   z-index: 10;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* ==========================
@@ -37,6 +39,7 @@
 .left {
   display: flex;
   flex-direction: column;
+  gap: 1px;
 }
 
 .right {
@@ -49,15 +52,16 @@
 ========================== */
 
 .title {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   color: #f59e0b;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #111827;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
 }
 
 /* ==========================
@@ -69,22 +73,30 @@
   color: #ffffff;
   border: none;
   border-radius: 999px;
-  padding: 8px 14px;
+
+  padding: 8px 16px;
   font-size: 13px;
   font-weight: 700;
+
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
+}
+
+.primary:hover {
+  text-decoration: none;
+  filter: brightness(0.95);
 }
 
 .secondary {
   background: none;
   border: none;
   color: #f59e0b;
+
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.primary:hover,
 .secondary:hover {
   text-decoration: underline;
 }
@@ -98,7 +110,7 @@
     display: none;
   }
 
-  /* 🔑 botones SOLO mobile */
+  /* botones SOLO mobile */
   .right {
     display: none;
   }

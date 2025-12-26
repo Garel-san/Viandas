@@ -11,15 +11,10 @@ export default function OrderItemsList({
     return (
       <div className={styles.empty}>
         <img
-          src="/out-of-stock.svg"
-          alt="No hay productos"
+          src="/Order/otra.png"
+          alt="No hay platos seleccionados"
           className={styles.emptyImage}
         />
-        <p className={styles.emptyText}>
-          No seleccionaste
-          <br />
-          ningun plato aun
-        </p>
       </div>
     );
   }

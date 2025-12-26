@@ -76,7 +76,7 @@ export default function Navbar({ onLoginClick }) {
         {/* CENTRO - LOGO */}
         <div className={styles.logoWrapper}>
           <img
-            src={scrolled ? "/logoblack.svg" : "/logowhite.svg"}
+            src={scrolled ? "/Logo/logoblack.svg" : "/Logo/logowhite.svg"}
             alt="Viandas Hotel del Prado"
             className={styles.logo}
           />

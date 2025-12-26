@@ -16,7 +16,6 @@ export default function FiltersBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const inputRef = useRef(null);
 
-  // 🔹 Filtros superiores
   const topFilters = filtersConfig.filter((f) =>
     [
       "proteina",
@@ -30,7 +29,6 @@ export default function FiltersBar() {
     ].includes(f.id)
   );
 
-  // 🔹 Filtros inferiores
   const bottomFilters = filtersConfig.filter(
     (f) => !topFilters.some((tf) => tf.id === f.id)
   );
@@ -39,9 +37,13 @@ export default function FiltersBar() {
 
   return (
     <section className={styles.wrapper}>
-      {/* ======================
-      FILA SUPERIOR
-      ====================== */}
+      {activeFilters.length > 0 && (
+        <div className={styles.filtersInfo}>
+          Filtros ({activeFilters.length})
+        </div>
+      )}
+
+      {/* FILA SUPERIOR */}
       <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
         {topFilters.map((filter) => {
           const isActive = activeFilters.includes(filter.id);
@@ -61,9 +63,7 @@ export default function FiltersBar() {
 
       <div className={styles.divider} />
 
-      {/* ======================
-      FILA INFERIOR + SEARCH
-      ====================== */}
+      {/* FILA INFERIOR */}
       <div className={styles.bottomRow}>
         <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
           {bottomFilters.map((filter) => {
@@ -82,47 +82,48 @@ export default function FiltersBar() {
           })}
         </div>
 
-        {/* Search + limpiar queda igual */}
-
-        {/* Search */}
-        <div className={`${styles.search} ${isSearchOpen ? styles.open : ""}`}>
-          <button
-            type="button"
-            className={styles.searchButton}
-            onClick={() => {
-              setIsSearchOpen(true);
-              setTimeout(() => inputRef.current?.focus(), 150);
-            }}
+        {/* SEARCH + LIMPIAR AGRUPADOS */}
+        <div className={styles.searchGroup}>
+          <div
+            className={`${styles.search} ${isSearchOpen ? styles.open : ""}`}
           >
-            <FiSearch />
-          </button>
+            <button
+              type="button"
+              className={styles.searchButton}
+              onClick={() => {
+                setIsSearchOpen(true);
+                setTimeout(() => inputRef.current?.focus(), 150);
+              }}
+            >
+              <FiSearch />
+            </button>
 
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Buscá tus platos favoritos..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            onBlur={() => {
-              if (!searchValue) setIsSearchOpen(false);
-            }}
-          />
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="Buscá por plato o ingrediente…"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onBlur={() => {
+                if (!searchValue) setIsSearchOpen(false);
+              }}
+            />
+          </div>
+
+          {hasActiveFilters && (
+            <button
+              type="button"
+              className={styles.clearFilters}
+              onClick={() => {
+                setIsSearchOpen(false);
+                clearFilters();
+              }}
+            >
+              <FiX />
+              Limpiar
+            </button>
+          )}
         </div>
-
-        {/* LIMPIAR FILTROS */}
-        {hasActiveFilters && (
-          <button
-            type="button"
-            className={styles.clearFilters}
-            onClick={() => {
-              setIsSearchOpen(false);
-              clearFilters();
-            }}
-          >
-            <FiX />
-            Limpiar
-          </button>
-        )}
       </div>
     </section>
   );

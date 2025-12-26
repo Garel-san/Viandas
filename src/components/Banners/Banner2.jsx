@@ -6,7 +6,7 @@ export default function Banner2() {
       <div className={styles.container}>
         {/* IZQUIERDA */}
         <div className={styles.imageBox}>
-          <img src="/hero2.webp" alt="Comida fresca" />
+          <img src="/Banners/hero2.webp" alt="Comida fresca" />
         </div>
 
         {/* DERECHA */}
@@ -22,7 +22,7 @@ export default function Banner2() {
           <div className={styles.features}>
             {/* FEATURE 1 (ajuste específico) */}
             <div className={`${styles.feature} ${styles.featureFirst}`}>
-              <img src="/tray.png" alt="" />
+              <img src="/Banners/tray.png" alt="" />
               <p>
                 Nuestro envasado de alta tecnología mantiene tu comida fresca en
                 heladera por hasta 10 días.
@@ -30,12 +30,12 @@ export default function Banner2() {
             </div>
 
             <div className={styles.feature}>
-              <img src="/additive.png" alt="" />
+              <img src="/Banners/additive.png" alt="" />
               <p>Preparaciones cuidadas, sin agregados innecesarios.</p>
             </div>
 
             <div className={styles.feature}>
-              <img src="/chef.png" alt="" />
+              <img src="/Banners/chef.png" alt="" />
               <p>Comida hecha por chefs usando ingredientes de alta calidad.</p>
             </div>
           </div>

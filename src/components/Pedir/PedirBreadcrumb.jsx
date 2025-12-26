@@ -32,7 +32,7 @@ export default function PedirBreadcrumb() {
         onClick={handleGoHome}
         aria-label="Volver al inicio"
       >
-        <img src="/logo.png" alt="Viandas Hotel del Prado" />
+        <img src="/Logo/logo.png" alt="Viandas Hotel del Prado" />
       </div>
 
       {/* FLOW */}

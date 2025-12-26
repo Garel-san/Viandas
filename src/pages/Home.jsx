@@ -25,7 +25,7 @@ export default function Home() {
         {/* HERO */}
         <section className={styles.hero}>
           <img
-            src="/hero-image.webp"
+            src="/Banners/hero-image.webp"
             alt="Comida fresca"
             className={styles.heroBg}
           />
