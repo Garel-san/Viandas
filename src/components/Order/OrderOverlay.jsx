@@ -1,5 +1,6 @@
 import styles from "./OrderOverlay.module.css";
 import { useOrder } from "../../context/OrderDataContext";
+import { useCheckout } from "../../context/CheckoutContext";
 
 import OrderHeader from "./OrderHeader";
 import OrderItemsList from "./OrderItemsList";
@@ -19,6 +20,8 @@ export default function OrderOverlay() {
     closeOrder,
   } = useOrder();
 
+  const { checkoutStarted } = useCheckout(); // 🔹 CLAVE
+
   return (
     <div className={styles.overlay}>
       <aside className={styles.panel}>
@@ -31,6 +34,7 @@ export default function OrderOverlay() {
           onIncrement={incrementItem}
           onDecrement={decrementItem}
           onRemove={removeItem}
+          mode={checkoutStarted ? "readonly" : "editable"} // 🔹 CLAVE
         />
 
         {/* FOOTER */}

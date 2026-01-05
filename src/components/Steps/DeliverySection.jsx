@@ -1,9 +1,22 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useCheckout } from "../../context/CheckoutContext";
-
 import styles from "./DeliverySection.module.css";
 
 const WEEK_DAYS = ["lu", "ma", "mi", "ju", "vi", "sá", "do"];
+
+const SPECIFIC_TIMES = [
+  "09:00 - 10:00",
+  "10:00 - 11:00",
+  "11:00 - 12:00",
+  "12:00 - 13:00",
+  "13:00 - 14:00",
+  "14:00 - 15:00",
+  "15:00 - 16:00",
+  "16:00 - 17:00",
+  "17:00 - 18:00",
+  "18:00 - 19:00",
+  "19:00 - 20:00",
+];
 
 export default function DeliverySection() {
   const { delivery, completeDelivery, prevStep } = useCheckout();
@@ -61,7 +74,7 @@ export default function DeliverySection() {
 
   const firstWeekday = (y, m) => {
     const d = new Date(y, m, 1).getDay();
-    return d === 0 ? 6 : d - 1; // lunes = 0
+    return d === 0 ? 6 : d - 1;
   };
 
   const buildCalendar = () => {
@@ -145,11 +158,6 @@ export default function DeliverySection() {
   ====================== */
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>
-        <span className={styles.step}>2</span>
-        Información de entrega
-      </h2>
-
       <p className={styles.subtitle}>
         ¿Cuándo y dónde vas a recibir tu pedido?
       </p>
@@ -179,7 +187,6 @@ export default function DeliverySection() {
           </>
         )}
 
-        {/* FECHA */}
         <div className={`${styles.field} ${styles.dateField}`} ref={fieldRef}>
           <label>Fecha de entrega</label>
           <input
@@ -253,6 +260,28 @@ export default function DeliverySection() {
           )}
         </div>
 
+        {form.mode === "specific" && (
+          <div className={styles.field}>
+            <label>Horario</label>
+            <select
+              value={form.specificTime || ""}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  specificTime: e.target.value || null,
+                }))
+              }
+            >
+              <option value="">Seleccioná un horario</option>
+              {SPECIFIC_TIMES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className={styles.field}>
           <label>Notas adicionales</label>
           <input
@@ -265,7 +294,6 @@ export default function DeliverySection() {
         </div>
       </div>
 
-      {/* MODOS */}
       <div className={styles.modes}>
         <label className={styles.mode}>
           <input

@@ -203,6 +203,20 @@
   cursor: pointer;
 }
 
+.field select {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0 12px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.field select:focus {
+  outline: none;
+  border-color: #f59e0b;
+}
+
 /* ===============================
    MOBILE – FORM STACKED
 ================================ */

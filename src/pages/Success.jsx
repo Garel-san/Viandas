@@ -6,7 +6,7 @@ import { useOrder } from "../context/OrderDataContext";
 import PedirBreadcrumb from "../components/Pedir/PedirBreadcrumb";
 import SuccessSummary from "../components/SuccessSummary";
 
-import styles from "../components/SuccessSummary.module.css";
+import styles from "./Success.module.css";
 
 export default function Success() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export default function Success() {
 
   // ⏳ Espera mientras se confirma la orden
   if (!result) {
-    return null; // o loader si querés
+    return null;
   }
 
   const resetAll = () => {
@@ -42,7 +42,7 @@ export default function Success() {
   };
 
   return (
-    <main>
+    <main className={styles.page}>
       <PedirBreadcrumb />
 
       <SuccessSummary

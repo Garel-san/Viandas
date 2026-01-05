@@ -1,0 +1,112 @@
+/* ===============================
+   WRAPPER GENERAL
+================================ */
+.flow {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ===============================
+   STEP
+================================ */
+.step {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 24px 0;
+}
+
+/* ===============================
+   HEADER
+================================ */
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: default;
+}
+
+/* Header cuando está activo */
+.active {
+  color: #111827;
+}
+
+/* Header cuando está completado */
+.completed {
+  color: #f59e0b;
+}
+
+/* Header pendiente */
+.pending {
+  color: #6b7280;
+}
+
+/* ===============================
+   STEP INDICATOR
+================================ */
+.stepIndicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Pendiente / activo */
+.indicatorDefault {
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+}
+
+/* Completado */
+.indicatorCompleted {
+  background-color: #f59e0b;
+  color: #ffffff;
+  border: none;
+}
+
+/* ===============================
+   BODY (ACCORDION)
+================================ */
+.stepBody {
+  margin-top: 12px;
+}
+
+/* ===============================
+   SUMMARY (futuro)
+================================ */
+.stepSummary {
+  margin-left: 40px;
+  margin-top: 6px;
+  font-size: 15px;
+  color: #000000;
+  font-weight: 400;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 1023px) {
+  .step {
+    padding: 16px 0;
+  }
+
+  .stepHeader {
+    font-size: 20px;
+    gap: 10px;
+  }
+
+  .stepBody {
+    margin-top: 8px;
+  }
+
+  .stepSummary {
+    font-size: 13px;
+    margin-left: 38px;
+  }
+}

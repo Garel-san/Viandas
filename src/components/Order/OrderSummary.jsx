@@ -25,7 +25,7 @@ export default function OrderSummary() {
     removeItem,
   } = useOrder();
 
-  const { startCheckout } = useCheckout();
+  const { startCheckout, checkoutStarted } = useCheckout(); // 🔹 usamos estado
 
   return (
     <aside className={styles.sidebar}>
@@ -38,6 +38,7 @@ export default function OrderSummary() {
         onIncrement={incrementItem}
         onDecrement={decrementItem}
         onRemove={removeItem}
+        mode={checkoutStarted ? "readonly" : "editable"} // 🔹 CLAVE
       />
 
       {/* FOOTER FIJO */}

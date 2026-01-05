@@ -14,19 +14,18 @@
 .content {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-columns: minmax(0, 1fr) 340px;
 }
 
 /* =========================
    COLUMNA IZQUIERDA
 ========================= */
 .left {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
-
-  /* ⬇️ el espacio que antes tenía .content */
-  padding: 16px 24px 24px 24px;
+  padding: 16px 24px 24px;
   box-sizing: border-box;
 }
 
@@ -36,23 +35,102 @@
 }
 
 /* =========================
+   TEXTO INTRO (TÍTULO + SUBTÍTULO)
+========================= */
+.intro {
+  max-width: 760px;
+  margin: 24px auto 32px;
+  text-align: center;
+}
+
+.introTitle {
+  font-size: 33px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #ec9808;
+  margin: 0 0 4px 0;
+}
+
+.introSubtitle {
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #545a66;
+  margin: 0;
+}
+
+/* =========================
+   CHECKOUT FLOW WRAPPER
+========================= */
+.checkoutFlow {
+  max-width: 760px;
+}
+
+/* =========================
    COLUMNA DERECHA (ORDER)
 ========================= */
 .right {
   position: sticky;
-  top: 0; /* se pega justo debajo del breadcrumb */
-  height: 100vh;
+  top: 72px;
+  align-self: flex-start;
   display: flex;
   box-sizing: border-box;
 }
 
 /* =========================
-   RESPONSIVE
+   LOADER OVERLAY
+========================= */
+.loaderOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  background: #fafafa;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.loaderImage {
+  width: 200px;
+  height: auto;
+  margin-bottom: -8px;
+}
+
+.loaderText {
+  font-size: 16px;
+  font-weight: 700;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+/* =========================
+   RESPONSIVE (MOBILE)
 ========================= */
 @media (max-width: 1023px) {
+  /* 🔑 CLAVE: mover el scroll al contenedor */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .page {
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .content {
     grid-template-columns: 1fr;
-    padding-top: 0;
   }
 
   .left {
@@ -61,5 +139,30 @@
 
   .right {
     display: none;
+  }
+
+  /* Breadcrumb full-width en mobile */
+  .page > header {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .intro {
+    max-width: 420px;
+    margin: -10px auto 16px;
+    padding: 0 8px;
+  }
+
+  .introTitle {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .introSubtitle {
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 500;
   }
 }

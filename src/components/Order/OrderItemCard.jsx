@@ -3,6 +3,7 @@ import { FiPlus, FiMinus, FiTrash2 } from "react-icons/fi";
 
 export default function OrderItemCard({
   item,
+  editable = true, // 🔹 NUEVO
   onIncrement,
   onDecrement,
   onRemove,
@@ -18,38 +19,46 @@ export default function OrderItemCard({
       {/* IMAGEN + OVERLAYS */}
       <div className={styles.imageWrapper}>
         {/* Botón eliminar */}
-        <button
-          className={styles.removeBtn}
-          onClick={() => onRemove(identity)}
-          aria-label="Eliminar producto"
-        >
-          <FiTrash2 />
-        </button>
+        {editable && (
+          <button
+            className={styles.removeBtn}
+            onClick={() => onRemove(identity)}
+            aria-label="Eliminar producto"
+          >
+            <FiTrash2 />
+          </button>
+        )}
 
         {/* Imagen */}
         <img src={item.image} alt={item.title} className={styles.image} />
 
-        {/* Controles (3 secciones) */}
-        <div className={styles.controlsOverlay}>
-          {/* - gris */}
-          <button
-            className={`${styles.controlBtn} ${styles.decrement}`}
-            onClick={() => onDecrement(identity)}
-          >
-            <FiMinus />
-          </button>
+        {/* CONTROLES / INFO CANTIDAD */}
+        {editable ? (
+          <div className={styles.controlsOverlay}>
+            {/* - gris */}
+            <button
+              className={`${styles.controlBtn} ${styles.decrement}`}
+              onClick={() => onDecrement(identity)}
+            >
+              <FiMinus />
+            </button>
 
-          {/* contador blanco */}
-          <span className={styles.counter}>{item.quantity}</span>
+            {/* contador */}
+            <span className={styles.counter}>{item.quantity}</span>
 
-          {/* + naranja */}
-          <button
-            className={`${styles.controlBtn} ${styles.increment}`}
-            onClick={() => onIncrement(identity)}
-          >
-            <FiPlus />
-          </button>
-        </div>
+            {/* + naranja */}
+            <button
+              className={`${styles.controlBtn} ${styles.increment}`}
+              onClick={() => onIncrement(identity)}
+            >
+              <FiPlus />
+            </button>
+          </div>
+        ) : (
+          <div className={styles.readonlyQuantity}>
+            {item.quantity} {item.quantity === 1 ? "vianda" : "viandas"}
+          </div>
+        )}
       </div>
 
       {/* INFO DERECHA */}

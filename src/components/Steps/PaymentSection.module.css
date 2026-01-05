@@ -92,6 +92,22 @@
   cursor: pointer;
 }
 
+.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.restrictionNotice {
+  font-size: 13px;
+  color: #92400e;
+  background: #fff7ed;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+
 /* ===============================
    MOBILE – PAYMENT STACKED
 ================================ */

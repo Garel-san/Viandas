@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
 
+  box-sizing: border-box;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -52,14 +53,14 @@
 ========================== */
 
 .title {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 800;
   color: #f59e0b;
   line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
   color: #6b7280;
 }
@@ -83,7 +84,6 @@
 }
 
 .primary:hover {
-  text-decoration: none;
   filter: brightness(0.95);
 }
 
@@ -99,6 +99,30 @@
 
 .secondary:hover {
   text-decoration: underline;
+}
+
+/* ==========================
+   RESPONSIVE (MOBILE)
+========================== */
+
+@media (max-width: 1023px) {
+  .header {
+    gap: 120px;
+    padding: 8px 16px;
+    justify-content: center;
+  }
+
+  .left,
+  .right {
+    max-width: 420px;
+  }
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
 }
 
 /* ==========================

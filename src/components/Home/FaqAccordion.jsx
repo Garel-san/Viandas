@@ -20,7 +20,7 @@ const FAQS = [
         <p>
           Si necesitas una entrega fuera de este horario, con gusto te la
           llevaremos, pero ten en cuenta que se cobrará un costo adicional por
-          el envío. Para coordinarlo, asegúrate de avisarnos con antelación o
+          el envío. Para coordinarlo, asegurate de avisarnos con antelación o
           especificarlo en los comentarios al hacer tu pedido.
         </p>
 
@@ -84,24 +84,26 @@ const FAQS = [
 ];
 
 export default function FaqAccordion() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndexes, setOpenIndexes] = useState([]);
 
   const toggle = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+    setOpenIndexes((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
   };
 
   return (
     <section className={styles.wrapper}>
       {FAQS.map((faq, index) => {
-        const isOpen = openIndex === index;
+        const isOpen = openIndexes.includes(index);
 
         return (
           <div key={index} className={styles.item}>
             <button className={styles.header} onClick={() => toggle(index)}>
               <span>{faq.title}</span>
-              <span className={`${styles.icon} ${isOpen ? styles.open : ""}`}>
-                ▾
-              </span>
+              <span
+                className={`${styles.arrow} ${isOpen ? styles.open : ""}`}
+              />
             </button>
 
             <div className={`${styles.content} ${isOpen ? styles.show : ""}`}>

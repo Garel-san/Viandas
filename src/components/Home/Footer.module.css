@@ -8,7 +8,7 @@
   justify-content: space-between;
 
   padding: 24px 34px;
-  font-size: 13px;
+  font-size: 18px;
   overflow: hidden; /* ⬅️ CLAVE ABSOLUTA */
 }
 
@@ -24,7 +24,7 @@
 
 .socials a {
   color: #ffffff;
-  font-size: 16px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -33,6 +33,11 @@
 .socials a:hover {
   opacity: 0.85;
   transform: translateY(-1px);
+}
+.socialIcon {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
 }
 
 /* ======================

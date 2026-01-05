@@ -8,12 +8,15 @@ import styles from "./PaymentSection.module.css";
 export default function PaymentSection() {
   const navigate = useNavigate();
 
-  const { payment, selectPaymentMethod, confirmOrder, prevStep } =
+  const { payment, delivery, selectPaymentMethod, confirmOrder, prevStep } =
     useCheckout();
 
   const { getOrderSnapshot } = useOrder();
 
+  const isSpecificDelivery = delivery.mode === "specific";
+
   const handleSelect = (method) => {
+    if (isSpecificDelivery && method !== "card") return;
     selectPaymentMethod(method);
   };
 
@@ -31,11 +34,6 @@ export default function PaymentSection() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.title}>
-        <span className={styles.step}>3</span>
-        Información de pago
-      </h2>
-
       <p className={styles.subtitle}>¿Cómo vas a abonar?</p>
 
       <div className={styles.methods}>
@@ -51,9 +49,10 @@ export default function PaymentSection() {
 
         <button
           type="button"
+          disabled={isSpecificDelivery}
           className={`${styles.methodBtn} ${
             payment.method === "cash" ? styles.active : ""
-          }`}
+          } ${isSpecificDelivery ? styles.disabled : ""}`}
           onClick={() => handleSelect("cash")}
         >
           Contraentrega – Efectivo
@@ -61,14 +60,21 @@ export default function PaymentSection() {
 
         <button
           type="button"
+          disabled={isSpecificDelivery}
           className={`${styles.methodBtn} ${
             payment.method === "pos" ? styles.active : ""
-          }`}
+          } ${isSpecificDelivery ? styles.disabled : ""}`}
           onClick={() => handleSelect("pos")}
         >
           Contraentrega – POS
         </button>
       </div>
+
+      {isSpecificDelivery && (
+        <div className={styles.restrictionNotice}>
+          Para entregas en horario específico solo se admite pago con tarjeta.
+        </div>
+      )}
 
       {payment.method === "card" && (
         <div className={styles.cardNotice}>

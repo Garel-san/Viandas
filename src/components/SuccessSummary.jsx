@@ -49,8 +49,14 @@ export default function SuccessSummary({
 
           <div className={styles.productInfo}>
             <p className={styles.productTitle}>{item.title}</p>
-            <p className={styles.productMeta}>Tamaño: {item.size}</p>
-            <p className={styles.productMeta}>Cantidad: {item.quantity}</p>
+
+            {/* 👇 NUEVO CONTENEDOR DE META */}
+            <div className={styles.productMetaGroup}>
+              <span className={styles.productMeta}>Tamaño: {item.size}</span>
+              <span className={styles.productMeta}>
+                Cantidad: {item.quantity}
+              </span>
+            </div>
           </div>
         </div>
       ))}

@@ -26,7 +26,7 @@
 
 /* Imagen empty */
 .emptyImage {
-  width: 200px; /* más presencia */
+  width: 210px; /* más presencia */
   max-width: 100%;
   opacity: 0.9; /* sutil, no compite */
   margin-right: 16px;

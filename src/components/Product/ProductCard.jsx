@@ -1,29 +1,18 @@
-import { useState } from "react";
 import ProductPreview from "./ProductPreview";
 import ProductConfigurator from "./ProductConfigurator";
 
-export default function ProductCard({ product }) {
-  const [mode, setMode] = useState("view"); // view | config
-
-  const handleOpenConfigurator = () => {
-    setMode("config");
-  };
-
-  const handleCancelConfigurator = () => {
-    setMode("view");
-  };
-
+export default function ProductCard({
+  product,
+  isConfigOpen,
+  onOpen,
+  onClose,
+}) {
   return (
     <>
-      {mode === "view" && (
-        <ProductPreview product={product} onAdd={handleOpenConfigurator} />
-      )}
+      {!isConfigOpen && <ProductPreview product={product} onAdd={onOpen} />}
 
-      {mode === "config" && (
-        <ProductConfigurator
-          product={product}
-          onCancel={handleCancelConfigurator}
-        />
+      {isConfigOpen && (
+        <ProductConfigurator product={product} onCancel={onClose} />
       )}
     </>
   );

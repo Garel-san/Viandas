@@ -12,9 +12,7 @@ export default function Banner2() {
         {/* DERECHA */}
         <div className={styles.content}>
           <h2>
-            Tu comida,
-            <br />
-            siempre fresca.
+            Tu comida, siempre fresca.
             <br />
             Nunca congelada.
           </h2>

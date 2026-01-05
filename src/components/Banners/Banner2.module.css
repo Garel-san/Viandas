@@ -8,9 +8,9 @@
 .container {
   width: 100%;
   max-width: 1000px;
-  min-height: 460px;
+  min-height: 700px;
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: 1fr 1fr;
   border-radius: 36px;
   overflow: hidden;
 }
@@ -33,8 +33,8 @@
    DERECHA (DESKTOP)
 ====================== */
 .content {
-  background: #f2a100;
-  padding: 56px 64px;
+  background: rgb(228, 153, 2);
+  padding: 10px 44px;
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -42,11 +42,12 @@
 }
 
 .content h2 {
-  font-size: 42px;
-  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  font-size: 50px;
+  font-weight: 600;
   line-height: 1;
   margin-bottom: 16px;
-  max-width: 460px;
+  max-width: 700px;
 }
 
 .features {
@@ -57,27 +58,29 @@
 
 .feature {
   display: grid;
-  grid-template-columns: 30px 1fr;
-  gap: 20px;
+  grid-template-columns: 48px 1fr; /* ⬅️ más aire real */
+  gap: 28px; /* ⬅️ separación visual cómoda */
   align-items: flex-start;
 }
 
 .feature img {
-  width: 36px;
+  width: 43px;
   height: auto;
   margin-top: 26px;
-  margin-left: -10px;
+  margin-left: 0; /* ⬅️ se elimina el hack */
 }
 
 .feature p {
-  font-size: 16px;
-  line-height: 1.5;
-  max-width: 400px;
-  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.2;
+  max-width: 320px;
+  color: #fff6e8;
 }
 
 .featureFirst img {
-  margin-top: 26px;
+  margin-top: 50px;
 }
 
 /* ======================
@@ -85,12 +88,12 @@
 ====================== */
 @media (max-width: 768px) {
   .wrapper {
-    margin: 0; /* sin márgenes verticales */
+    margin: 0;
     justify-content: flex-start;
   }
 
   .container {
-    width: 100vw; /* edge-to-edge real */
+    width: 100vw;
     max-width: none;
     grid-template-columns: 1fr;
     border-radius: 0;
@@ -99,41 +102,44 @@
 
   /* Imagen arriba */
   .imageBox img {
-    height: 240px;
+    height: 260px;
     border-radius: 0;
   }
 
-  /* Bloque naranja abajo */
+  /* Bloque naranja */
   .content {
-    padding: 24px 16px 28px; /* toca laterales */
+    padding: 30px 20px 32px; /* ⬅️ compacto real */
     justify-content: flex-start;
   }
 
   .content h2 {
-    font-size: 28px;
+    font-size: 32px;
     line-height: 1.05;
-    max-width: 260px;
-    margin-bottom: 18px;
+    max-width: 300px;
+    margin-bottom: 14px; /* ⬅️ más cerca */
+    margin-left: 6px;
   }
 
+  /* LISTA DE FEATURES */
   .features {
-    gap: 14px;
+    gap: 10px; /* ⬅️ separación real entre ítems */
   }
 
   .feature {
-    grid-template-columns: 26px 1fr;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: 34px 1fr; /* ⬅️ icono más chico = menos aire */
+    gap: 32px;
+    align-items: center; /* ⬅️ CLAVE: centra icono con texto */
   }
 
   .feature img {
-    width: 28px;
-    margin-top: 6px;
-    margin-left: 0;
+    width: 45px;
+    margin-top: 0; /* ⬅️ elimina cualquier desalineación */
   }
 
   .feature p {
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 16px;
+    line-height: 1.3; /* ⬅️ compacto como la referencia */
     max-width: none;
   }
 }

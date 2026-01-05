@@ -25,17 +25,28 @@ export default function Carrousel() {
   const cardRef = useRef(null);
   const trackRef = useRef(null);
 
-  /* 🔑 MEDICIÓN RESPONSIVE REAL */
+  /* ======================
+     DRAG (MOBILE)
+  ====================== */
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const prevTranslate = useRef(0);
+  const currentTranslate = useRef(0);
+
+  const isMobile = () => window.innerWidth <= 768;
+
+  /* ======================
+     MEDICIÓN RESPONSIVE
+  ====================== */
   useEffect(() => {
     const measure = () => {
       if (!cardRef.current) return;
 
-      const isMobile = window.innerWidth <= 768;
+      const card = cardRef.current;
+      const gap = parseFloat(getComputedStyle(card.parentElement).gap || 0);
 
-      const cardWidth = cardRef.current.getBoundingClientRect().width;
-      const gap = isMobile ? 12 : 24;
-
-      setStep(cardWidth + gap);
+      const width = card.getBoundingClientRect().width;
+      setStep(width + gap);
     };
 
     measure();
@@ -43,6 +54,9 @@ export default function Carrousel() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
+  /* ======================
+     CONTROLES
+  ====================== */
   const next = () => {
     setAnimate(true);
     setIndex((i) => i + 1);
@@ -53,7 +67,49 @@ export default function Carrousel() {
     setIndex((i) => i - 1);
   };
 
-  /* RESET INFINITO */
+  /* ======================
+     DRAG HANDLERS (MOBILE)
+  ====================== */
+  const onTouchStart = (e) => {
+    if (!isMobile()) return;
+
+    isDragging.current = true;
+    setAnimate(false);
+
+    startX.current = e.touches[0].clientX;
+    prevTranslate.current = -index * step;
+  };
+
+  const onTouchMove = (e) => {
+    if (!isDragging.current) return;
+
+    const currentX = e.touches[0].clientX;
+    const delta = currentX - startX.current;
+
+    currentTranslate.current = prevTranslate.current + delta;
+
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(${currentTranslate.current}px)`;
+    }
+  };
+
+  const onTouchEnd = () => {
+    if (!isDragging.current) return;
+
+    isDragging.current = false;
+
+    const movedBy = currentTranslate.current - prevTranslate.current;
+    const movedSlides = Math.round(movedBy / step);
+
+    let newIndex = index - movedSlides;
+
+    setAnimate(true);
+    setIndex(newIndex);
+  };
+
+  /* ======================
+     LOOP INFINITO
+  ====================== */
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -76,13 +132,29 @@ export default function Carrousel() {
     };
   }, [index, TOTAL]);
 
+  /* ======================
+     RENDER
+  ====================== */
   return (
     <section className={styles.wrapper}>
-      <button className={styles.arrowLeft} onClick={prev}>
-        ‹
-      </button>
+      <button
+        className={styles.arrowLeft}
+        onClick={prev}
+        aria-label="Anterior"
+      />
 
-      <div className={styles.viewport}>
+      <button
+        className={styles.arrowRight}
+        onClick={next}
+        aria-label="Siguiente"
+      />
+
+      <div
+        className={styles.viewport}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         <div
           ref={trackRef}
           className={styles.track}
@@ -103,10 +175,6 @@ export default function Carrousel() {
           ))}
         </div>
       </div>
-
-      <button className={styles.arrowRight} onClick={next}>
-        ›
-      </button>
     </section>
   );
 }

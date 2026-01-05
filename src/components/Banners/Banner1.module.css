@@ -2,83 +2,127 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  max-width: 1200px;
 }
+
+/* ======================
+   CONTENEDOR DESKTOP
+====================== */
 
 .banner {
   width: 100%;
   background: #ffffff;
   border-radius: 28px;
 
-  padding: 36px 48px;
-  gap: 48px;
+  padding: 60px 56px;
+  gap: 60px;
+  border: 3px solid #e5e7eb;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
+
+/* ======================
+   ITEM
+====================== */
 
 .item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
 }
 
-.item img {
-  width: 60px;
-  height: auto;
-  margin-bottom: 12px;
-}
-
-.item h3 {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 4px;
-  color: #000000;
-}
-
+.item h3,
 .item p {
-  font-size: 13px;
-  line-height: 1.2;
-  color: #333333;
-  max-width: 300px;
-  font-weight: 500;
+  margin: 0;
+}
+
+/* ICONO */
+.item img {
+  width: 82px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+/* TÍTULO */
+.item h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  color: #000000;
+
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+
+/* DESCRIPCIÓN */
+.item p {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  color: #000000;
+  font-weight: 400;
 }
 
 /* ======================
    MOBILE
 ====================== */
 @media (max-width: 768px) {
+  .bannerWrapper {
+    padding: 0;
+    margin-top: -90px;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+  }
+
   .banner {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    padding: 12px;
     background: transparent;
-    box-shadow: none;
-    justify-items: center;
+    border: none;
+    padding: 0;
+    gap: 28px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .item {
-    width: 100%;
-    max-width: 200px; /* ⬅️ más angosto */
     background: #ffffff;
-    border-radius: 16px;
-    padding: 16px 14px; /* ⬅️ más apretado */
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    border: 2px solid #e5e7eb;
+    border-radius: 26px;
+
+    /* 🔑 proporción vertical */
+    width: 62%;
+    max-width: 260px;
+    min-height: 360px;
+
+    padding: 32px 22px 36px;
+
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+
+    display: flex;
+    flex-direction: column;
   }
 
   .item img {
-    width: 80px; /* ⬅️ icono más grande */
-    margin-bottom: 6px;
+    width: 78px;
+    margin-bottom: 20px;
   }
 
   .item h3 {
     font-size: 18px;
-    margin-bottom: 2px;
+    white-space: normal;
+    margin-bottom: 12px;
+    font-weight: 800;
+    max-width: 160px;
   }
 
   .item p {
-    font-size: 13px;
-    line-height: 1.25;
-    max-width: none;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
   }
 }

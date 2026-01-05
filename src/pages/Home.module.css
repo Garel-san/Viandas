@@ -10,7 +10,7 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 154vh;
 }
 
 .heroBg {
@@ -29,11 +29,11 @@
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.65) 8%,
-    rgba(0, 0, 0, 0.38) 16%,
-    rgba(0, 0, 0, 0.18) 24%,
-    rgba(0, 0, 0, 0.06) 30%,
-    rgba(0, 0, 0, 0) 36%
+    rgba(0, 0, 0, 0.65) 5%,
+    rgba(0, 0, 0, 0.38) 10%,
+    rgba(0, 0, 0, 0.18) 15%,
+    rgba(0, 0, 0, 0.06) 19%,
+    rgba(0, 0, 0, 0) 23%
   );
   pointer-events: none;
 }
@@ -43,48 +43,66 @@
   z-index: 3;
   max-width: 720px;
   margin: 0 auto;
-  padding: 140px 24px 220px;
+  padding: 180px 20px 260px;
   text-align: center;
   color: #111;
 }
 
 .title {
-  font-size: 34px;
+  font-family: "Poppins", sans-serif;
   font-weight: 800;
+  font-size: 44px;
   line-height: 1.05;
-  max-width: 640px;
-  letter-spacing: -0.04em;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  margin-left: 30px;
+  letter-spacing: -0.035em;
+  max-width: 690px;
+  margin: 0 auto 22px;
+  padding-top: 76px;
+  margin-left: 10px;
 }
 
+/* ======================
+   SUBTÍTULO
+====================== */
+
 .subtitle {
-  max-width: 400px;
-  font-size: 18px;
-  line-height: 1.2;
-  color: #000000;
-  margin-bottom: 20px;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
-  margin-left: 140px;
+  display: inline-block;
+  font-size: 23px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #000;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ======================
+   CTA
+====================== */
+
+.ctaWrapper {
+  margin-top: 42px;
 }
 
 .ctaButton {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   background: #f59e0b;
   color: #ffffff;
   border: none;
   border-radius: 999px;
-  padding: 10px 28px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  padding: 10px 42px;
+  font-size: 16px;
+  letter-spacing: 0.1px;
+  font-weight: 500;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: -20px;
 }
 
 .ctaButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
 /* ======================
@@ -93,13 +111,11 @@
 
 .banner1Wrapper {
   position: absolute;
-  left: 50%;
-  bottom: -90px;
-  transform: translateX(-50%);
+  bottom: -60px; /* ⬅️ más negativo = más abajo */
   width: 100%;
-  max-width: 1100px;
   padding: 0 24px;
   z-index: 4;
+  margin-left: 50px;
 }
 
 /* ======================
@@ -117,7 +133,7 @@
   margin: 0 auto;
   padding: 0 24px;
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 330px 1fr;
   gap: 56px;
   align-items: center;
 }
@@ -129,18 +145,22 @@
 }
 
 .carrouselTitle {
-  font-size: 30px;
-  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  font-size: 39px;
+  font-weight: 600;
   line-height: 1;
   color: #f59e0b;
   margin-bottom: 10px;
 }
 
 .carrouselSubtitle {
-  font-size: 15px;
-  line-height: 1.4;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
   color: #000000;
-  max-width: 360px;
+  max-width: 250px;
+  font-weight: 400; /* Regular */
 }
 
 .carrouselWrapper {
@@ -190,13 +210,14 @@
 }
 
 .dietHeader {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto 40px;
   text-align: center;
 }
 
 .dietTitle {
-  font-size: 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 38px;
   font-weight: 700;
   line-height: 1.3;
   color: #111827;
@@ -204,10 +225,11 @@
 }
 
 .dietSubtitle {
-  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
   color: #000000;
-  letter-spacing: 0.14em;
-  font-weight: 400;
+  letter-spacing: 0.1em;
+  font-weight: 500;
 }
 
 .dietSelectorWrapper {
@@ -221,10 +243,10 @@
 .faqSection {
   width: 100%;
   background: #ffffff;
+  padding: 2px 20px;
 }
 
 .faqWrapper {
-  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -251,43 +273,80 @@
   /* ======================
      HERO (se mantiene)
   ====================== */
+  /* ======================
+     HERO (FIX REAL)
+  ====================== */
+
+  .hero {
+    min-height: 115vh; /* ⬅️ corta antes */
+  }
+
+  .heroBg {
+    height: 70%; /* ⬅️ menos expansión */
+    object-position: 25% 80%;
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.5) 6%,
+      rgba(0, 0, 0, 0.25) 12%,
+      rgba(0, 0, 0, 0.08) 18%,
+      rgba(0, 0, 0, 0) 24%
+    );
+  }
+
+  .ctaWrapper {
+    margin-top: 20px; /* antes 42px → acerca el botón al texto */
+  }
+
   .heroContent {
-    padding: 220px 20px 320px;
-    text-align: center;
+    padding: 200px 20px 240px;
   }
 
   .title {
+    font-size: 30px;
+    max-width: 350px;
     margin: 0 auto 12px;
-    font-size: 36px;
-    max-width: 320px;
   }
 
   .subtitle {
-    margin: 0 auto 18px;
     font-size: 16px;
-    max-width: 300px;
+    max-width: 350px;
+    margin: 0 auto 18px;
   }
 
   .ctaButton {
-    padding: 10px 40px;
+    padding: 10px 44px;
     font-size: 16px;
+    font-weight: 600;
   }
 
   /* ======================
      BANNER 1 (más abajo)
   ====================== */
   .banner1Wrapper {
-    bottom: -620px;
-    padding: 0 12px;
-  }
+    bottom: -760px;
 
+    /* 🔥 anulación del desktop */
+    margin-left: 0;
+
+    /* 🔥 centrado real */
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+    max-width: 360px;
+    padding: 0;
+  }
   /* ======================
      CARROUSEL (FIX REAL)
   ====================== */
 
   /* Sección completa */
   .carrouselSection {
-    padding: 700px 0 40px;
+    padding: 840px 0 40px; /* ⬅️ más aire entre Banner1 y título */
   }
 
   /* Rompemos cualquier límite de desktop */
@@ -308,18 +367,18 @@
   }
 
   .carrouselTitle {
-    font-size: 26px; /* ⬅️ más grande */
+    font-size: 28px; /* ⬅️ más grande */
     line-height: 1.15;
     max-width: 330px; /* ⬅️ más ancho */
     margin: 0 auto 10px;
     padding: 0; /* ⬅️ elimina corrimiento */
-    font-weight: 900;
+    font-weight: 700;
   }
 
   .carrouselSubtitle {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.4;
-    max-width: 300px; /* ⬅️ más ancho */
+    max-width: 320px; /* ⬅️ más ancho */
     margin: 0 auto;
     padding: 0; /* ⬅️ elimina corrimiento */
   }

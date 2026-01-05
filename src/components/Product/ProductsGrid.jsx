@@ -1,9 +1,11 @@
+import { useState } from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductsGrid.module.css";
 import { useProductsData } from "../../context/ProductsDataContext";
 
 export default function ProductsGrid() {
   const { filteredProducts } = useProductsData();
+  const [openProductId, setOpenProductId] = useState(null);
 
   if (!filteredProducts.length) {
     return (
@@ -16,7 +18,13 @@ export default function ProductsGrid() {
   return (
     <section className={styles.grid}>
       {filteredProducts.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          isConfigOpen={openProductId === product.id}
+          onOpen={() => setOpenProductId(product.id)}
+          onClose={() => setOpenProductId(null)}
+        />
       ))}
     </section>
   );

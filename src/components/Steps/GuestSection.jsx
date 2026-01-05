@@ -1,27 +1,27 @@
 import { useState, useMemo } from "react";
 import { useCheckout } from "../../context/CheckoutContext";
-
 import styles from "./GuestSection.module.css";
 
 export default function GuestSection() {
-  const { guest, completeGuest } = useCheckout();
+  const { guest, completeGuest, resetCheckout } = useCheckout();
 
+  const [mode, setMode] = useState("guest"); // guest | login
+
+  /* ======================
+     INVITADO
+  ====================== */
   const [form, setForm] = useState({
     fullName: guest.fullName,
     email: guest.email,
     phone: guest.phone,
   });
 
-  const handleChange = (e) => {
+  const handleGuestChange = (e) => {
     const { name, value } = e.target;
-
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const isFormValid = useMemo(() => {
+  const isGuestFormValid = useMemo(() => {
     return (
       form.fullName.trim() !== "" &&
       /\S+@\S+\.\S+/.test(form.email) &&
@@ -29,71 +29,141 @@ export default function GuestSection() {
     );
   }, [form]);
 
-  const handleSubmit = () => {
+  const handleGuestSubmit = () => {
     const ok = completeGuest(form);
     if (!ok) {
       alert("Datos inválidos. Verificá la información.");
     }
   };
 
+  /* ======================
+     LOGIN (placeholder)
+  ====================== */
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loginError, setLoginError] = useState("");
+
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleLoginSubmit = () => {
+    setLoginError("Esta funcionalidad aún está en proceso.");
+  };
+
+  /* ======================
+     RENDER
+  ====================== */
   return (
     <section className={styles.section}>
-      {/* Título */}
-      <h2 className={styles.title}>
-        <span className={styles.step}>1</span>
-        Continuar el pedido como invitado
-      </h2>
+      <p className={styles.subtitle}>
+        {mode === "guest"
+          ? "Completá los datos para continuar"
+          : "Ingresá con tu cuenta"}
+      </p>
 
-      <p className={styles.subtitle}>Completá los datos para continuar</p>
+      {/* ======================
+          FORMULARIOS
+      ====================== */}
+      {mode === "guest" && (
+        <div className={styles.formGrid}>
+          <div className={styles.field}>
+            <label>Nombre y apellido</label>
+            <input
+              type="text"
+              name="fullName"
+              value={form.fullName}
+              onChange={handleGuestChange}
+            />
+          </div>
 
-      {/* Grid de inputs */}
-      <div className={styles.formGrid}>
-        <div className={styles.field}>
-          <label>Nombre y apellido</label>
-          <input
-            type="text"
-            name="fullName"
-            value={form.fullName}
-            onChange={handleChange}
-          />
+          <div className={styles.field}>
+            <label>Correo electrónico</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleGuestChange}
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label>Teléfono</label>
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleGuestChange}
+            />
+          </div>
         </div>
+      )}
 
-        <div className={styles.field}>
-          <label>Correo electrónico</label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-          />
+      {mode === "login" && (
+        <div className={styles.formGrid}>
+          <div className={styles.field}>
+            <label>Correo electrónico</label>
+            <input
+              type="email"
+              name="email"
+              value={loginForm.email}
+              onChange={handleLoginChange}
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label>Contraseña</label>
+            <input
+              type="password"
+              name="password"
+              value={loginForm.password}
+              onChange={handleLoginChange}
+            />
+          </div>
         </div>
+      )}
 
-        <div className={styles.field}>
-          <label>Teléfono</label>
-          <input
-            type="tel"
-            name="phone"
-            value={form.phone}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
+      {/* ERROR LOGIN */}
+      {loginError && <p className={styles.loginError}>{loginError}</p>}
 
-      {/* Acciones */}
+      {/* ======================
+          ACTIONS
+      ====================== */}
       <div className={styles.actions}>
         <button
           type="button"
-          onClick={handleSubmit}
-          disabled={!isFormValid}
+          onClick={mode === "guest" ? handleGuestSubmit : handleLoginSubmit}
+          disabled={mode === "guest" && !isGuestFormValid}
           className={styles.primaryBtn}
         >
           CONTINUAR &gt;
         </button>
+
+        <button
+          type="button"
+          onClick={resetCheckout}
+          className={styles.secondaryBtn}
+        >
+          VOLVER
+        </button>
       </div>
 
-      {/* Placeholder futuro */}
-      <button className={styles.loginLink} disabled>
-        YA TENGO UNA CUENTA
+      {/* ======================
+          TOGGLE
+      ====================== */}
+      <button
+        className={styles.loginLink}
+        onClick={() => {
+          setMode((m) => (m === "guest" ? "login" : "guest"));
+          setLoginError("");
+          setLoginForm({ email: "", password: "" });
+        }}
+      >
+        {mode === "guest" ? "YA TENGO UNA CUENTA" : "SEGUIR COMO INVITADO"}
       </button>
     </section>
   );

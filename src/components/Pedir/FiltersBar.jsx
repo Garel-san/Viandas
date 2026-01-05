@@ -36,95 +36,108 @@ export default function FiltersBar() {
   const hasActiveFilters = activeFilters.length > 0 || searchValue;
 
   return (
-    <section className={styles.wrapper}>
-      {activeFilters.length > 0 && (
-        <div className={styles.filtersInfo}>
-          Filtros ({activeFilters.length})
-        </div>
-      )}
+    <>
+      {/* ================= FILTROS STICKY REAL ================= */}
+      <section className={styles.stickyWrapper}>
+        <div className={styles.wrapper}>
+          {/* ===== INFO FILTROS ===== */}
+          {activeFilters.length > 0 && (
+            <div className={styles.filtersInfo}>
+              Filtros ({activeFilters.length})
+            </div>
+          )}
 
-      {/* FILA SUPERIOR */}
-      <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
-        {topFilters.map((filter) => {
-          const isActive = activeFilters.includes(filter.id);
+          {/* ================= FILA SUPERIOR ================= */}
+          <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
+            {topFilters.map((filter) => {
+              const isActive = activeFilters.includes(filter.id);
 
-          return (
-            <button
-              key={filter.id}
-              type="button"
-              className={`${styles.chip} ${isActive ? styles.active : ""}`}
-              onClick={() => toggleFilter(filter.id)}
-            >
-              {filter.label}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className={styles.divider} />
-
-      {/* FILA INFERIOR */}
-      <div className={styles.bottomRow}>
-        <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
-          {bottomFilters.map((filter) => {
-            const isActive = activeFilters.includes(filter.id);
-
-            return (
-              <button
-                key={filter.id}
-                type="button"
-                className={`${styles.chip} ${isActive ? styles.active : ""}`}
-                onClick={() => toggleFilter(filter.id)}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* SEARCH + LIMPIAR AGRUPADOS */}
-        <div className={styles.searchGroup}>
-          <div
-            className={`${styles.search} ${isSearchOpen ? styles.open : ""}`}
-          >
-            <button
-              type="button"
-              className={styles.searchButton}
-              onClick={() => {
-                setIsSearchOpen(true);
-                setTimeout(() => inputRef.current?.focus(), 150);
-              }}
-            >
-              <FiSearch />
-            </button>
-
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Buscá por plato o ingrediente…"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onBlur={() => {
-                if (!searchValue) setIsSearchOpen(false);
-              }}
-            />
+              return (
+                <button
+                  key={filter.id}
+                  type="button"
+                  className={`${styles.chip} ${isActive ? styles.active : ""}`}
+                  onClick={() => toggleFilter(filter.id)}
+                >
+                  <span>{filter.label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {hasActiveFilters && (
-            <button
-              type="button"
-              className={styles.clearFilters}
-              onClick={() => {
-                setIsSearchOpen(false);
-                clearFilters();
-              }}
-            >
-              <FiX />
-              Limpiar
-            </button>
-          )}
+          <div className={styles.divider} />
+
+          {/* ================= FILA INFERIOR ================= */}
+          <div className={styles.bottomRow}>
+            <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
+              {bottomFilters.map((filter) => {
+                const isActive = activeFilters.includes(filter.id);
+
+                return (
+                  <button
+                    key={filter.id}
+                    type="button"
+                    className={`${styles.chip} ${
+                      isActive ? styles.active : ""
+                    }`}
+                    onClick={() => toggleFilter(filter.id)}
+                  >
+                    {filter.id === "favoritos" && (
+                      <span className={styles.favoriteStar} aria-hidden />
+                    )}
+                    <span>{filter.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* ================= SEARCH + LIMPIAR ================= */}
+            <div className={styles.searchGroup}>
+              <div
+                className={`${styles.search} ${
+                  isSearchOpen ? styles.open : ""
+                }`}
+              >
+                <button
+                  type="button"
+                  className={styles.searchButton}
+                  onClick={() => {
+                    setIsSearchOpen(true);
+                    setTimeout(() => inputRef.current?.focus(), 150);
+                  }}
+                >
+                  <FiSearch />
+                </button>
+
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Buscá por plato o ingrediente…"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  onBlur={() => {
+                    if (!searchValue) setIsSearchOpen(false);
+                  }}
+                />
+              </div>
+
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  className={styles.clearFilters}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    clearFilters();
+                  }}
+                >
+                  <FiX />
+                  Limpiar
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

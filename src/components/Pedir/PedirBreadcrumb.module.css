@@ -1,165 +1,210 @@
 /* ==========================
-   BASE (MOBILE FIRST)
+   BASE (DESKTOP)
 ========================== */
 .wrapper {
   position: sticky;
   top: 0;
   z-index: 1000;
-
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-
-  padding: 10px 16px;
-
+  padding: 6px 12px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 10px;
 }
 
 /* ==========================
-   LOGO (MOBILE)
+   LOGO
 ========================== */
 .logo {
   display: flex;
-  justify-content: center;
+  align-items: center;
   cursor: pointer;
-
-  /* para animar la “contracción” sin saltos */
-  max-height: 120px;
-  overflow: hidden;
-  transition: max-height 0.15s ease, opacity 0.1s ease, margin 0.15s ease;
 }
 
 .logo img {
-  height: 74px;
-  width: auto;
-  max-width: 100%;
-}
-
-/* ✅ OCULTAR LOGO CUANDO HAY SCROLL (SOLO MOBILE) */
-@media (max-width: 1023px) {
-  .logoHidden {
-    max-height: 0;
-    opacity: 0;
-    margin: 0;
-    pointer-events: none;
-  }
+  height: 52px;
+  margin-left: 50px;
 }
 
 /* ==========================
-   FLOW
+   STEPPER
 ========================== */
-.flow {
-  display: flex;
+.flowWrapper {
+  margin-left: 140px;
+  display: grid;
+  width: 100%;
+  max-width: 660px;
+  margin-right: 440px;
+
+  grid-template-columns: 16px 1fr 16px 1fr 16px;
+  grid-template-rows: auto auto;
+  row-gap: 1px;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
 }
 
 /* ==========================
-   STEP
+   DOT
 ========================== */
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-/* DOT */
 .dot {
-  width: 14px;
-  height: 14px;
+  grid-row: 1;
+  justify-self: center;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   border: 1px solid #d1d5db;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #ffffff;
 }
 
-.dot::after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #d1d5db;
+.dot1 {
+  grid-column: 1;
+}
+.dot2 {
+  grid-column: 3;
+}
+.dot3 {
+  grid-column: 5;
 }
 
-/* TEXT */
+/* ==========================
+   LINE
+========================== */
+.line {
+  grid-row: 1;
+  height: 2px;
+  background: #e5e7eb;
+  margin: 0 10px;
+}
+
+.line1 {
+  grid-column: 2;
+}
+.line2 {
+  grid-column: 4;
+}
+
+/* ==========================
+   TEXT
+========================== */
 .text {
-  font-size: 9px;
-  font-weight: 800;
-  color: #9ca3af;
+  grid-row: 2;
+  justify-self: center;
+  width: 100px;
   text-align: center;
-  max-width: 72px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #9ca3af;
 }
 
-/* ACTIVE */
+.text1 {
+  grid-column: 1;
+}
+.text2 {
+  grid-column: 3;
+}
+.text3 {
+  grid-column: 5;
+}
+
+/* ==========================
+   STATES
+========================== */
 .dot.active {
   border-color: #f59e0b;
 }
 
 .dot.active::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: #f59e0b;
 }
 
 .textActive {
   color: #f59e0b;
+  font-weight: 600;
 }
 
-/* COMPLETED */
-.dot.completed {
-  border-color: #374151;
-}
-
-.dot.completed::after {
-  background: #374151;
-}
-
-.textCompleted {
-  color: #374151;
-}
-
-/* LINE */
-.line {
-  width: 60px;
-  height: 2px;
-  background: #e5e7eb;
-}
-
-/* ==========================
-   DESKTOP (>= 1024px) — INTACTO
-========================== */
-@media (min-width: 1024px) {
+/* =========================================================
+   MOBILE
+========================================================= */
+@media (max-width: 1023px) {
+  /* ==========================
+     HEADER (LOGO)
+  ========================== */
   .wrapper {
-    flex-direction: row;
-    align-items: center;
-    padding: 6px 32px;
-    gap: 0;
+    position: relative;
+    display: block;
+    padding: 12px 0 0;
+    border-bottom: none;
+    transition: height 0.25s ease, opacity 0.2s ease;
+  }
+
+  /* Ocultación REAL del header cuando entra sticky */
+  .headerHidden {
+    height: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
   }
 
   .logo {
-    justify-content: flex-start;
-    max-height: none;
-    opacity: 1;
+    justify-content: center;
   }
 
   .logo img {
-    height: 36px;
+    height: 54px;
+    margin-left: 0;
   }
 
-  .flow {
-    margin-left: 260px;
-    gap: 18px;
+  /* ==========================
+     STEPPER STICKY REAL
+  ========================== */
+  .flowSticky {
+    position: sticky;
+    top: 0;
+    z-index: 950;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 16px 10px;
+
+    /* CLAVE: no empuja layout */
+    will-change: transform;
   }
 
+  /* Activo cuando isSticky === true */
+  .flowStickyActive {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  /* ==========================
+     GRID MOBILE
+  ========================== */
+  .flowWrapper {
+    margin: 0 auto !important;
+    max-width: 360px !important;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto 1fr auto;
+    grid-template-rows: auto auto;
+    row-gap: 6px;
+    align-items: center;
+  }
+
+  /* Líneas más largas sin mover dots */
   .line {
-    width: 200px;
+    height: 2px;
+    margin-left: -20px;
+    margin-right: -20px;
   }
 
+  /* Textos */
   .text {
-    max-width: none;
+    font-size: 14px;
+    text-align: center;
+    width: auto;
+    font-weight: 500;
   }
 }

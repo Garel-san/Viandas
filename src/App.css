@@ -1,0 +1,40 @@
+/* =========================
+   Scroll real y estable
+========================= */
+
+html,
+body {
+  overflow-y: auto;
+  height: auto;
+}
+
+/* =========================
+   Scroll invisible SOLO desktop
+========================= */
+
+@media (min-width: 1024px) {
+  /* Chrome / Edge / Safari */
+  body::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  /* Firefox */
+  body {
+    scrollbar-width: none;
+  }
+}
+
+/* =========================
+   Mobile: no tocar scrollbar
+========================= */
+
+@media (max-width: 1023px) {
+  body::-webkit-scrollbar {
+    width: initial;
+  }
+
+  body {
+    scrollbar-width: auto;
+  }
+}

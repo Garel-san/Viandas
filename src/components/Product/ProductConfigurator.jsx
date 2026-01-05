@@ -6,9 +6,6 @@ import { FiChevronDown, FiCheck } from "react-icons/fi";
 export default function ProductConfigurator({ product, onCancel }) {
   const { addItem } = useOrder();
 
-  /* ==========================
-     BREAKPOINT
-  ========================== */
   const [isMobile, setIsMobile] = useState(
     window.matchMedia("(max-width: 1023px)").matches
   );
@@ -20,16 +17,10 @@ export default function ProductConfigurator({ product, onCancel }) {
     return () => media.removeEventListener("change", listener);
   }, []);
 
-  /* ==========================
-     BLOQUEO SCROLL (SOLO MOBILE)
-  ========================== */
   useEffect(() => {
     if (!isMobile) return;
-
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => (document.body.style.overflow = "");
   }, [isMobile]);
 
   const {
@@ -54,6 +45,8 @@ export default function ProductConfigurator({ product, onCancel }) {
   }, [basePrice, size, quantity, garnishId, garnishes]);
 
   const handleConfirm = () => {
+    if (garnishId === null) return;
+
     const garnish = garnishes.find((g) => g.id === garnishId);
 
     addItem({
@@ -71,17 +64,15 @@ export default function ProductConfigurator({ product, onCancel }) {
     onCancel();
   };
 
-  /* ==========================
-     CONTENIDO REUTILIZABLE
-  ========================== */
   const content = (
     <>
+      {/* INFO XL */}
       <p className={styles.info}>*XL admite 2 guarniciones</p>
 
       {/* Tamaño + Cantidad */}
       <div className={styles.row}>
-        <div>
-          <p className={styles.label}>Tamaño</p>
+        <div className={styles.col}>
+          <p className={styles.labelCentered}>Tamaño</p>
           <div className={styles.pills}>
             <button
               className={size === "M" ? styles.active : ""}
@@ -101,8 +92,8 @@ export default function ProductConfigurator({ product, onCancel }) {
           </div>
         </div>
 
-        <div>
-          <p className={styles.label}>Cant.</p>
+        <div className={styles.col}>
+          <p className={styles.labelCentered}>Cant.</p>
           <div className={styles.qtyControls}>
             <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>
               −
@@ -128,6 +119,19 @@ export default function ProductConfigurator({ product, onCancel }) {
 
         {openGarnish && (
           <div className={styles.dropdownList}>
+            <div
+              className={`${styles.option} ${
+                garnishId === null ? styles.selected : ""
+              }`}
+              onClick={() => {
+                setGarnishId(null);
+                setOpenGarnish(false);
+              }}
+            >
+              <span>Sin guarnición</span>
+              {garnishId === null && <FiCheck />}
+            </div>
+
             {garnishes.map((g) => (
               <div
                 key={g.id}
@@ -150,7 +154,10 @@ export default function ProductConfigurator({ product, onCancel }) {
       {/* Total */}
       <div className={styles.total}>
         <span>Total:</span>
-        <strong>${totalPrice}</strong>
+        <div>
+          <span className={styles.currency}>$</span>
+          <strong>{totalPrice}</strong>
+        </div>
       </div>
 
       {/* Acciones */}
@@ -161,7 +168,7 @@ export default function ProductConfigurator({ product, onCancel }) {
 
         <button
           className={styles.confirm}
-          disabled={!quantity}
+          disabled={garnishId === null}
           onClick={handleConfirm}
         >
           AÑADIR +
@@ -170,12 +177,12 @@ export default function ProductConfigurator({ product, onCancel }) {
     </>
   );
 
-  /* ==========================
-     RENDER FINAL
-  ========================== */
   return isMobile ? (
     <div className={styles.overlay} onClick={onCancel}>
       <section className={styles.card} onClick={(e) => e.stopPropagation()}>
+        {/* TÍTULO SOLO EN MOBILE */}
+        <h3 className={styles.title}>{title}</h3>
+
         {content}
       </section>
     </div>

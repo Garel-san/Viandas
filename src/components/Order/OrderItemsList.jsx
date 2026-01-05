@@ -6,6 +6,7 @@ export default function OrderItemsList({
   onIncrement,
   onDecrement,
   onRemove,
+  mode = "editable", // 🔹 NUEVO: modo del listado
 }) {
   if (!orderItems.length) {
     return (
@@ -25,6 +26,7 @@ export default function OrderItemsList({
         <OrderItemCard
           key={`${item.productId}-${item.size}-${item.garnishId}`}
           item={item}
+          editable={mode === "editable"} // 🔹 NUEVO
           onIncrement={onIncrement}
           onDecrement={onDecrement}
           onRemove={onRemove}

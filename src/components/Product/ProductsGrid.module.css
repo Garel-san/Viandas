@@ -4,17 +4,20 @@
 .grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* ✅ 2 por fila en mobile */
-  gap: 14px;
+
+  /* 🔥 MOBILE: siempre 2 cards */
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 12px;
   align-items: stretch;
 }
 
 /* ───────────────────────────── */
-/* DESKTOP */
+/* DESKTOP (NO SE MODIFICA) */
 /* ───────────────────────────── */
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(4, 1fr); /* 🔒 intacto */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 18px;
   }
 }

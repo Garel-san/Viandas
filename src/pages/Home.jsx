@@ -42,9 +42,11 @@ export default function Home() {
               trabajo.
             </p>
 
-            <button className={styles.ctaButton} onClick={handleGoToPedir}>
-              HACER PEDIDO
-            </button>
+            <div className={styles.ctaWrapper}>
+              <button className={styles.ctaButton} onClick={handleGoToPedir}>
+                HACER PEDIDO
+              </button>
+            </div>
           </div>
 
           <div className={styles.banner1Wrapper}>

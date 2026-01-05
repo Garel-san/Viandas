@@ -7,77 +7,96 @@ export default function PedirBreadcrumb() {
   const navigate = useNavigate();
   const { checkoutStarted, step } = useCheckout();
 
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
   const handleGoHome = () => navigate("/");
 
   const currentStep = checkoutStarted ? step : 1;
-  const completedSteps = checkoutStarted
-    ? Array.from({ length: currentStep - 1 }, (_, i) => i + 1)
-    : [];
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    const onScroll = () => {
+      const y = window.scrollY;
 
-    onScroll(); // estado inicial
+      // Activa sticky apenas baja un poco
+      if (y > 8 && !isSticky) {
+        setIsSticky(true);
+      }
+
+      // SOLO vuelve al estado normal cuando está arriba del todo
+      if (y === 0 && isSticky) {
+        setIsSticky(false);
+      }
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isSticky]);
 
   return (
-    <header className={styles.wrapper}>
-      {/* LOGO */}
+    <>
+      {/* HEADER SOLO LOGO */}
+      <header
+        className={`${styles.wrapper} ${isSticky ? styles.headerHidden : ""}`}
+      >
+        <div
+          className={styles.logo}
+          onClick={handleGoHome}
+          aria-label="Volver al inicio"
+        >
+          <img src="/Logo/logo.png" alt="Viandas Hotel del Prado" />
+        </div>
+      </header>
+
+      {/* BARRA STICKY INDEPENDIENTE */}
       <div
-        className={`${styles.logo} ${isScrolled ? styles.logoHidden : ""}`}
-        onClick={handleGoHome}
-        aria-label="Volver al inicio"
+        className={`${styles.flowSticky} ${
+          isSticky ? styles.flowStickyActive : ""
+        }`}
       >
-        <img src="/Logo/logo.png" alt="Viandas Hotel del Prado" />
+        <nav className={styles.flowWrapper}>
+          {/* DOTS + LINES */}
+          <span
+            className={`${styles.dot} ${styles.dot1} ${
+              currentStep === 1 ? styles.active : ""
+            }`}
+          />
+          <span className={`${styles.line} ${styles.line1}`} />
+          <span
+            className={`${styles.dot} ${styles.dot2} ${
+              currentStep === 2 ? styles.active : ""
+            }`}
+          />
+          <span className={`${styles.line} ${styles.line2}`} />
+          <span
+            className={`${styles.dot} ${styles.dot3} ${
+              currentStep === 3 ? styles.active : ""
+            }`}
+          />
+
+          {/* TEXTOS */}
+          <span
+            className={`${styles.text} ${styles.text1} ${
+              currentStep === 1 ? styles.textActive : ""
+            }`}
+          >
+            Elegir platos
+          </span>
+          <span
+            className={`${styles.text} ${styles.text2} ${
+              currentStep === 2 ? styles.textActive : ""
+            }`}
+          >
+            Datos y pago
+          </span>
+          <span
+            className={`${styles.text} ${styles.text3} ${
+              currentStep === 3 ? styles.textActive : ""
+            }`}
+          >
+            Confirmación
+          </span>
+        </nav>
       </div>
-
-      {/* FLOW */}
-      <nav className={styles.flow}>
-        <Step
-          label="Elegir platos"
-          active={currentStep === 1}
-          completed={completedSteps.includes(1)}
-        />
-        <Line />
-        <Step
-          label="Datos y pago"
-          active={currentStep === 2}
-          completed={completedSteps.includes(2)}
-        />
-        <Line />
-        <Step
-          label="Confirmación"
-          active={currentStep === 3}
-          completed={completedSteps.includes(3)}
-        />
-      </nav>
-    </header>
+    </>
   );
-}
-
-function Step({ label, active, completed }) {
-  return (
-    <div className={styles.step}>
-      <span
-        className={`${styles.dot} ${active ? styles.active : ""} ${
-          completed ? styles.completed : ""
-        }`}
-      />
-      <span
-        className={`${styles.text} ${active ? styles.textActive : ""} ${
-          completed ? styles.textCompleted : ""
-        }`}
-      >
-        {label}
-      </span>
-    </div>
-  );
-}
-
-function Line() {
-  return <div className={styles.line} />;
 }

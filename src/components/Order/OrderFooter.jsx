@@ -9,12 +9,12 @@ export default function OrderFooter({
   isMinReached,
   onStartCheckout,
 }) {
-  const { startCheckout } = useCheckout();
+  const { startCheckout, checkoutStarted } = useCheckout(); // 🔹 usamos estado
 
   return (
     <footer className={styles.footer}>
       {/* Mensaje mínimo */}
-      {!isMinReached && (
+      {!isMinReached && !checkoutStarted && (
         <div className={styles.notice}>
           Elegí {faltantesParaMinimo}{" "}
           {faltantesParaMinimo === 1 ? "plato" : "platos"} más para continuar
@@ -46,16 +46,18 @@ export default function OrderFooter({
       </div>
 
       {/* CTA */}
-      <button
-        className={styles.cta}
-        disabled={!isMinReached}
-        onClick={() => {
-          onStartCheckout(); // cierra overlay (Order)
-          startCheckout(); // inicia checkout (Steps)
-        }}
-      >
-        PROCEDER AL PAGO
-      </button>
+      {!checkoutStarted && (
+        <button
+          className={styles.cta}
+          disabled={!isMinReached}
+          onClick={() => {
+            onStartCheckout(); // cierra overlay (Order)
+            startCheckout(); // inicia checkout (Steps)
+          }}
+        >
+          PROCEDER AL PAGO
+        </button>
+      )}
     </footer>
   );
 }
