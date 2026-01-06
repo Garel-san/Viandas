@@ -116,18 +116,11 @@
    RESPONSIVE (MOBILE)
 ========================= */
 @media (max-width: 1023px) {
-  /* 🔑 CLAVE: mover el scroll al contenedor */
-  html,
-  body {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .page {
-    height: 100vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  /* ⚠️ IMPORTANTE:
+     NO se toca html/body
+     NO se encierra el scroll
+     El scroll sigue siendo global
+  */
 
   .content {
     grid-template-columns: 1fr;

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import styles from "./SuccessSummary.module.css";
 
 export default function SuccessSummary({
@@ -8,6 +9,8 @@ export default function SuccessSummary({
   orderItems,
   total,
 }) {
+  const sliderRef = useRef(null);
+
   if (!result?.id) {
     return (
       <section className={styles.wrapper}>
@@ -18,6 +21,20 @@ export default function SuccessSummary({
       </section>
     );
   }
+
+  const scrollLeft = () => {
+    sliderRef.current?.scrollBy({
+      left: -260,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollRight = () => {
+    sliderRef.current?.scrollBy({
+      left: 260,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <section className={styles.wrapper}>
@@ -35,31 +52,63 @@ export default function SuccessSummary({
         Este es un resumen de lo que recibirás:
       </p>
 
-      {/* PRODUCTOS */}
-      {orderItems.map((item) => (
-        <div
-          key={`${item.productId}-${item.size}-${item.garnishId}`}
-          className={styles.productCard}
-        >
-          <img
-            src={item.image}
-            alt={item.title}
-            className={styles.productImage}
-          />
+      {/* ================== PRODUCTOS (SLIDER) ================== */}
+      <div className={styles.productsSliderWrapper}>
+        <div className={styles.productsSliderViewport}>
+          {/* Flecha izquierda */}
+          {orderItems.length > 1 && (
+            <button
+              type="button"
+              className={styles.sliderButtonLeft}
+              onClick={scrollLeft}
+              aria-label="Ver productos anteriores"
+            >
+              ‹
+            </button>
+          )}
 
-          <div className={styles.productInfo}>
-            <p className={styles.productTitle}>{item.title}</p>
+          {/* Track */}
+          <div className={styles.productsSlider} ref={sliderRef}>
+            {orderItems.map((item) => (
+              <div
+                key={`${item.productId}-${item.size}-${item.garnishId}`}
+                className={styles.productCard}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={styles.productImage}
+                />
 
-            {/* 👇 NUEVO CONTENEDOR DE META */}
-            <div className={styles.productMetaGroup}>
-              <span className={styles.productMeta}>Tamaño: {item.size}</span>
-              <span className={styles.productMeta}>
-                Cantidad: {item.quantity}
-              </span>
-            </div>
+                <div className={styles.productInfo}>
+                  <p className={styles.productTitle}>{item.title}</p>
+
+                  <div className={styles.productMetaGroup}>
+                    <span className={styles.productMeta}>
+                      Tamaño: {item.size}
+                    </span>
+                    <span className={styles.productMeta}>
+                      Cantidad: {item.quantity}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
+
+          {/* Flecha derecha */}
+          {orderItems.length > 1 && (
+            <button
+              type="button"
+              className={styles.sliderButtonRight}
+              onClick={scrollRight}
+              aria-label="Ver productos siguientes"
+            >
+              ›
+            </button>
+          )}
         </div>
-      ))}
+      </div>
 
       {/* INFO */}
       <div className={styles.infoList}>

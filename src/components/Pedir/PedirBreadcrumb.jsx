@@ -7,96 +7,120 @@ export default function PedirBreadcrumb() {
   const navigate = useNavigate();
   const { checkoutStarted, step } = useCheckout();
 
-  const [isSticky, setIsSticky] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleGoHome = () => navigate("/");
 
   const currentStep = checkoutStarted ? step : 1;
 
+  /* ==========================
+     DETECTAR MOBILE
+  ========================== */
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  /* ==========================
+     SCROLL
+  ========================== */
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY;
-
-      // Activa sticky apenas baja un poco
-      if (y > 8 && !isSticky) {
-        setIsSticky(true);
-      }
-
-      // SOLO vuelve al estado normal cuando está arriba del todo
-      if (y === 0 && isSticky) {
-        setIsSticky(false);
-      }
+      setIsScrolled(window.scrollY > 8);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isSticky]);
+  }, []);
 
   return (
-    <>
-      {/* HEADER SOLO LOGO */}
-      <header
-        className={`${styles.wrapper} ${isSticky ? styles.headerHidden : ""}`}
-      >
-        <div
-          className={styles.logo}
-          onClick={handleGoHome}
-          aria-label="Volver al inicio"
-        >
-          <img src="/Logo/logo.png" alt="Viandas Hotel del Prado" />
-        </div>
-      </header>
-
-      {/* BARRA STICKY INDEPENDIENTE */}
+    <div className={styles.wrapper}>
+      {/* LOGO */}
       <div
-        className={`${styles.flowSticky} ${
-          isSticky ? styles.flowStickyActive : ""
+        className={`${styles.logo} ${
+          isMobile && isScrolled ? styles.logoHidden : ""
+        }`}
+        onClick={handleGoHome}
+        aria-label="Volver al inicio"
+      >
+        <img src="/Logo/logo.png" alt="Viandas Hotel del Prado" />
+      </div>
+
+      {/* STEPPER */}
+      <nav
+        className={`${styles.flowWrapper} ${
+          isMobile && isScrolled ? styles.flowSticky : ""
         }`}
       >
-        <nav className={styles.flowWrapper}>
-          {/* DOTS + LINES */}
+        {/* DOTS + LINES */}
+        <span
+          className={`${styles.dot} ${styles.dot1} ${
+            currentStep === 1 ? styles.active : ""
+          }`}
+        >
           <span
-            className={`${styles.dot} ${styles.dot1} ${
-              currentStep === 1 ? styles.active : ""
+            className={`${styles.innerDot} ${
+              currentStep === 1 ? styles.innerActive : styles.innerInactive
             }`}
           />
-          <span className={`${styles.line} ${styles.line1}`} />
-          <span
-            className={`${styles.dot} ${styles.dot2} ${
-              currentStep === 2 ? styles.active : ""
-            }`}
-          />
-          <span className={`${styles.line} ${styles.line2}`} />
-          <span
-            className={`${styles.dot} ${styles.dot3} ${
-              currentStep === 3 ? styles.active : ""
-            }`}
-          />
+        </span>
 
-          {/* TEXTOS */}
+        <span className={`${styles.line} ${styles.line1}`} />
+
+        <span
+          className={`${styles.dot} ${styles.dot2} ${
+            currentStep === 2 ? styles.active : ""
+          }`}
+        >
           <span
-            className={`${styles.text} ${styles.text1} ${
-              currentStep === 1 ? styles.textActive : ""
+            className={`${styles.innerDot} ${
+              currentStep === 2 ? styles.innerActive : styles.innerInactive
             }`}
-          >
-            Elegir platos
-          </span>
+          />
+        </span>
+
+        <span className={`${styles.line} ${styles.line2}`} />
+
+        <span
+          className={`${styles.dot} ${styles.dot3} ${
+            currentStep === 3 ? styles.active : ""
+          }`}
+        >
           <span
-            className={`${styles.text} ${styles.text2} ${
-              currentStep === 2 ? styles.textActive : ""
+            className={`${styles.innerDot} ${
+              currentStep === 3 ? styles.innerActive : styles.innerInactive
             }`}
-          >
-            Datos y pago
-          </span>
-          <span
-            className={`${styles.text} ${styles.text3} ${
-              currentStep === 3 ? styles.textActive : ""
-            }`}
-          >
-            Confirmación
-          </span>
-        </nav>
-      </div>
-    </>
+          />
+        </span>
+
+        {/* TEXTOS */}
+        <span
+          className={`${styles.text} ${styles.text1} ${
+            currentStep === 1 ? styles.textActive : ""
+          }`}
+        >
+          Elegir platos
+        </span>
+        <span
+          className={`${styles.text} ${styles.text2} ${
+            currentStep === 2 ? styles.textActive : ""
+          }`}
+        >
+          Datos y pago
+        </span>
+        <span
+          className={`${styles.text} ${styles.text3} ${
+            currentStep === 3 ? styles.textActive : ""
+          }`}
+        >
+          Confirmación
+        </span>
+      </nav>
+    </div>
   );
 }

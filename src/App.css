@@ -1,40 +1,40 @@
 /* =========================
-   Scroll real y estable
+   Reset mínimo y neutro
+========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* =========================
+   Base documento
 ========================= */
 
 html,
 body {
-  overflow-y: auto;
-  height: auto;
+  margin: 0;
+  padding: 0;
 }
 
 /* =========================
-   Scroll invisible SOLO desktop
+   Tipografía base heredable
 ========================= */
 
-@media (min-width: 1024px) {
-  /* Chrome / Edge / Safari */
-  body::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-  }
-
-  /* Firefox */
-  body {
-    scrollbar-width: none;
-  }
+body {
+  font-family: inherit;
+  background: transparent;
+  color: inherit;
 }
 
 /* =========================
-   Mobile: no tocar scrollbar
+   Formularios heredan fuente
 ========================= */
 
-@media (max-width: 1023px) {
-  body::-webkit-scrollbar {
-    width: initial;
-  }
-
-  body {
-    scrollbar-width: auto;
-  }
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }

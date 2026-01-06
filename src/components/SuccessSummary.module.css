@@ -1,9 +1,11 @@
 .wrapper {
-  max-width: 820px;
+  width: 100%;
   padding: 0px 24px;
 }
 
-/* Header */
+/* ======================
+   HEADER
+====================== */
 .header {
   display: flex;
   align-items: center;
@@ -36,13 +38,95 @@
   font-weight: 800;
 }
 
-/* Product card */
+/* ======================
+   PRODUCT SLIDER
+====================== */
+
+/* Wrapper general (solo spacing vertical) */
+.productsSliderWrapper {
+  margin-bottom: 32px;
+}
+
+/* 🔑 Viewport real: referencia de flechas */
+.productsSliderViewport {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0 32px; /* espacio interno real para flechas */
+}
+
+/* Track real */
+.productsSlider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  padding: 4px 0 12px;
+
+  scrollbar-width: none;
+}
+
+.productsSlider::-webkit-scrollbar {
+  display: none;
+}
+
+/* ======================
+   SLIDER BUTTONS
+====================== */
+.sliderButtonLeft,
+.sliderButtonRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+
+  color: #111827;
+  font-size: 22px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 5;
+  pointer-events: auto;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 🔑 Ahora se posicionan respecto al contenido real */
+.sliderButtonLeft {
+  left: -10px;
+}
+
+.sliderButtonRight {
+  right: -10px;
+}
+
+.sliderButtonLeft:hover,
+.sliderButtonRight:hover {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+}
+
+/* ======================
+   PRODUCT CARD
+====================== */
 .productCard {
   display: flex;
   gap: 16px;
   width: 260px;
   padding: 16px;
-  margin-bottom: 24px;
+  flex-shrink: 0;
 
   background-color: #ffffff;
   border-radius: 16px;
@@ -67,12 +151,22 @@
   color: #f59e0b;
 }
 
+.productMetaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 6px;
+}
+
 .productMeta {
-  font-size: 12px;
+  margin: 0;
+  font-size: 14px;
   color: #6b7280;
 }
 
-/* Info list */
+/* ======================
+   INFO LIST
+====================== */
 .infoList {
   display: flex;
   flex-direction: column;
@@ -93,7 +187,9 @@
   color: #f59e0b;
 }
 
-/* Actions (usadas desde Success.jsx) */
+/* ======================
+   ACTIONS
+====================== */
 .actions {
   display: flex;
   gap: 12px;
@@ -104,10 +200,8 @@
   padding: 10px 20px;
   border: none;
   border-radius: 999px;
-
   background-color: #f59e0b;
   color: #ffffff;
-
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -117,28 +211,11 @@
   padding: 10px 20px;
   border-radius: 999px;
   border: 1px solid #f59e0b;
-
   background-color: transparent;
   color: #f59e0b;
-
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-}
-
-/* Agrupador de tamaño + cantidad */
-.productMetaGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 2px; /* 👈 separación visual fina */
-  margin-top: 6px;
-}
-
-/* Quitamos márgenes por defecto */
-.productMeta {
-  margin: 0;
-  font-size: 14px;
-  color: #6b7280;
 }
 
 /* ===============================
@@ -150,7 +227,6 @@
     padding: 24px 16px;
   }
 
-  /* Header apilado */
   .header {
     align-items: flex-start;
     gap: 10px;
@@ -166,11 +242,25 @@
     margin-bottom: 20px;
   }
 
-  /* Product cards a ancho completo */
+  /* Mobile: cards en vertical */
+  .productsSliderViewport {
+    padding: 0;
+  }
+
+  .productsSlider {
+    flex-direction: column;
+    gap: 12px;
+    overflow: visible;
+  }
+
+  .sliderButtonLeft,
+  .sliderButtonRight {
+    display: none;
+  }
+
   .productCard {
     width: 100%;
     padding: 14px;
-    margin-bottom: 16px;
   }
 
   .productImage {
@@ -186,7 +276,6 @@
     font-size: 13px;
   }
 
-  /* Info list más legible */
   .infoList {
     gap: 12px;
     margin-bottom: 28px;
@@ -198,7 +287,6 @@
     align-items: flex-start;
   }
 
-  /* Acciones apiladas */
   .actions {
     flex-direction: column;
     align-items: stretch;

@@ -1,9 +1,15 @@
 /* ======================
-   STICKY WRAPPER (NUEVO)
+   STICKY WRAPPER
 ====================== */
+
+/* ======================
+   STICKY WRAPPER
+====================== */
+
+/* ✅ DESKTOP: sticky debajo del breadcrumb */
 .stickyWrapper {
   position: sticky;
-  top: 0; /* se ajusta en mobile */
+  top: 65px; /* altura real del PedirBreadcrumb en desktop */
   z-index: 900;
   background: #ffffff;
 }
@@ -44,7 +50,7 @@
 .chipsRow {
   display: flex;
   gap: 8px;
-  margin-left: 36px;
+  margin-bottom: 3px;
 }
 
 /* ======================
@@ -132,8 +138,7 @@
   height: 1px;
   background: #bdc2de;
   margin: 2px 0;
-  max-width: 1000px;
-  margin-left: 20px;
+  max-width: 910px;
 }
 
 /* ======================
@@ -249,9 +254,10 @@
    MOBILE
 ====================== */
 @media (max-width: 1023px) {
-  /* Sticky debajo del stepper */
+  /* ✅ MOBILE: sticky real debajo del breadcrumb */
   .stickyWrapper {
-    top: 62px; /* altura real del PedirBreadcrumb sticky */
+    position: sticky;
+    top: 76px; /* altura real del PedirBreadcrumb */
     z-index: 900;
   }
 

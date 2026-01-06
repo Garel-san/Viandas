@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
   padding: 6px 12px;
@@ -27,14 +28,14 @@
 }
 
 /* ==========================
-   STEPPER
+   STEPPER (DESKTOP)
 ========================== */
 .flowWrapper {
   margin-left: 140px;
+  margin-right: 440px;
   display: grid;
   width: 100%;
   max-width: 660px;
-  margin-right: 440px;
 
   grid-template-columns: 16px 1fr 16px 1fr 16px;
   grid-template-rows: auto auto;
@@ -53,6 +54,10 @@
   border-radius: 50%;
   border: 1px solid #d1d5db;
   background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dot1 {
@@ -113,17 +118,28 @@
   border-color: #f59e0b;
 }
 
-.dot.active::after {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #f59e0b;
-}
-
 .textActive {
   color: #f59e0b;
   font-weight: 600;
+}
+
+/* ==========================
+   INNER DOT
+========================== */
+.innerDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Step activo */
+.innerActive {
+  background: #f59e0b;
+}
+
+/* Steps inactivos */
+.innerInactive {
+  background: #d1d5db;
 }
 
 /* =========================================================
@@ -131,24 +147,18 @@
 ========================================================= */
 @media (max-width: 1023px) {
   /* ==========================
-     HEADER (LOGO)
+     HEADER
   ========================== */
   .wrapper {
-    position: relative;
     display: block;
     padding: 12px 0 0;
     border-bottom: none;
-    transition: height 0.25s ease, opacity 0.2s ease;
+    background: #ffffff;
   }
 
-  /* Ocultación REAL del header cuando entra sticky */
-  .headerHidden {
-    height: 0;
-    padding: 0;
-    opacity: 0;
-    overflow: hidden;
-  }
-
+  /* ==========================
+     LOGO (MOBILE)
+  ========================== */
   .logo {
     justify-content: center;
   }
@@ -158,32 +168,17 @@
     margin-left: 0;
   }
 
-  /* ==========================
-     STEPPER STICKY REAL
-  ========================== */
-  .flowSticky {
-    position: sticky;
-    top: 0;
-    z-index: 950;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 12px 16px 10px;
-
-    /* CLAVE: no empuja layout */
-    will-change: transform;
-  }
-
-  /* Activo cuando isSticky === true */
-  .flowStickyActive {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  /* Logo oculto cuando isMobile && isScrolled */
+  .logoHidden {
+    display: none;
   }
 
   /* ==========================
-     GRID MOBILE
+     STEPPER (MOBILE)
   ========================== */
   .flowWrapper {
-    margin: 0 auto !important;
-    max-width: 360px !important;
+    margin: 0 auto;
+    max-width: 360px;
     width: 100%;
 
     display: grid;
@@ -191,20 +186,31 @@
     grid-template-rows: auto auto;
     row-gap: 6px;
     align-items: center;
+
+    background: #ffffff;
+    padding: 12px 16px 10px;
   }
 
-  /* Líneas más largas sin mover dots */
+  /* Elevación sticky del stepper */
+  .flowSticky {
+    position: sticky;
+    top: 0;
+    z-index: 950;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Líneas más largas */
   .line {
-    height: 2px;
     margin-left: -20px;
     margin-right: -20px;
   }
 
   /* Textos */
   .text {
-    font-size: 14px;
-    text-align: center;
     width: auto;
+    font-size: 14px;
     font-weight: 500;
+    text-align: center;
   }
 }

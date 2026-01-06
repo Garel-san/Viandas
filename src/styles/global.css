@@ -1,9 +1,17 @@
 @import "./fonts.css";
 
+/* =========================
+   Variables globales
+========================= */
+
 :root {
   --font-primary: "MarkPro", system-ui, sans-serif;
   --font-secondary: "ABeeZee", system-ui, sans-serif;
 }
+
+/* =========================
+   Reset base
+========================= */
 
 *,
 *::before,
@@ -11,15 +19,21 @@
   box-sizing: border-box;
 }
 
+/* =========================
+   Base tipográfica global
+========================= */
+
 body {
   margin: 0;
   font-family: var(--font-primary);
   font-weight: 400;
-  background-color: #ffffff;
   color: #111;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
 }
+
+/* =========================
+   Formularios heredan fuente
+========================= */
 
 button,
 input,
