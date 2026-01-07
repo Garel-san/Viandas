@@ -424,3 +424,61 @@
     color: #374151; /* gris legible */
   }
 }
+
+/* ======================
+   FULL HD / XL HERO FIX
+====================== */
+
+@media (min-width: 1920px) {
+  .hero {
+    min-height: 90vh; /* ⬅️ corta antes */
+  }
+
+  .heroBg {
+    height: 100%;
+    object-fit: contain; /* ⬅️ se ve completa */
+    object-position: center top;
+    background-color: #ffffff; /* fallback limpio */
+  }
+
+  .heroContent {
+    padding: 220px 20px 180px; /* ⬅️ ajusta el bloque de texto */
+  }
+
+  .banner1Wrapper {
+    margin-left: 110px;
+  }
+
+  .carrouselInner {
+    max-width: 1600px; /* ⬅️ bloque más ancho */
+    grid-template-columns: 380px 1fr; /* ⬅️ texto un poco más ancho */
+    gap: 64px; /* ⬅️ aire balanceado */
+    padding: 0 40px; /* ⬅️ simetría lateral */
+  }
+
+  .carrouselText {
+    width: fit-content; /* ⬅️ se contrae a su contenido */
+    max-width: 360px; /* ⬅️ límite visual controlado */
+    align-items: flex-start;
+    font-weight: 800;
+  }
+
+  .carrouselSubtitle {
+    max-width: 300px; /* ⬅️ evita texto estirado */
+  }
+
+  .banner2Wrapper {
+    max-width: 1600px; /* ⬅️ libera el ancho real */
+  }
+
+  .faqSection {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .faqWrapper {
+    max-width: 1600px; /* ⬅️ mismo carril XL que Banner2 / Carrousel */
+    margin: 0 auto;
+    padding: 0 120px; /* ⬅️ aire elegante, no toca paredes */
+  }
+}

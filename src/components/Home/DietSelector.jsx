@@ -172,23 +172,26 @@ export default function DietSelector() {
         style={{ backgroundImage: `url(${content.fondo})` }}
       >
         <div className={styles.left}>
-          <h2>{content.title}</h2>
-          <p>{content.desc}</p>
+          {/* 👇 NUEVO WRAPPER INTERNO */}
+          <div className={styles.leftContent}>
+            <h2>{content.title}</h2>
+            <p>{content.desc}</p>
 
-          <div className={styles.stats}>
-            {content.stats.map((s, i) => (
-              <div key={i} className={styles.stat}>
-                <strong>{s.value}</strong>
-                <span>{s.label}</span>
-              </div>
-            ))}
+            <div className={styles.stats}>
+              {content.stats.map((s, i) => (
+                <div key={i} className={styles.stat}>
+                  <strong>{s.value}</strong>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <span className={styles.note}>Valores nutricionales promedio</span>
+
+            <button className={styles.cta} onClick={handleGoToPedir}>
+              ARMAR MI PACK DE VIANDAS
+            </button>
           </div>
-
-          <span className={styles.note}>Valores nutricionales promedio</span>
-
-          <button className={styles.cta} onClick={handleGoToPedir}>
-            ARMAR MI PACK DE VIANDAS
-          </button>
         </div>
 
         <div className={styles.right}>

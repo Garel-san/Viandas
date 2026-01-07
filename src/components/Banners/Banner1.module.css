@@ -126,3 +126,34 @@
     font-weight: 400;
   }
 }
+
+/* ======================
+   FULL HD / XL BANNER 1
+====================== */
+
+@media (min-width: 1920px) {
+  .bannerWrapper {
+    max-width: 1650px; /* ⬅️ más ancho visual */
+  }
+
+  .banner {
+    padding: 64px 92px; /* ⬅️ un poco más de aire lateral */
+    gap: 98px; /* ⬅️ menos separación, más compacto */
+  }
+
+  .item {
+    max-width: 360px; /* ⬅️ concentra el contenido */
+  }
+
+  .item h3 {
+    white-space: normal; /* ⬅️ permite mejor balance */
+    max-width: 340px;
+    font-weight: 700;
+  }
+
+  .item p {
+    max-width: 320px; /* ⬅️ texto más compacto */
+    line-height: 1.55;
+    font-weight: 500;
+  }
+}

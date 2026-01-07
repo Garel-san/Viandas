@@ -72,11 +72,13 @@
 .right {
   position: sticky;
   top: 72px;
-  align-self: flex-start;
-  display: flex;
-  box-sizing: border-box;
-}
 
+  align-self: stretch;
+  height: calc(100vh - 72px);
+
+  display: flex;
+  flex-direction: column;
+}
 /* =========================
    LOADER OVERLAY
 ========================= */
@@ -88,8 +90,7 @@
 
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 80px;
+  align-items: center;
 }
 
 .loader {
@@ -157,5 +158,23 @@
     font-size: 15px;
     line-height: 1.4;
     font-weight: 500;
+  }
+}
+
+/* =========================
+   FULL HD LAYOUT
+========================= */
+@media (min-width: 1440px) {
+  .content {
+    grid-template-columns: minmax(0, 1fr) 420px;
+  }
+
+  /* Ajuste óptico del título en Full HD */
+  .intro {
+    max-width: 900px;
+    transform: translateX(40px);
+  }
+  .left {
+    padding-right: 96px;
   }
 }

@@ -143,3 +143,51 @@
     max-width: none;
   }
 }
+
+/* ======================
+   FULL HD / XL BANNER 2
+====================== */
+
+/* ======================
+   FULL HD / XL BANNER 2 (VERSIÓN IDEAL)
+====================== */
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1400px;
+    grid-template-columns: 0.35fr 0.65fr; /* ⬅️ CLAVE: 35% / 65% */
+    min-height: 600px; /* ⬅️ aún más bajo */
+  }
+
+  .content {
+    padding: 20px 72px; /* ⬅️ compacto vertical, amplio horizontal */
+    justify-content: center;
+  }
+
+  .content h2 {
+    max-width: 490px; /* ⬅️ título se estira lateralmente */
+    margin-bottom: 10px;
+  }
+
+  .features {
+    gap: 8px; /* ⬅️ aún más compacto */
+  }
+
+  .feature p {
+    max-width: 520px; /* ⬅️ textos más horizontales */
+    line-height: 1.25;
+    font-weight: 400;
+  }
+
+  .feature img {
+    margin-top: 6px;
+  }
+
+  .featureFirst img {
+    margin-top: 14px;
+  }
+
+  .imageBox img {
+    object-position: center center;
+  }
+}

@@ -38,3 +38,36 @@
   font-weight: 500;
   color: #6b7280;
 }
+
+/* ───────────────────────────── */
+/* FULL HD (1440px+) */
+/* Fuerza EXACTAMENTE 4 productos */
+/* ───────────────────────────── */
+/* ───────────────────────────── */
+/* FULL HD (1440px+) */
+/* 4 productos, más angostos */
+/* ───────────────────────────── */
+@media (min-width: 1440px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(220px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+}
+
+/* ───────────────────────────── */
+/* ESTADO VACÍO */
+/* ───────────────────────────── */
+.empty {
+  width: 100%;
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty p {
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
+}

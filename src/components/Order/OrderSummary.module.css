@@ -4,8 +4,11 @@
 .sidebar {
   width: 100%;
   background: transparent;
+
   display: flex;
   flex-direction: column;
+
+  height: 100%;
 }
 
 /* ==========================
@@ -22,10 +25,12 @@
 ========================== */
 @media (min-width: 1024px) {
   .sidebar {
-    width: 100%;
     position: sticky;
+    top: 72px;
 
-    height: calc(88vh);
+    /* ocupa TODO el alto disponible del contenedor derecho */
+    height: calc(100vh - 72px);
+
     border-left: 1px solid #e5e5e5;
   }
 }

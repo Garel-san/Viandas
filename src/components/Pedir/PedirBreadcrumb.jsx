@@ -57,43 +57,55 @@ export default function PedirBreadcrumb() {
           isMobile && isScrolled ? styles.flowSticky : ""
         }`}
       >
-        {/* DOTS + LINES */}
+        {/* STEP 1 */}
         <span
           className={`${styles.dot} ${styles.dot1} ${
-            currentStep === 1 ? styles.active : ""
+            currentStep >= 1 ? styles.active : ""
           }`}
         >
           <span
             className={`${styles.innerDot} ${
-              currentStep === 1 ? styles.innerActive : styles.innerInactive
+              currentStep >= 1 ? styles.innerActive : styles.innerInactive
             }`}
           />
         </span>
 
-        <span className={`${styles.line} ${styles.line1}`} />
+        {/* LINE 1 */}
+        <span
+          className={`${styles.line} ${styles.line1} ${
+            currentStep >= 2 ? styles.lineActive : ""
+          }`}
+        />
 
+        {/* STEP 2 */}
         <span
           className={`${styles.dot} ${styles.dot2} ${
-            currentStep === 2 ? styles.active : ""
+            currentStep >= 2 ? styles.active : ""
           }`}
         >
           <span
             className={`${styles.innerDot} ${
-              currentStep === 2 ? styles.innerActive : styles.innerInactive
+              currentStep >= 2 ? styles.innerActive : styles.innerInactive
             }`}
           />
         </span>
 
-        <span className={`${styles.line} ${styles.line2}`} />
+        {/* LINE 2 */}
+        <span
+          className={`${styles.line} ${styles.line2} ${
+            currentStep >= 3 ? styles.lineActive : ""
+          }`}
+        />
 
+        {/* STEP 3 */}
         <span
           className={`${styles.dot} ${styles.dot3} ${
-            currentStep === 3 ? styles.active : ""
+            currentStep >= 3 ? styles.active : ""
           }`}
         >
           <span
             className={`${styles.innerDot} ${
-              currentStep === 3 ? styles.innerActive : styles.innerInactive
+              currentStep >= 3 ? styles.innerActive : styles.innerInactive
             }`}
           />
         </span>
@@ -101,21 +113,23 @@ export default function PedirBreadcrumb() {
         {/* TEXTOS */}
         <span
           className={`${styles.text} ${styles.text1} ${
-            currentStep === 1 ? styles.textActive : ""
+            currentStep >= 1 ? styles.textActive : ""
           }`}
         >
           Elegir platos
         </span>
+
         <span
           className={`${styles.text} ${styles.text2} ${
-            currentStep === 2 ? styles.textActive : ""
+            currentStep >= 2 ? styles.textActive : ""
           }`}
         >
           Datos y pago
         </span>
+
         <span
           className={`${styles.text} ${styles.text3} ${
-            currentStep === 3 ? styles.textActive : ""
+            currentStep >= 3 ? styles.textActive : ""
           }`}
         >
           Confirmación

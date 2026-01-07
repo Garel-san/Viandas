@@ -192,3 +192,38 @@
     border-right: 2px solid #fff;
   }
 }
+
+/* ======================
+   FULL HD / XL CARROUSEL
+====================== */
+
+@media (min-width: 1920px) {
+  /* Cards más anchas (no tan altas) */
+  .card {
+    flex: 0 0 260px; /* ⬅️ más ancho */
+    width: 260px;
+  }
+
+  .card img {
+    height: 360px; /* ⬅️ NO se estira verticalmente */
+  }
+
+  /* Separación coherente */
+  .track {
+    gap: 22px;
+  }
+
+  /* Viewport exacto para 4 cards */
+  .viewport {
+    width: calc((260px * 4) + (22px * 3));
+  }
+
+  /* Flechas acompañan el crecimiento */
+  .arrowLeft {
+    left: -36px;
+  }
+
+  .arrowRight {
+    right: -36px;
+  }
+}

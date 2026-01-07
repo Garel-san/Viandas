@@ -118,3 +118,25 @@
 .card * {
   user-select: none;
 }
+
+/* ======================
+   FULL HD / XL FIX — REVIEWS
+====================== */
+@media (min-width: 1920px) {
+  /* El viewport deja de ser un contenedor centrado */
+  .viewport {
+    width: 100vw; /* ocupa toda la pantalla */
+    max-width: none; /* rompe el límite visual */
+    margin-left: calc(50% - 50vw); /* ⬅️ CLAVE: pega al borde izquierdo */
+  }
+
+  /* El track arranca desde la pared */
+  .track {
+    padding-left: 40px; /* aire visual controlado */
+  }
+
+  /* Cards un poco más grandes para llenar el ancho */
+  .card {
+    width: 420px;
+  }
+}

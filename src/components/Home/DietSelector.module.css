@@ -158,11 +158,19 @@
 
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  align-items: center;
+  align-items: stretch;
   gap: 20px;
 
   height: 520px; /* 🔑 clave */
   overflow: hidden; /* 🔑 clave */
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-top: -32px; /* 🔑 SUBE TODO EL BLOQUE */
 }
 
 .left {
@@ -284,9 +292,9 @@
   .detail {
     display: flex;
     flex-direction: column;
-    padding: 24px 16px 28px;
-    height: auto; /* ⬅️ CLAVE */
-    gap: 18px;
+    padding: 18px 16px 22px; /* ⬅️ menos aire */
+    height: auto;
+    gap: 12px; /* ⬅️ compacta */
     border-radius: 16px;
     background-position: center top;
   }
@@ -301,8 +309,12 @@
   .right img {
     height: auto;
     width: 100%;
-    max-width: 280px;
-    transform: none; /* ⬅️ CLAVE */
+    max-width: 240px; /* ⬅️ más chica */
+    transform: none;
+  }
+  .leftContent {
+    margin-top: 0 !important;
+    align-items: center !important;
   }
 
   /* TEXTO ABAJO */
@@ -310,50 +322,73 @@
     order: 2;
     align-items: center;
     text-align: center;
+    width: 100%;
   }
 
   .left h2 {
-    font-size: 39px;
+    font-size: 36px;
     font-weight: 800;
+    margin-top: 4px; /* ⬅️ clave */
+    margin-bottom: 8px;
   }
 
   .left p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 30px;
-    max-width: 360px;
+    font-size: 15px;
+    line-height: 1.45;
+    margin-bottom: 20px;
+    max-width: 320px;
+    font-weight: 500;
+    letter-spacing: normal; /* ⬅️ CRÍTICO */
   }
 
   /* STATS */
   .stats {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 👈 4 en línea */
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 8px;
   }
 
   .stat {
-    padding: 10px 14px;
-    border-radius: 12px;
-    min-width: 120px;
+    padding: 8px 6px; /* 👈 más chico */
+    border-radius: 10px;
+    min-width: 0; /* 👈 clave para que no empuje */
   }
 
   .stat strong {
-    font-size: 18px;
+    font-size: 15px; /* 👈 compacto */
+    line-height: 1.1;
+  }
+
+  .stat span {
+    font-size: 11px;
+    opacity: 0.9;
+    line-height: 1.2;
+  }
+
+  .stat strong {
+    font-size: 20px;
+    font-weight: 800;
   }
 
   /* NOTA */
   .note {
-    font-size: 12px;
+    font-size: 20px;
     opacity: 0.9;
     margin-top: 4px;
   }
 
   /* BOTÓN */
   .cta {
-    margin-top: 16px;
-    padding: 14px 22px;
-    font-size: 13px;
+    margin-top: 14px;
+    padding: 13px 30px;
+    font-size: 15px;
     width: 100%;
-    max-width: 260px;
+    max-width: 290px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
   }
 }
