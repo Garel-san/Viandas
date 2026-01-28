@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import "./styles/fonts.css";
+import "./styles/index.css";
 
 import App from "./App";
-import "./styles/global.css";
 
 import { ProductsDataProvider } from "./context/ProductsDataContext";
 import { OrderProvider } from "./context/OrderDataContext";
@@ -20,5 +21,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </OrderProvider>
       </ProductsDataProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -9,18 +9,21 @@ export default function Banner3() {
   };
 
   return (
-    <section className={styles.banner}>
-      <div className={styles.inner}>
-        <div className={styles.textBlock}>
-          <h2 className={styles.title}>Ya te dió hambre?</h2>
+    <section className={styles.bannerHeroBox}>
+      <div className={styles.bannerHeroChild}>
+        <div className={styles.bannerTextBox}>
+          <h2 className={styles.title}>
+            Ya te dió hambre
+            <span className={styles.questionMark}>?</span>
+          </h2>
 
           <p className={styles.subtitle}>
             No pierdas más tiempo y comenzá una nueva vida donde cocinás menos y
-            disfrutas más.
+            disfrutás más.
           </p>
         </div>
 
-        <button className={styles.button} onClick={handleGoToPedir}>
+        <button className={styles.ctaButton} onClick={handleGoToPedir}>
           HACER MI PEDIDO
         </button>
       </div>

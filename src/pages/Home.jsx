@@ -22,93 +22,114 @@ export default function Home() {
   return (
     <Layout>
       <main className={styles.home}>
-        {/* HERO */}
-        <section className={styles.hero}>
-          <img
-            src="/Banners/hero-image.webp"
-            alt="Comida fresca"
-            className={styles.heroBg}
-          />
+        {/* ======================
+            HERO
+        ====================== */}
+        <section className={styles.heroSection}>
+          <div className={styles.heroInner}>
+            <div className={styles.heroContent}>
+              <p className={styles.heroHeader}>
+                Tu semana se acaba de volver más práctica y deliciosa.
+              </p>
 
-          <div className={styles.overlay} />
+              <p className={styles.heroSlogan}>
+                Recibí nuestras porciones semanales de comida fresca en tu casa
+                o trabajo.
+              </p>
 
-          <div className={styles.heroContent}>
-            <h1 className={styles.title}>
-              Tu semana se acaba de volver más práctica y deliciosa.
-            </h1>
-
-            <p className={styles.subtitle}>
-              Recibí nuestras porciones semanales de comida fresca en tu casa o
-              trabajo.
-            </p>
-
-            <div className={styles.ctaWrapper}>
               <button className={styles.ctaButton} onClick={handleGoToPedir}>
                 HACER PEDIDO
               </button>
             </div>
           </div>
+        </section>
 
-          <div className={styles.banner1Wrapper}>
+        {/* ======================
+            BANNER 1
+        ====================== */}
+        <section className={styles.banner1Section}>
+          <div className={styles.banner1Inner}>
             <Banner1 />
           </div>
         </section>
 
-        {/* SECCIÓN CARROUSEL */}
-        <section className={styles.carrouselSection}>
-          <div className={styles.carrouselInner}>
-            <div className={styles.carrouselText}>
-              <h2 className={styles.carrouselTitle}>
+        {/* ==========================
+    COMBINACIONES + CAROUSEL
+========================== */}
+        <section className={styles.carouselSection}>
+          <div className={styles.carouselRow}>
+            {/* COLUMNA IZQUIERDA */}
+            <div className={styles.carouselText}>
+              <h2 className={styles.carouselTitle}>
                 Más de 200 combinaciones posibles de platos y guarniciones.
               </h2>
 
-              <p className={styles.carrouselSubtitle}>
+              <p className={styles.carouselSubtitle}>
                 No importa si sos vegetariano, tenés dietas restrictivas o un
                 deportista de élite: vas a encontrar algo para vos.
               </p>
             </div>
 
-            <div className={styles.carrouselWrapper}>
+            {/* COLUsMNA DERECHA */}
+            <div className={styles.carouselContent}>
               <Carrousel />
             </div>
           </div>
         </section>
 
+        {/* ======================
+            BANNER 2
+        ====================== */}
         <section className={styles.banner2Section}>
           <div className={styles.banner2Wrapper}>
             <Banner2 />
           </div>
         </section>
 
+        {/* ======================
+            REVIEWS
+        ====================== */}
         <section className={styles.reviewsSection}>
           <div className={styles.reviewsWrapper}>
             <Reviews />
           </div>
         </section>
 
+        {/* ======================
+    DIET SELECTOR
+====================== */}
         <section className={styles.dietSection}>
-          <div className={styles.dietHeader}>
-            <h2 className={styles.dietTitle}>
-              Nutrición para todas las dietas
-            </h2>
+          {/* Texto principal */}
+          <div>
+            <p className={styles.dietTitle}>Nutrición para todas las dietas</p>
+          </div>
 
+          {/* Subtítulo */}
+          <div>
             <p className={styles.dietSubtitle}>
               No importa si sos vegetariano, tenés dietas restrictivas o un
               deportista de élite: vas a encontrar algo para vos.
             </p>
           </div>
 
+          {/* Botones + contenido (por ahora en componente aparte) */}
           <div className={styles.dietSelectorWrapper}>
             <DietSelector />
           </div>
         </section>
 
+        {/* ======================
+            FAQ
+        ====================== */}
         <section className={styles.faqSection}>
           <div className={styles.faqWrapper}>
             <FaqAccordion />
           </div>
         </section>
 
+        {/* ======================
+            BANNER 3
+        ====================== */}
         <section className={styles.banner3Section}>
           <div className={styles.banner3Wrapper}>
             <Banner3 />

@@ -1,0 +1,14 @@
+/* styles/index.css */
+
+@import "fonts.css";
+
+html,
+body {
+  font-family:
+    "MarkPro",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-weight: 400;
+}

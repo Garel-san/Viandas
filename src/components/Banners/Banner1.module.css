@@ -2,158 +2,313 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  max-width: 1200px;
+  position: relative;
+  z-index: 5;
 }
 
 /* ======================
-   CONTENEDOR DESKTOP
+   CONTENEDOR GRANDE (DESKTOP)
+   - Evita superposición antes del breakpoint
 ====================== */
 
-.banner {
-  width: 100%;
-  background: #ffffff;
-  border-radius: 28px;
+.primercajaHijo {
+  box-sizing: border-box;
+  border: 2px solid #dddbdb;
+  border-radius: 33px;
 
-  padding: 60px 56px;
-  gap: 60px;
-  border: 3px solid #e5e7eb;
+  width: 95%;
+  max-width: 1400px;
+  height: 330px;
 
+  background-color: #ffffff;
+
+  margin-top: -90px;
+  margin-bottom: 30px;
+
+  /* ✅ en vez de flex "space-evenly" (que rompe al achicar),
+     usamos GRID 3 columnas fluidas */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 40px);
+
+  align-items: start;
+
+  padding: 25px clamp(18px, 2vw, 28px);
 }
 
 /* ======================
-   ITEM
+   TARJETA
 ====================== */
 
-.item {
+.tarjeta {
+  /* ✅ clave para que el texto NO empuje el layout */
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: left;
 }
 
-.item h3,
-.item p {
-  margin: 0;
-}
-
-/* ICONO */
-.item img {
-  width: 82px;
+.tarjeta img {
+  width: clamp(64px, 5vw, 80px);
   height: auto;
-  margin-bottom: 8px;
-}
-
-/* TÍTULO */
-.item h3 {
-  font-family: "Poppins", sans-serif;
-  font-size: 25px;
-  font-weight: 600;
-  color: #000000;
-
-  margin-bottom: 6px;
-  white-space: nowrap;
-}
-
-/* DESCRIPCIÓN */
-.item p {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  letter-spacing: 0.1em;
-  color: #000000;
-  font-weight: 400;
+  margin-bottom: 18px;
+  flex: 0 0 auto;
 }
 
 /* ======================
-   MOBILE
+   HEADER
 ====================== */
-@media (max-width: 768px) {
-  .bannerWrapper {
-    padding: 0;
-    margin-top: -90px;
-    display: flex;
-    justify-content: center;
-    z-index: 2;
-  }
 
-  .banner {
+.tarjetaHeader {
+  font-family: MarkPro;
+  font-weight: 700;
+
+  /* ✅ escala suave y evita “crecer de más” */
+  font-size: clamp(18px, 1.7vw, 25px);
+  line-height: 1.15;
+
+  margin: 0 0 12px;
+
+  /* ✅ sin altura fija */
+  height: auto;
+
+  text-shadow: 0px 0px 1px #000000;
+
+  /* ✅ nunca se sale ni se superpone */
+  max-width: 100%;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+
+  /* ✅ si querés que siempre se vea prolijo */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ======================
+   SLOGAN
+====================== */
+
+.tarjetaSlogan {
+  font-family: MarkPro;
+  font-weight: 500;
+
+  font-size: clamp(14px, 1.2vw, 17px);
+  line-height: 1.35;
+
+  margin: 0;
+
+  /* ✅ anula el max-width 350 que te despareja en anchos chicos */
+  max-width: 100%;
+  width: 100%;
+
+  /* ✅ evita que “invada” a otras columnas */
+  overflow: hidden;
+  overflow-wrap: anywhere;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
+
+/* =========================================================
+   PASO A 3 CARDS SEPARADAS (antes lo hacías en 1024)
+   ✅ lo adelantamos para que NO exista el tramo “se rompe”
+========================================================= */
+@media (max-width: 1120px) {
+  .primercajaHijo {
+    height: auto;
+    width: 95%;
+    max-width: none;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 16px;
+
     background: transparent;
     border: none;
-    padding: 0;
-    gap: 28px;
+    border-radius: 0;
 
+    padding: 0 22px;
+    margin-top: -90px;
+    margin-bottom: 30px;
+  }
+
+  .tarjeta {
+    flex: 1 1 0;
+    min-width: 0;
+    box-sizing: border-box;
+
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 18px;
+
+    padding: 26px 20px;
+    min-height: 300px;
+
+    justify-content: flex-start;
+  }
+
+  .tarjeta img {
+    width: 78px;
+    margin-bottom: 18px;
+  }
+
+  /* en este modo conviene NO clamp duro el header */
+  .tarjetaHeader {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .tarjetaSlogan {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+}
+
+/* =========================================================
+   TABLET 768 x ~1063
+   - 3 cards iguales
+========================================================= */
+@media (max-width: 768px) and (min-height: 900px) {
+  .bannerWrapper,
+  .primercajaHijo,
+  .tarjeta,
+  .tarjetaHeader,
+  .tarjetaSlogan {
+    text-align: left;
+  }
+
+  .primercajaHijo {
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 18px;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    padding: 0 18px;
+    box-sizing: border-box;
+
+    margin-top: -90px;
+    margin-bottom: 28px;
+  }
+
+  .tarjeta {
+    flex: 1 1 0;
+    min-width: 0;
+
+    border-radius: 22px;
+    padding: 30px 22px;
+
+    height: 360px; /* mismas 3 */
+  }
+
+  .tarjeta img {
+    width: 92px;
+    margin-bottom: 22px;
+  }
+
+  .tarjetaHeader {
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 14px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tarjetaSlogan {
+    font-size: 18px;
+    line-height: 24px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    flex: 1;
+  }
+}
+
+/* =========================================================
+   <= 650px (650x1063 y hacia abajo)
+   ✅ 3 cards en COLUMNA y MÁS angostas (como original)
+   (pisando 1120/768 sin romperlos)
+========================================================= */
+@media (max-width: 650px) {
+  .primercajaHijo {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+    height: auto;
+
+    gap: 22px;
+    padding: 0 18px;
+    box-sizing: border-box;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    margin-top: -90px;
+    margin-bottom: 28px;
   }
 
-  .item {
-    background: #ffffff;
-    border: 2px solid #e5e7eb;
-    border-radius: 26px;
+  .tarjeta {
+    flex: 0 0 auto;
 
-    /* 🔑 proporción vertical */
-    width: 62%;
-    max-width: 260px;
-    min-height: 360px;
+    /* 🔑 MÁS ANGOSTAS (como referencia real) */
+    width: min(54vw, 240px);
+    max-width: 240px;
 
-    padding: 32px 22px 36px;
+    align-self: center;
+    box-sizing: border-box;
 
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    padding: 30px 20px;
 
-    display: flex;
-    flex-direction: column;
+    height: auto;
+    min-height: 0;
+
+    justify-content: flex-start;
   }
 
-  .item img {
-    width: 78px;
-    margin-bottom: 20px;
+  .tarjeta img {
+    width: 80px;
+    margin-bottom: 18px;
   }
 
-  .item h3 {
-    font-size: 18px;
-    white-space: normal;
+  .tarjetaHeader {
+    font-size: 19px;
+    line-height: 22px;
     margin-bottom: 12px;
-    font-weight: 800;
-    max-width: 160px;
+
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
   }
 
-  .item p {
-    font-size: 14px;
-    line-height: 1.5;
-    font-weight: 400;
-  }
-}
+  .tarjetaSlogan {
+    font-size: 17.5px; /* 🔑 TEXTO MÁS GRANDE */
+    line-height: 24px;
 
-/* ======================
-   FULL HD / XL BANNER 1
-====================== */
-
-@media (min-width: 1920px) {
-  .bannerWrapper {
-    max-width: 1650px; /* ⬅️ más ancho visual */
-  }
-
-  .banner {
-    padding: 64px 92px; /* ⬅️ un poco más de aire lateral */
-    gap: 98px; /* ⬅️ menos separación, más compacto */
-  }
-
-  .item {
-    max-width: 360px; /* ⬅️ concentra el contenido */
-  }
-
-  .item h3 {
-    white-space: normal; /* ⬅️ permite mejor balance */
-    max-width: 340px;
-    font-weight: 700;
-  }
-
-  .item p {
-    max-width: 320px; /* ⬅️ texto más compacto */
-    line-height: 1.55;
-    font-weight: 500;
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
   }
 }

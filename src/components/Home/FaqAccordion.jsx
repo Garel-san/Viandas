@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./FaqAccordion.module.css";
 
 const FAQS = [
@@ -83,31 +83,70 @@ const FAQS = [
   },
 ];
 
+function ChevronIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M6.7 9.3a1 1 0 0 1 1.4 0L12 13.2l3.9-3.9a1 1 0 1 1 1.4 1.4l-4.6 4.6a1 1 0 0 1-1.4 0l-4.6-4.6a1 1 0 0 1 0-1.4z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export default function FaqAccordion() {
   const [openIndexes, setOpenIndexes] = useState([]);
+  const contentRefs = useRef([]); // ✅ refs por item (sin hooks dentro del map)
 
   const toggle = (index) => {
     setOpenIndexes((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
     );
   };
 
   return (
-    <section className={styles.wrapper}>
+    <section className={styles.faqSection}>
       {FAQS.map((faq, index) => {
         const isOpen = openIndexes.includes(index);
+        const el = contentRefs.current[index];
+        const maxH = isOpen ? `${el?.scrollHeight || 0}px` : "0px";
 
         return (
-          <div key={index} className={styles.item}>
-            <button className={styles.header} onClick={() => toggle(index)}>
-              <span>{faq.title}</span>
+          <div key={index} className={styles.faqItem}>
+            <button
+              className={styles.faqHeader}
+              onClick={() => toggle(index)}
+              type="button"
+              aria-expanded={isOpen}
+            >
+              <h3 className={styles.faqTitle}>{faq.title}</h3>
+
+              {/* Flecha derecha: abajo (cerrado) / arriba (abierto) */}
               <span
-                className={`${styles.arrow} ${isOpen ? styles.open : ""}`}
-              />
+                className={`${styles.faqIcon} ${isOpen ? styles.open : ""}`}
+                aria-hidden="true"
+              >
+                <ChevronIcon className={styles.chevron} />
+              </span>
             </button>
 
-            <div className={`${styles.content} ${isOpen ? styles.show : ""}`}>
-              <div className={styles.inner}>{faq.content}</div>
+            <hr className={styles.divider} />
+
+            <div
+              className={styles.faqContent}
+              ref={(node) => {
+                contentRefs.current[index] = node;
+              }}
+              style={{ maxHeight: maxH }}
+            >
+              <div className={styles.faqInner}>{faq.content}</div>
             </div>
           </div>
         );

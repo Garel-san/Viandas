@@ -1,484 +1,458 @@
+/* =========================================================
+   HOME.module.css — versión más responsiva y más corta
+   Mantiene tus “números” (tamaños) pero los vuelve fluidos:
+   - usa gutters con clamp
+   - evita min-width rígidos en hero
+   - breakpoints por ancho (y altura solo como ajuste)
+   - el carousel se adapta sin depender de 768x1063 exacto
+========================================================= */
+
 .home {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; /* default */
 }
 
 /* ======================
+   TOKENS (gutter / anchos)
+====================== */
+
+:root {
+  /* margen lateral global: reemplaza padding 125/56/18 por uno fluido */
+  --gutter: clamp(18px, 6vw, 125px);
+
+  /* ancho de contenido general (tus wrappers 1200/1300 etc) */
+  --max-hero: 1100px;
+  --max-content: 1300px;
+  --max-reviews: 1200px;
+}
+
+/* =========================================================
    HERO
-====================== */
+========================================================= */
 
-.hero {
+.heroSection {
   position: relative;
   width: 100%;
-  min-height: 154vh;
-}
 
-.heroBg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
-  z-index: 1;
-}
+  /* tu intención: 43vw, pero evita alturas ridículas con clamps */
+  height: clamp(520px, 43vw, 700px);
 
-.overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.65) 5%,
-    rgba(0, 0, 0, 0.38) 10%,
-    rgba(0, 0, 0, 0.18) 15%,
-    rgba(0, 0, 0, 0.06) 19%,
-    rgba(0, 0, 0, 0) 23%
-  );
-  pointer-events: none;
-}
+  background:
+    linear-gradient(0deg, rgba(255, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 105%),
+    url("/Banners/hero-image.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 
-.heroContent {
-  position: relative;
-  z-index: 3;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 180px 20px 260px;
-  text-align: center;
-  color: #111;
-}
-
-.title {
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  font-size: 44px;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  max-width: 690px;
-  margin: 0 auto 22px;
-  padding-top: 76px;
-  margin-left: 10px;
-}
-
-/* ======================
-   SUBTÍTULO
-====================== */
-
-.subtitle {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  display: inline-block;
-  font-size: 23px;
-  line-height: 1.2;
-  letter-spacing: 0;
-  color: #000;
-  max-width: 480px;
-  margin: 0 auto;
-}
-
-/* ======================
-   CTA
-====================== */
-
-.ctaWrapper {
-  margin-top: 42px;
-}
-
-.ctaButton {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  background: #f59e0b;
-  color: #ffffff;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 42px;
-  font-size: 16px;
-  letter-spacing: 0.1px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin-top: -20px;
-}
-
-.ctaButton:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-/* ======================
-   BANNER 1
-====================== */
-
-.banner1Wrapper {
-  position: absolute;
-  bottom: -60px; /* ⬅️ más negativo = más abajo */
-  width: 100%;
-  padding: 0 24px;
-  z-index: 4;
-  margin-left: 50px;
-}
-
-/* ======================
-   CARROUSEL
-====================== */
-
-.carrouselSection {
-  width: 100%;
-  background: #ffffff;
-  padding: 100px 0 40px;
-}
-
-.carrouselInner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: 330px 1fr;
-  gap: 56px;
-  align-items: center;
-}
-
-.carrouselText {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.carrouselTitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 39px;
-  font-weight: 600;
-  line-height: 1;
-  color: #f59e0b;
-  margin-bottom: 10px;
-}
-
-.carrouselSubtitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  line-height: 1.3;
-  letter-spacing: 0.06em;
-  color: #000000;
-  max-width: 250px;
-  font-weight: 400; /* Regular */
-}
-
-.carrouselWrapper {
-  width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* ======================
-   BANNER 2
-====================== */
+.heroInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  /* mismo criterio que el resto */
+  padding-inline: var(--gutter);
+  box-sizing: border-box;
+}
+
+.heroContent {
+  width: 100%;
+  max-width: var(--max-hero);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: MarkPro;
+  font-weight: 500;
+  text-align: center;
+}
+
+.heroHeader {
+  font-family: MarkProBold;
+
+  /* tus tamaños: 48, pero fluido */
+  font-size: clamp(30px, 4.3vw, 48px);
+  line-height: clamp(32px, 4.2vw, 48px);
+  letter-spacing: -1.5px;
+
+  /* en vez de min-width 726 fijo */
+  width: min(62%, 780px);
+  min-width: 0;
+  margin: 0;
+}
+
+.heroSlogan {
+  font-family: MarkPro;
+  font-weight: 500;
+
+  /* tu 25/27, pero fluido */
+  font-size: clamp(18px, 2.3vw, 25px);
+  line-height: clamp(22px, 2.3vw, 27px);
+  letter-spacing: -1px;
+
+  width: min(45%, 527px);
+  min-width: 0;
+  margin: 18px 0 0;
+}
+
+.ctaButton {
+  background: #ea9a00;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 9999px;
+
+  height: 47px;
+  min-width: 210px;
+
+  padding: 0 22px;
+  font-family:
+    "MarkPro",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   BANNER 1
+========================================================= */
+
+.banner1Section {
+  width: 100%;
+  background-color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* no fijes text-align acá (te contamina cards) */
+}
+
+.banner1Inner {
+  width: 100%;
+  padding-inline: var(--gutter);
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================================================
+   CAROUSEL (COMBINACIONES)
+========================================================= */
+
+.carouselSection {
+  width: 100%;
+  background: #ffffff;
+  margin-top: 48px;
+}
+
+.carouselRow {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  /* reemplaza 125/56/18 por un gutter fluido */
+  padding-inline: var(--gutter);
+
+  gap: clamp(14px, 2vw, 18px);
+}
+
+/* columna texto */
+.carouselText {
+  width: 30%;
+  box-sizing: border-box;
+
+  /* reemplaza padding-left 50 por algo suave */
+  padding-left: clamp(0px, 2vw, 50px);
+}
+
+.carouselTitle {
+  font-family: MarkPro;
+  font-weight: 800;
+  color: #ea9a00;
+  text-shadow: 1px 1px 1px #ea9a00;
+
+  /* tu 38/36 pero fluido */
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: clamp(28px, 3.2vw, 36px);
+  letter-spacing: 1px;
+
+  max-width: 80%;
+  margin: clamp(14px, 2.2vw, 30px) 0 0;
+}
+
+.carouselSubtitle {
+  font-family: MarkPro;
+  font-weight: 500;
+
+  /* tu 20/24 pero fluido */
+  font-size: clamp(18px, 2vw, 20px);
+  line-height: clamp(22px, 2.2vw, 24px);
+
+  max-width: 70%;
+  margin-top: 18px;
+}
+
+/* columna carrusel */
+.carouselContent {
+  width: 83%;
+  margin-top: 20px;
+  padding-left: 40px;
+
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.carouselContent > * {
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================================
+   BANNER 2 / REVIEWS
+========================================================= */
 
 .banner2Section {
   width: 100%;
   background: #ffffff;
 }
-
 .banner2Wrapper {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  justify-content: center;
+  padding-inline: clamp(0px, 2vw, 24px);
 }
-
-/* ======================
-   REVIEWS
-====================== */
 
 .reviewsSection {
   width: 100%;
   background: #ffffff;
 }
-
 .reviewsWrapper {
+  max-width: var(--max-reviews);
   margin: 0 auto;
+  padding-inline: var(--gutter);
+  box-sizing: border-box;
 }
 
-/* ======================
+/* =========================================================
    DIET SELECTOR
-====================== */
+========================================================= */
 
 .dietSection {
   width: 100%;
   background: #ffffff;
-  padding: 0px 0 10px;
-}
-
-.dietHeader {
-  max-width: 1000px;
-  margin: 0 auto 40px;
-  text-align: center;
 }
 
 .dietTitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: #111827;
-  margin-bottom: 12px;
+  font-family: MarkPro;
+  font-weight: 800;
+  font-size: clamp(28px, 3.2vw, 37px);
+  letter-spacing: 1.5px;
+  text-shadow: 1px 0px 1px black;
+
+  margin: 0 0 5px;
+  text-align: center;
 }
 
 .dietSubtitle {
-  font-family: "Inter", sans-serif;
-  font-size: 15px;
-  color: #000000;
-  letter-spacing: 0.1em;
+  font-family: MarkPro;
   font-weight: 500;
+  font-size: clamp(16px, 2vw, 18px);
+
+  margin: 0 0 33px;
+  text-align: center;
 }
 
 .dietSelectorWrapper {
-  margin: 0 auto;
+  width: 100%;
 }
 
-/* ======================
+/* =========================================================
    FAQ
-====================== */
+========================================================= */
 
 .faqSection {
   width: 100%;
   background: #ffffff;
-  padding: 2px 20px;
 }
-
 .faqWrapper {
+  max-width: var(--max-content);
   margin: 0 auto;
+  padding-inline: var(--gutter);
+  box-sizing: border-box;
 }
 
-/* ======================
+/* =========================================================
    BANNER 3
-====================== */
+========================================================= */
 
 .banner3Section {
   width: 100%;
   background: #ffffff;
-  padding: 0;
 }
-
 .banner3Wrapper {
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
 }
 
-/* ======================
-   MOBILE
-====================== */
+/* =========================================================
+   BREAKPOINTS LIMPIOS
+========================================================= */
 
-@media (max-width: 768px) {
-  /* ======================
-     HERO (se mantiene)
-  ====================== */
-  /* ======================
-     HERO (FIX REAL)
-  ====================== */
-
-  .hero {
-    min-height: 115vh; /* ⬅️ corta antes */
-  }
-
-  .heroBg {
-    height: 70%; /* ⬅️ menos expansión */
-    object-position: 25% 80%;
-  }
-
-  .overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.5) 6%,
-      rgba(0, 0, 0, 0.25) 12%,
-      rgba(0, 0, 0, 0.08) 18%,
-      rgba(0, 0, 0, 0) 24%
-    );
-  }
-
-  .ctaWrapper {
-    margin-top: 20px; /* antes 42px → acerca el botón al texto */
-  }
-
-  .heroContent {
-    padding: 200px 20px 240px;
-  }
-
-  .title {
-    font-size: 30px;
-    max-width: 350px;
-    margin: 0 auto 12px;
-  }
-
-  .subtitle {
-    font-size: 16px;
-    max-width: 350px;
-    margin: 0 auto 18px;
-  }
-
-  .ctaButton {
-    padding: 10px 44px;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  /* ======================
-     BANNER 1 (más abajo)
-  ====================== */
-  .banner1Wrapper {
-    bottom: -760px;
-
-    /* 🔥 anulación del desktop */
-    margin-left: 0;
-
-    /* 🔥 centrado real */
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: 100%;
-    max-width: 360px;
-    padding: 0;
-  }
-  /* ======================
-     CARROUSEL (FIX REAL)
-  ====================== */
-
-  /* Sección completa */
-  .carrouselSection {
-    padding: 840px 0 40px; /* ⬅️ más aire entre Banner1 y título */
-  }
-
-  /* Rompemos cualquier límite de desktop */
-  .carrouselInner {
-    max-width: none; /* ⬅️ clave */
-    margin: 0;
-    padding: 0 16px;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    justify-items: center;
-  }
-
-  /* Texto centrado y ancho real */
-  .carrouselText {
-    width: 100%;
-    align-items: center;
-    text-align: center;
-  }
-
-  .carrouselTitle {
-    font-size: 28px; /* ⬅️ más grande */
-    line-height: 1.15;
-    max-width: 330px; /* ⬅️ más ancho */
-    margin: 0 auto 10px;
-    padding: 0; /* ⬅️ elimina corrimiento */
-    font-weight: 700;
-  }
-
-  .carrouselSubtitle {
-    font-size: 16px;
-    line-height: 1.4;
-    max-width: 320px; /* ⬅️ más ancho */
-    margin: 0 auto;
-    padding: 0; /* ⬅️ elimina corrimiento */
-  }
-
-  .carrouselWrapper {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    .banner2Wrapper {
-      padding: 0;
-      max-width: none;
-      width: 100%;
-    }
-  }
-
-  /* ======================
-   DIET HEADER (MOBILE)
-====================== */
-
-  .dietSection {
-    padding: 40px 10px;
-  }
-
-  .dietHeader {
-    margin-bottom: 28px;
-  }
-
-  .dietTitle {
-    font-size: 26px;
-    line-height: 1.25;
-    font-weight: 800;
-
-    margin: 0 auto;
-  }
-
-  .dietSubtitle {
-    font-size: 14px;
-    line-height: 1.4;
-    letter-spacing: normal; /* ⬅️ clave */
-    max-width: 300px;
-    margin: 0 auto;
-    color: #374151; /* gris legible */
+/* 1) <= 1104: tu ajuste de hero (pero ya está clamp-eado) */
+@media (max-width: 1104px) {
+  .heroSection {
+    background-position: right 75% bottom 45%;
   }
 }
 
-/* ======================
-   FULL HD / XL HERO FIX
-====================== */
-
-@media (min-width: 1920px) {
-  .hero {
-    min-height: 90vh; /* ⬅️ corta antes */
+/* 2) <= 1024: tu “laptop DPR2” de carousel (sin atarlo a min-height) */
+@media (max-width: 1024px) {
+  .carouselSection {
+    margin-top: 28px;
   }
 
-  .heroBg {
-    height: 100%;
-    object-fit: contain; /* ⬅️ se ve completa */
-    object-position: center top;
-    background-color: #ffffff; /* fallback limpio */
+  .carouselRow {
+    justify-content: flex-start;
   }
 
-  .heroContent {
-    padding: 220px 20px 180px; /* ⬅️ ajusta el bloque de texto */
+  .carouselText {
+    width: 24%;
+    padding-left: 0;
   }
 
-  .banner1Wrapper {
-    margin-left: 110px;
+  .carouselTitle {
+    max-width: 100%;
+    letter-spacing: 0.6px;
   }
 
-  .carrouselInner {
-    max-width: 1600px; /* ⬅️ bloque más ancho */
-    grid-template-columns: 380px 1fr; /* ⬅️ texto un poco más ancho */
-    gap: 64px; /* ⬅️ aire balanceado */
-    padding: 0 40px; /* ⬅️ simetría lateral */
+  .carouselSubtitle {
+    max-width: 92%;
   }
 
-  .carrouselText {
-    width: fit-content; /* ⬅️ se contrae a su contenido */
-    max-width: 360px; /* ⬅️ límite visual controlado */
-    align-items: flex-start;
-    font-weight: 800;
-  }
-
-  .carrouselSubtitle {
-    max-width: 300px; /* ⬅️ evita texto estirado */
+  .carouselContent {
+    width: 76%;
+    margin-top: 10px;
+    padding-left: 0;
   }
 
   .banner2Wrapper {
-    max-width: 1600px; /* ⬅️ libera el ancho real */
+    padding-inline: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+}
+
+/* 3) <= 768: tablet — texto arriba, carrusel abajo */
+@media (max-width: 768px) {
+  /* en tablet conviene NO depender de widths % del hero */
+  .heroHeader {
+    width: 100%;
+    max-width: 680px;
   }
 
-  .faqSection {
+  .heroSlogan {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .carouselSection {
+    margin-top: 24px;
+  }
+
+  .carouselRow {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .carouselText {
+    width: 100%;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     padding-left: 0;
-    padding-right: 0;
   }
 
-  .faqWrapper {
-    max-width: 1600px; /* ⬅️ mismo carril XL que Banner2 / Carrousel */
-    margin: 0 auto;
-    padding: 0 120px; /* ⬅️ aire elegante, no toca paredes */
+  .carouselTitle {
+    max-width: 680px;
+    width: 100%;
+    margin: 6px auto 0;
+    letter-spacing: 0.6px;
+
+    /* tu intención 30/28 en tablet */
+    font-size: 30px;
+    line-height: 28px;
+  }
+
+  .carouselSubtitle {
+    max-width: 700px;
+    width: 100%;
+    margin: 8px auto 0;
+
+    /* tu intención 20/30 en tablet */
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  .carouselContent {
+    width: 100%;
+    padding-left: 0;
+    margin-top: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .carouselContent > * {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* 4) Ajuste SOLO si la tablet es “alta” (tu caso 768x1063) */
+@media (max-width: 768px) and (min-height: 900px) {
+  /* si necesitás flechas fuera, evitá que el recorte venga del page */
+  .home {
+    overflow-x: visible;
+  }
+  .carouselSection,
+  .carouselRow,
+  .carouselContent {
+    overflow: visible;
+  }
+
+  /* canal lateral real para flechas, sin hardcodear 56 siempre */
+  .carouselRow {
+    padding-inline: clamp(40px, 7vw, 56px);
+  }
+
+  /* si en tablet te limita el banner1 wrapper */
+  .banner1Inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
   }
 }

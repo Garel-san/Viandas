@@ -1,35 +1,37 @@
 :root {
+  /* ===== Paletas exactas (botón vs contenido separados) ===== */
   --veg-bg: #cfeecf;
-  --veg-text: #0a7a2f;
-  --veg-dot: #0a7a2f;
+  --veg-main: #125900;
 
   --fit-bg: #0b5d1e;
-  --fit-text: #ffffff;
-  --fit-dot: #ffffff;
+  --fit-main: #0b5d1e; /* BOTÓN Fitness */
+  --fit-content: #b80000; /* CONTENIDO Fitness (original) */
 
   --pro-bg: #000000;
-  --pro-text: #ffffff;
-  --pro-dot: #ffffff;
+  --pro-main: #b80000;
 
   --keto-bg: #d8ccff;
-  --keto-text: #5a3cc7;
-  --keto-dot: #5a3cc7;
+  --keto-main: #515151;
 
   --glu-bg: #9fb48c;
-  --glu-text: #2f4a22;
-  --glu-dot: #2f4a22;
+  --glu-main: #426233;
 
   --low-bg: #ffe0b2;
-  --low-text: #ff8c00;
-  --low-dot: #ff8c00;
+  --low-main: #f59e0b; /* BOTÓN Baja (original) */
+  --low-content: #515151; /* CONTENIDO Baja (original) */
+  --low-border: #c87400;
 }
+
+/* ==========================
+   BOTONES DE DIETA (limpio)
+========================== */
 
 .container {
   display: flex;
-  gap: 14px;
+  gap: clamp(10px, 1.2vw, 14px);
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
+  margin-bottom: clamp(18px, 2vw, 30px);
 }
 
 .button {
@@ -40,29 +42,49 @@
   align-items: center;
   gap: 10px;
 
-  padding: 12px 18px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
+  padding: clamp(9px, 1vw, 10px) clamp(14px, 1.6vw, 18px);
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
 
-  background: #ffffff;
-  color: #444;
+  background: #fff;
+  color: #757575;
 
-  font-size: 14px;
-  font-weight: 500;
+  font-family: MarkPro;
+  font-size: clamp(14px, 1.1vw, 15px);
+  font-weight: 400;
+  text-transform: none;
 
   cursor: pointer;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  transition: all 0.3s ease;
 }
 
+.label {
+  font-size: clamp(14px, 1.1vw, 15px);
+  font-weight: 400;
+  transition:
+    font-size 0.18s ease,
+    font-weight 0.18s ease;
+}
+
+.active .label {
+  font-size: calc(clamp(14px, 1.1vw, 15px) + 1px);
+  font-weight: 600;
+}
+
+/* Radio */
 .circle {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 2px solid currentColor;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.circle::after {
+  content: none;
 }
 
 .active .circle::after {
@@ -73,322 +95,867 @@
   background: currentColor;
 }
 
+/* ==========================
+   RIPPLE (onda por click)
+========================== */
+
 .button::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: var(--ripple-y, 50%);
+  left: var(--ripple-x, 50%);
 
   width: 12px;
   height: 12px;
   border-radius: 50%;
 
   transform: translate(-50%, -50%) scale(0);
-  opacity: 0.9;
+  opacity: 0.6;
 
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
-
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
   z-index: 0;
-}
-
-.active::before {
-  transform: translate(-50%, -50%) scale(18);
 }
 
 .button > * {
   position: relative;
+  z-index: 2;
+}
+
+.active::before {
+  transform: translate(-50%, -50%) scale(20);
+  opacity: 1;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  left: var(--ripple-x, 50%);
+  top: var(--ripple-y, 50%);
+
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+
+  background: var(--ripple-ink, rgba(0, 0, 0, 0.16));
+  pointer-events: none;
   z-index: 1;
 }
 
-.vegetariano.active {
-  color: var(--veg-text);
+.rippling::after {
+  animation: ripple 520ms ease-out;
 }
 
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.75;
+  }
+  70% {
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(22);
+    opacity: 0;
+  }
+}
+
+/* ==========================
+   ESTADOS ACTIVOS (botones)
+========================== */
+
+.vegetariano.active {
+  background: #c8e6c9;
+  border-color: #cac4d0;
+  color: #026a00;
+}
 .vegetariano.active::before {
-  background: var(--veg-bg);
+  background: #c8e6c9;
+}
+.vegetariano.active .circle::after {
+  background: #026a00;
 }
 
 .fitness.active {
-  color: var(--fit-text);
+  background: #004f0d;
+  border-color: #ffffff;
+  color: #ffffff;
+  --ripple-ink: rgba(255, 255, 255, 0.25);
 }
-
 .fitness.active::before {
-  background: var(--fit-bg);
+  background: #004f0d;
+}
+.fitness.active .circle::after {
+  background: #ffffff;
 }
 
 .proteina.active {
-  color: var(--pro-text);
+  background: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+  --ripple-ink: rgba(255, 255, 255, 0.25);
 }
-
 .proteina.active::before {
-  background: var(--pro-bg);
+  background: #000000;
+}
+.proteina.active .circle::after {
+  background: #ffffff;
 }
 
 .keto.active {
-  color: var(--keto-text);
+  background: #d1c4e9;
+  border-color: #9575cd;
+  color: #512da8;
 }
-
 .keto.active::before {
-  background: var(--keto-bg);
+  background: #d1c4e9;
+}
+.keto.active .circle::after {
+  background: #9575cd;
 }
 
 .gluten.active {
-  color: var(--glu-text);
+  background: #97ac8d;
+  border-color: #426233;
+  color: #426233;
 }
-
 .gluten.active::before {
-  background: var(--glu-bg);
+  background: #97ac8d;
+}
+.gluten.active .circle::after {
+  background: #426233;
 }
 
 .baja.active {
-  color: var(--low-text);
+  background: #ffecb3;
+  border-color: #ffa726;
+  color: #ef6c00;
 }
-
 .baja.active::before {
-  background: var(--low-bg);
+  background: #ffecb3;
+}
+.baja.active .circle::after {
+  background: #ef6c00;
 }
 
-.detail {
-  margin-top: 20px;
-  padding: 40px 80px;
-  border-radius: 20px;
+.vegetariano.active,
+.keto.active,
+.gluten.active,
+.baja.active {
+  --ripple-ink: rgba(0, 0, 0, 0.14);
+}
+
+/* ==========================
+   CONTENIDO DIETA (visores)
+   OBJETIVO: comportamiento fluido 4K → tablet
+========================== */
+
+.diet-content-container {
+  position: relative;
+
+  /* full-bleed */
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 
   background-size: cover;
-  background-position: center 45%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
+/* marco real */
+.diet-content-father {
+  width: min(92vw, 1760px);
+  height: clamp(360px, 30vw, 520px);
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  /* 🔑 clave para que la derecha tome toda la altura */
   align-items: stretch;
-  gap: 20px;
+  justify-content: space-between;
 
-  height: 520px; /* 🔑 clave */
-  overflow: hidden; /* 🔑 clave */
+  gap: clamp(14px, 2vw, 30px);
+  box-sizing: border-box;
+
+  overflow: hidden;
 }
 
-.leftContent {
+/* izquierda: se “compacta” sola al bajar el ancho */
+.diet-content-izquierda {
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+
+  /* padding fluido (4k → tablet) */
+  padding-left: clamp(18px, 4.4vw, 130px);
+  padding-right: clamp(10px, 1.2vw, 22px);
+  padding-block: clamp(18px, 2.6vw, 52px);
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
 
-  margin-top: -32px; /* 🔑 SUBE TODO EL BLOQUE */
+  overflow: hidden;
 }
 
-.left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+/* derecha: ancho fluido con “piso” en tablet para que el plato crezca */
+.diet-content-derecha {
+  /* 🔑 esto produce el comportamiento “4k pequeño / tablet grande” */
+  flex: 0 0 clamp(320px, 38vw, 860px);
+  min-width: 0;
+  box-sizing: border-box;
+
+  position: relative;
+  overflow: hidden;
+
+  /* padding a la derecha fluido: en 4k lo mete “hacia adentro” */
+  padding-right: clamp(6px, 3.8vw, 150px);
+
+  /* escalas base (recorte vertical un poco mayor) */
+  --plate-sx: 0.86;
+  --plate-sy: 0.98;
+
+  /* “empuje” lateral: en tablet se va un poco afuera, en 4k entra */
+  --plate-right: clamp(-10px, calc(2vw - 28px), 18px);
 }
 
-.left h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 52px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
+/* plato: POSICIONADO, NO “layout-driven” (mismo JSX) */
+.hero-image,
+.diet-content-derecha img {
+  position: absolute;
+  top: 50%;
+  right: var(--plate-right);
 
-.left p {
-  font-family: "Inter", sans-serif;
-  max-width: 400px;
-  margin-bottom: 28px;
-  line-height: 1.6;
-  letter-spacing: 0.1em;
-}
+  /* ocupa la altura del contenedor y recorta con scaleY */
+  height: 100%;
+  width: auto;
+  min-height: 100%;
 
-.stats {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 16px;
-}
+  /* no limitar por max-width: dejamos que el recorte ocurra por overflow */
+  max-width: none;
+  max-height: none;
 
-.stat {
-  border: 1px solid currentColor;
-  border-radius: 14px;
-  padding: 12px 18px;
-  text-align: center;
-}
+  transform: translateY(-50%) scale(var(--plate-sx), var(--plate-sy));
+  transform-origin: center;
 
-.stat strong {
-  font-size: 34px;
   display: block;
+  vertical-align: middle;
+
+  /* evita “saltos” en algunos DPR */
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Tipografías */
+.diet-header {
+  font-family: MarkProBold;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  font-size: clamp(28px, 3.1vw, 50px);
+  line-height: 1.02;
+
+  text-align: left;
+  margin: 0;
+
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diet-description {
+  font-family: MarkPro;
+  font-weight: 400;
+
+  font-size: clamp(14px, 1.25vw, 20px);
+  line-height: clamp(19px, 1.75vw, 26px);
+
+  text-align: left;
+
+  max-width: min(60ch, 100%);
+  margin: clamp(8px, 1vw, 10px) 0 clamp(12px, 1.8vw, 22px);
+
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* ==========================
+   VALORES NUTRICIONALES
+========================== */
+
+.nutrition-values-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: clamp(10px, 1.6vw, 26px);
+  margin-bottom: clamp(10px, 1.4vw, 18px);
+
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.nutrition-box {
+  box-sizing: border-box;
+  border: 1px solid;
+  padding: clamp(6px, 0.8vw, 10px);
+  border-radius: clamp(16px, 1.6vw, 22px);
+
+  height: clamp(62px, 6.2vw, 88px);
+  min-width: clamp(62px, 5.8vw, 92px);
+
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+
+  flex: 0 0 auto;
+}
+
+.nutrition-box p {
+  margin: 0;
+  filter: none;
+}
+
+.nutrition-amount {
+  font-size: clamp(20px, 2.1vw, 30px);
+  font-weight: 600;
+}
+
+.nutrition-description {
+  font-size: clamp(11px, 1.15vw, 17px);
+  font-weight: 600;
+}
+
+.nutrition-footer {
+  text-align: left;
+  font-family: MarkPro;
+  font-weight: 500;
+
+  font-size: clamp(13px, 1.25vw, 19px);
+  margin-bottom: clamp(8px, 1vw, 13px);
+}
+
+/* ==========================
+   CTA
+========================== */
+
+.cta-button-container {
+  display: flex;
+  align-self: flex-start;
+  min-width: 0;
 }
 
 .cta {
-  margin-top: 20px;
-  padding: 14px 26px;
-  border-radius: 30px;
-  border: none;
-  font-weight: 700;
+  background-color: rgb(184, 0, 0);
+  font-family: MarkPro;
+
+  width: fit-content;
+  min-width: clamp(210px, 22vw, 420px);
+
+  border-radius: clamp(14px, 1.6vw, 19px);
+  height: clamp(30px, 2.8vw, 40px);
+
+  color: white;
+  font-size: clamp(12px, 1.05vw, 14px);
+  padding: 0 clamp(14px, 2vw, 18px);
   cursor: pointer;
+
+  white-space: nowrap;
 }
 
-.right {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 0; /* ❌ fuera */
+/* ==========================
+   TEMAS DE CONTENIDO (STATS)
+========================== */
+
+.veg .diet-header,
+.veg .diet-description,
+.veg .nutrition-box,
+.veg .nutrition-footer {
+  color: var(--veg-main);
 }
 
-.right img {
-  height: 520px;
-  width: auto;
-  transform: translateY(-38px); /* 🔑 SUBE EL PLATO */
+.fit .diet-header,
+.fit .diet-description,
+.fit .nutrition-box,
+.fit .nutrition-footer {
+  color: var(--fit-content);
 }
 
-.veg {
-  color: #0a7a2f;
-}
-.fit {
-  color: #b30000;
-}
-.pro {
+.pro .diet-header,
+.pro .diet-description,
+.pro .nutrition-box,
+.pro .nutrition-footer {
   color: #ffffff;
 }
-.keto {
-  color: #444;
-}
-.glu {
-  color: #2f4a22;
-}
-.low {
-  color: #555;
+
+.keto .diet-header,
+.keto .diet-description,
+.keto .nutrition-box,
+.keto .nutrition-footer {
+  color: var(--keto-main);
 }
 
-.fit .cta,
-.pro .cta {
-  background: #b30000;
-  color: white;
+.glu .diet-header,
+.glu .diet-description,
+.glu .nutrition-box,
+.glu .nutrition-footer {
+  color: var(--glu-main);
 }
 
+.low .diet-header,
+.low .diet-description,
+.low .nutrition-box,
+.low .nutrition-footer {
+  color: var(--low-content);
+}
+
+/* CTA por tema */
 .veg .cta {
-  background: rgb(10, 122, 47);
-  color: white;
+  background: var(--veg-main);
+  color: #fff;
+}
+.fit .cta {
+  background: var(--fit-content);
+  color: #fff;
+}
+.pro .cta {
+  background: var(--pro-main);
+  color: #fff;
 }
 .keto .cta {
-  background: #555;
-  color: white;
+  background: var(--keto-main);
+  color: #fff;
 }
 .glu .cta {
-  background: #2f4a22;
-  color: white;
+  background: var(--glu-main);
+  color: #fff;
 }
 .low .cta {
-  background: #555;
-  color: white;
+  background: var(--low-content);
+  color: #fff;
 }
 
-/* ======================
-   DIET SELECTOR – MOBILE
-====================== */
+/* ==========================
+   AJUSTE PARA MUY ANCHAS (4K+)
+========================== */
+@media (min-width: 2200px) {
+  .diet-content-derecha {
+    --plate-sx: 0.84;
+    --plate-sy: 1.04;
+    --plate-right: 18px;
+  }
+}
 
-@media (max-width: 768px) {
-  /* Contenedor botones (ok, solo aire) */
-  .container {
-    gap: 10px;
-    padding: 0 12px;
+/* =========================================================
+   TABLET CHICA (≈ 641px–820px)  ✅ SOLO ACÁ
+   “plato grande” + recorte hacia la derecha (tipo original)
+========================================================= */
+@media (max-width: 820px) and (min-width: 641px) {
+  /* ✅ el recorte “lindo” debe pasar en el viewport, no dentro del bloque */
+  .diet-content-container {
+    overflow: hidden;
   }
 
-  /* BLOQUE PRINCIPAL */
-  .detail {
+  .diet-content-father {
+    width: min(96vw, 1760px);
+    height: clamp(300px, 40vw, 420px);
+
     display: flex;
-    flex-direction: column;
-    padding: 18px 16px 22px; /* ⬅️ menos aire */
-    height: auto;
-    gap: 12px; /* ⬅️ compacta */
-    border-radius: 16px;
-    background-position: center top;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 16px;
+
+    overflow: visible;
   }
 
-  /* IMAGEN ARRIBA */
-  .right {
-    order: 1;
-    padding: 0;
+  .diet-content-izquierda {
+    flex: 0 0 52%;
+    min-width: 0;
+    padding-left: 18px;
+    padding-right: 0;
+    padding-block: 18px;
+  }
+
+  /* ✅ agrandar textos (solo tablet chica) */
+  .diet-header {
+    font-size: clamp(32px, 3.6vw, 46px);
+    line-height: 1.02;
+  }
+
+  .diet-description {
+    font-size: clamp(15px, 1.7vw, 18px);
+    line-height: clamp(20px, 2.15vw, 24px);
+    max-width: 54ch;
+    margin: 10px 0 16px;
+  }
+
+  .nutrition-footer {
+    font-size: clamp(14px, 1.6vw, 17px);
+    margin-bottom: 10px;
+  }
+
+  .nutrition-values-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nutrition-box {
+    height: 64px;
+    min-width: 74px;
+    padding: 8px 10px;
+    border-radius: 18px;
+  }
+
+  .nutrition-amount {
+    font-size: 22px;
+  }
+
+  .nutrition-description {
+    font-size: 12px;
+  }
+
+  .cta {
+    height: 36px;
+    font-size: 13px;
+    padding: 0 16px;
+    min-width: 230px;
+  }
+
+  .diet-content-derecha {
+    flex: 0 0 56%;
+    min-width: 0;
+    position: relative;
+
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .diet-content-derecha .hero-image {
+    position: absolute;
+    top: 50%;
+    right: clamp(-20px, -14vw, -60px);
+
+    height: 100%;
+    width: auto;
+
+    max-width: none;
+    max-height: none;
+
+    transform: translateY(-50%) scale(1.6);
+    transform-origin: center;
+
+    object-fit: cover;
+    object-position: right center;
+
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+/* ✅ SOLO para 680x1063 hacia abajo (pero todavía NO mobile apilado)
+   Ajusta el rango si querés: 681–820 (tablet chica) o <=680 (tu caso exacto) */
+@media (max-width: 680px) and (min-width: 641px) {
+  /* recorte en viewport */
+  .diet-content-container {
+    overflow: hidden;
+  }
+
+  .diet-content-father {
+    width: min(96vw, 1760px);
+    height: clamp(300px, 48vw, 410px);
+
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 14px;
+
+    overflow: visible;
+  }
+
+  .diet-content-izquierda {
+    flex: 0 0 64%;
+    min-width: 0;
+    padding-left: 18px;
+    padding-right: 0;
+    padding-block: 18px;
+  }
+
+  /* ✅ agrandar textos SOLO acá */
+  .diet-header {
+    font-size: clamp(32px, 5.2vw, 44px);
+    line-height: 1.02;
+  }
+
+  .diet-description {
+    font-size: clamp(15px, 2.4vw, 18px);
+    line-height: clamp(20px, 3.1vw, 24px);
+    max-width: 52ch;
+    margin: 10px 0 16px;
+  }
+
+  .nutrition-footer {
+    font-size: clamp(14px, 2.2vw, 17px);
+    margin-bottom: 10px;
+  }
+
+  .nutrition-values-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nutrition-box {
+    height: 64px;
+    min-width: 74px;
+    padding: 8px 10px;
+    border-radius: 18px;
+  }
+
+  .nutrition-amount {
+    font-size: 22px;
+  }
+
+  .nutrition-description {
+    font-size: 12px;
+  }
+
+  .cta {
+    height: 36px;
+    font-size: 13px;
+    padding: 0 16px;
+    min-width: 230px;
+  }
+
+  .diet-content-derecha {
+    flex: 0 0 52%;
+    min-width: 0;
+    position: relative;
+
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  /* imagen grande + recorte hacia la derecha (en viewport) */
+  .diet-content-derecha .hero-image {
+    position: absolute;
+    top: 50%;
+    right: clamp(-20px, -18vw, -70px);
+
+    height: 100%;
+    width: auto;
+
+    max-width: none;
+    max-height: none;
+
+    transform: translateY(-50%) scale(1.55);
+    transform-origin: center;
+
+    object-fit: cover;
+    object-position: right center;
+
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+/* =========================================================
+   <= 640px (NO apila)
+   ✅ Mantiene el plato a la derecha, recortado hacia afuera
+========================================================= */
+@media (max-width: 640px) {
+  /* el recorte debe pasar contra el viewport */
+  .diet-content-container {
+    overflow: hidden;
+  }
+
+  .diet-content-father {
+    width: min(96vw, 1760px);
+    height: clamp(300px, 58vw, 420px);
+
+    display: flex;
+    flex-direction: row; /* 🔑 NO apilar */
+    align-items: stretch;
+    justify-content: space-between;
+
+    gap: 12px;
+    overflow: visible; /* 🔑 que el recorte sea por el container (viewport) */
+  }
+
+  /* izquierda 100% legible */
+  .diet-content-izquierda {
+    flex: 0 0 78%;
+    min-width: 0;
+
+    padding-left: 18px;
+    padding-right: 0;
+    padding-block: 18px;
+
+    overflow: visible;
+  }
+
+  .diet-description {
+    max-width: 28ch; /* probá 24ch–32ch */
+  }
+
+  /* derecha existe solo para “soportar” la imagen empujada */
+  .diet-content-derecha {
+    flex: 0 0 48%;
+    min-width: 0;
+
+    position: relative;
+    overflow: visible; /* 🔑 no recortar acá */
+    padding-right: 0;
+  }
+
+  /* 🔑 plato siempre “pegado” a la derecha y recortado hacia afuera */
+  .diet-content-derecha .hero-image,
+  .diet-content-derecha img.hero-image,
+  .diet-content-derecha img {
+    position: absolute;
+    top: 50%;
+
+    right: clamp(-40px, -44vw, -180px); /* 🔑 empuje fuera del viewport */
+    height: 100%;
+    width: auto;
+
+    max-width: none;
+    max-height: none;
+
+    transform: translateY(-50%) scale(1.55);
+    transform-origin: center;
+
+    object-fit: cover;
+    object-position: right center;
+
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+/* =========================================================
+   <= 520px (520x1063 y hacia abajo)
+   ✅ Stack vertical: plato arriba centrado, luego todo el contenido
+========================================================= */
+/* =========================================================
+   <= 520px
+   ✅ Ahora sí apila y el plato queda ARRIBA centrado
+   (pisando el <=640 que NO apila)
+========================================================= */
+@media (max-width: 520px) {
+  .diet-content-container {
+    overflow: hidden;
+  }
+
+  .diet-content-father {
+    flex-direction: column; /* 🔑 pisa el row de <=640 */
     align-items: center;
-  }
+    justify-content: flex-start;
 
-  .right img {
+    width: min(96vw, 560px);
     height: auto;
-    width: 100%;
-    max-width: 240px; /* ⬅️ más chica */
-    transform: none;
-  }
-  .leftContent {
-    margin-top: 0 !important;
-    align-items: center !important;
+
+    gap: 10px;
+    overflow: visible;
+    padding: 18px 0 22px;
   }
 
-  /* TEXTO ABAJO */
-  .left {
-    order: 2;
+  /* plato arriba sí o sí */
+  .diet-content-derecha {
+    order: 0;
+    width: 100%;
+    flex: 0 0 auto;
+
+    position: relative;
+    overflow: visible;
+    padding-right: 0;
+
+    height: clamp(220px, 62vw, 330px);
+  }
+
+  /* contenido abajo */
+  .diet-content-izquierda {
+    order: 1;
+    width: 100%;
+    flex: 0 0 auto;
+
+    padding: 0 18px 0;
     align-items: center;
     text-align: center;
+
+    overflow: visible;
+  }
+
+  /* 🔑 reset TOTAL de la imagen (pisar right/top/scale del <=640) */
+  .diet-content-derecha .hero-image,
+  .diet-content-derecha img.hero-image,
+  .diet-content-derecha img {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    right: auto; /* 🔑 mata el right negativo del <=640 */
+    bottom: auto;
+
+    height: 100%;
+    width: auto;
+
+    max-width: none;
+    max-height: none;
+
+    transform: translate(-50%, -50%) scale(1.05); /* centrada arriba */
+    transform-origin: center;
+
+    object-fit: cover;
+    object-position: center;
+
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* tipografías centradas como en tu captura */
+  .diet-header {
+    text-align: center;
+    font-size: clamp(28px, 7.2vw, 36px);
+    line-height: 1.02;
+    margin: 6px 0 8px;
+    text-overflow: clip;
+  }
+
+  .diet-description {
+    text-align: center;
+    max-width: 34ch;
+    margin: 0 0 14px;
+  }
+
+  .nutrition-footer {
+    text-align: center;
+  }
+
+  .nutrition-values-container {
     width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
-  .left h2 {
-    font-size: 36px;
-    font-weight: 800;
-    margin-top: 4px; /* ⬅️ clave */
-    margin-bottom: 8px;
-  }
-
-  .left p {
-    font-size: 15px;
-    line-height: 1.45;
-    margin-bottom: 20px;
-    max-width: 320px;
-    font-weight: 500;
-    letter-spacing: normal; /* ⬅️ CRÍTICO */
-  }
-
-  /* STATS */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 👈 4 en línea */
-    gap: 8px;
+  .cta-button-container {
     width: 100%;
-    max-width: 100%;
-    margin: 0 auto 8px;
+    justify-content: center;
   }
 
-  .stat {
-    padding: 8px 6px; /* 👈 más chico */
-    border-radius: 10px;
-    min-width: 0; /* 👈 clave para que no empuje */
-  }
-
-  .stat strong {
-    font-size: 15px; /* 👈 compacto */
-    line-height: 1.1;
-  }
-
-  .stat span {
-    font-size: 11px;
-    opacity: 0.9;
-    line-height: 1.2;
-  }
-
-  .stat strong {
-    font-size: 20px;
-    font-weight: 800;
-  }
-
-  /* NOTA */
-  .note {
-    font-size: 20px;
-    opacity: 0.9;
-    margin-top: 4px;
-  }
-
-  /* BOTÓN */
   .cta {
-    margin-top: 14px;
-    padding: 13px 30px;
-    font-size: 15px;
-    width: 100%;
-    max-width: 290px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: 500;
+    min-width: min(320px, 92vw);
   }
 }

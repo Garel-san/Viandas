@@ -11,7 +11,15 @@ const DIETS = [
   { key: "baja", label: "Baja caloría" },
 ];
 
-/* 🔹 PLATOS RANDOM POR DIETA */
+const THEME_MAP = {
+  vegetariano: styles.veg,
+  fitness: styles.fit,
+  proteina: styles.pro,
+  keto: styles.keto,
+  gluten: styles.glu,
+  baja: styles.low,
+};
+
 const DIET_PLATES = {
   vegetariano: [
     "/Diets/vegetariano_vianda.webp",
@@ -53,151 +61,179 @@ const DIET_PLATES = {
 
 const DIET_CONTENT = {
   vegetariano: {
-    title: "VEGETARIANO",
-    desc: "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
-    stats: [
-      { value: "45g", label: "Carbos" },
-      { value: "16g", label: "Proteínas" },
-      { value: "28g", label: "Grasas" },
-      { value: "510", label: "Calorías" },
+    header: "VEGETARIANO",
+    description:
+      "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
+    nutritionValues: [
+      "45g Carbos",
+      "16g Proteínas",
+      "28g Grasas",
+      "510 Calorías",
     ],
     fondo: "/Diets/vegetariano_fondo.webp",
-    theme: "veg",
   },
   fitness: {
-    title: "FITNESS",
-    desc: "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
-    stats: [
-      { value: "38g", label: "Carbos" },
-      { value: "34g", label: "Proteínas" },
-      { value: "18g", label: "Grasas" },
-      { value: "480", label: "Calorías" },
+    header: "FITNESS",
+    description:
+      "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
+    nutritionValues: [
+      "38g Carbos",
+      "34g Proteínas",
+      "18g Grasas",
+      "480 Calorías",
     ],
     fondo: "/Diets/fitness_fondo.webp",
-    theme: "fit",
   },
   proteina: {
-    title: "PROTEÍNA+",
-    desc: "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
-    stats: [
-      { value: "25g", label: "Carbos" },
-      { value: "40g", label: "Proteínas" },
-      { value: "12g", label: "Grasas" },
-      { value: "490", label: "Calorías" },
+    header: "PROTEÍNA+",
+    description:
+      "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
+    nutritionValues: [
+      "25g Carbos",
+      "40g Proteínas",
+      "12g Grasas",
+      "490 Calorías",
     ],
     fondo: "/Diets/proteina_fondo.webp",
-    theme: "pro",
   },
   keto: {
-    title: "KETO",
-    desc: "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
-    stats: [
-      { value: "11g", label: "Carbos" },
-      { value: "42g", label: "Proteínas" },
-      { value: "24g", label: "Grasas" },
-      { value: "460", label: "Calorías" },
+    header: "KETO",
+    description:
+      "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
+    nutritionValues: [
+      "11g Carbos",
+      "42g Proteínas",
+      "24g Grasas",
+      "460 Calorías",
     ],
     fondo: "/Diets/keto_fondo.webp",
-    theme: "keto",
   },
   gluten: {
-    title: "SIN GLUTEN",
-    desc: "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
-    stats: [
-      { value: "18g", label: "Carbos" },
-      { value: "36g", label: "Proteínas" },
-      { value: "14g", label: "Grasas" },
-      { value: "390", label: "Calorías" },
+    header: "SIN GLUTEN",
+    description:
+      "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
+    nutritionValues: [
+      "18g Carbos",
+      "36g Proteínas",
+      "14g Grasas",
+      "390 Calorías",
     ],
     fondo: "/Diets/singluten_fondo.webp",
-    theme: "glu",
   },
   baja: {
-    title: "BAJA CALORÍA",
-    desc: "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
-    stats: [
-      { value: "30g", label: "Carbos" },
-      { value: "26g", label: "Proteínas" },
-      { value: "9g", label: "Grasas" },
-      { value: "350", label: "Calorías" },
+    header: "BAJA CALORÍA",
+    description:
+      "Platos especialmente preparados por nutricionistas para darle a tu cuerpo el combustible que necesita.",
+    nutritionValues: [
+      "30g Carbos",
+      "26g Proteínas",
+      "9g Grasas",
+      "350 Calorías",
     ],
     fondo: "/Diets/bajacaloria_fondo.webp",
-    theme: "low",
   },
 };
 
-/* 🔹 helper random */
 const getRandomPlate = (dietKey) => {
   const plates = DIET_PLATES[dietKey];
   return plates[Math.floor(Math.random() * plates.length)];
 };
 
 export default function DietSelector() {
-  const [active, setActive] = useState("vegetariano");
-  const [plateImage, setPlateImage] = useState(getRandomPlate("vegetariano"));
+  const [active, setActive] = useState("proteina");
+  const [plateImage, setPlateImage] = useState(getRandomPlate("proteina"));
 
   const navigate = useNavigate();
   const content = DIET_CONTENT[active];
+  const themeClass = THEME_MAP[active];
 
-  const handleSelectDiet = (dietKey) => {
-    setActive(dietKey);
-    setPlateImage(getRandomPlate(dietKey));
-  };
-
-  const handleGoToPedir = () => {
-    navigate("/pedir");
+  const triggerRipple = (e) => {
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    btn.style.setProperty("--ripple-x", `${e.clientX - rect.left}px`);
+    btn.style.setProperty("--ripple-y", `${e.clientY - rect.top}px`);
+    btn.classList.remove(styles.rippling);
+    void btn.offsetWidth;
+    btn.classList.add(styles.rippling);
   };
 
   return (
     <>
-      {/* BOTONES */}
+      {/* BOTONES DIETA (estructura tipo DietButton original) */}
       <div className={styles.container}>
-        {DIETS.map((diet) => (
-          <button
-            key={diet.key}
-            className={`${styles.button} ${
-              active === diet.key ? styles.active : ""
-            } ${styles[diet.key]}`}
-            onClick={() => handleSelectDiet(diet.key)}
-          >
-            <span className={styles.circle} />
-            <span className={styles.label}>{diet.label}</span>
-          </button>
-        ))}
+        {DIETS.map((diet) => {
+          const selected = active === diet.key;
+
+          return (
+            <button
+              key={diet.key}
+              type="button"
+              className={`${styles.button} ${styles[diet.key]} ${
+                selected ? styles.active : ""
+              }`}
+              onPointerDown={triggerRipple}
+              onClick={() => {
+                setActive(diet.key);
+                setPlateImage(getRandomPlate(diet.key));
+              }}
+            >
+              {/* Indicador tipo Radio (equivalente al <Radio /> de MUI) */}
+              <span
+                className={styles.circle}
+                aria-hidden="true"
+                data-checked={selected}
+              />
+
+              {/* Label */}
+              <span className={styles.label}>{diet.label}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* CONTENIDO */}
-      <section
-        className={`${styles.detail} ${styles[content.theme]}`}
+      {/* CONTENIDO DIETA (estructura original real) */}
+      <div
+        className={`${styles["diet-content-container"]} ${themeClass}`}
         style={{ backgroundImage: `url(${content.fondo})` }}
       >
-        <div className={styles.left}>
-          {/* 👇 NUEVO WRAPPER INTERNO */}
-          <div className={styles.leftContent}>
-            <h2>{content.title}</h2>
-            <p>{content.desc}</p>
+        <div className={styles["diet-content-father"]}>
+          <div className={styles["diet-content-izquierda"]}>
+            <p className={styles["diet-header"]}>{content.header}</p>
 
-            <div className={styles.stats}>
-              {content.stats.map((s, i) => (
-                <div key={i} className={styles.stat}>
-                  <strong>{s.value}</strong>
-                  <span>{s.label}</span>
-                </div>
-              ))}
+            <p className={styles["diet-description"]}>{content.description}</p>
+
+            <div className={styles["nutrition-values-container"]}>
+              {content.nutritionValues.map((value, i) => {
+                const [amount, label] = value.split(" ");
+                return (
+                  <div key={i} className={styles["nutrition-box"]}>
+                    <p className={styles["nutrition-amount"]}>{amount}</p>
+                    <p className={styles["nutrition-description"]}>{label}</p>
+                  </div>
+                );
+              })}
             </div>
 
-            <span className={styles.note}>Valores nutricionales promedio</span>
+            <p className={styles["nutrition-footer"]}>
+              Valores nutricionales promedio
+            </p>
 
-            <button className={styles.cta} onClick={handleGoToPedir}>
-              ARMAR MI PACK DE VIANDAS
-            </button>
+            <div className={styles["cta-button-container"]}>
+              <button className={styles.cta} onClick={() => navigate("/pedir")}>
+                ARMAR MI PACK DE VIANDAS
+              </button>
+            </div>
+          </div>
+
+          <div className={styles["diet-content-derecha"]}>
+            <img
+              src={plateImage}
+              alt={content.header}
+              className={styles["hero-image"]}
+            />
           </div>
         </div>
-
-        <div className={styles.right}>
-          <img src={plateImage} alt={content.title} />
-        </div>
-      </section>
+      </div>
     </>
   );
 }

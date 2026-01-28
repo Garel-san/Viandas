@@ -1,115 +1,222 @@
-.banner {
+/* ======================
+   HERO CTA (BANNER 3) — RESPONSIVE “CLAMP-FIRST”
+====================== */
+
+.bannerHeroBox {
+  font-family: MarkPro;
   width: 100%;
-  min-height: 330px;
+  min-height: clamp(320px, 26vw, 396px);
 
   background-image: url("/Banners/hero-image.webp");
-  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
 
   display: flex;
+  justify-content: center;
   align-items: center;
+
+  padding: clamp(18px, 3vw, 34px);
+  box-sizing: border-box;
 }
 
-.inner {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 80px;
+/* ======================
+   INNER
+====================== */
 
+.bannerHeroChild {
+  width: min(92vw, 980px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+
+  gap: clamp(10px, 2vw, 22px);
 }
 
 /* ======================
    TEXTO
 ====================== */
-.textBlock {
-  max-width: 490px;
 
-  display: flex;
-  flex-direction: column;
-
-  /* ⬅️ DESPLAZAMIENTO REAL DEL BLOQUE */
-  margin-left: 100px;
+.bannerTextBox {
+  flex: 1 1 520px;
+  max-width: 680px;
+  min-width: 0; /* evita overflow por textos largos */
 }
 
 .title {
-  font-family: "Poppins", sans-serif;
-  font-size: 42px;
-  font-weight: 700;
-  color: #000000;
+  font-family: MarkProBold;
+  font-size: clamp(32px, 3.2vw, 45px);
+  line-height: clamp(34px, 3.4vw, 48px);
+  letter-spacing: -1.5px;
 
-  line-height: 1.05; /* ⬅️ compacta un poco más */
-  margin-bottom: -9px; /* ⬅️ ACERCA realmente */
+  margin: 0;
+  text-align: left;
+
+  overflow-wrap: anywhere;
 }
 
+.questionMark {
+  font-family: Arial, Helvetica, sans-serif; /* NO MarkPro */
+  font-size: clamp(32px, 3.2vw, 45px);
+  line-height: clamp(34px, 3.4vw, 48px);
+  letter-spacing: -1.5px;
+  font-weight: 900;
+}
+
+/* ✅ LÍMITE MÁS AGRESIVO PARA DESCRIPCIÓN */
 .subtitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 20px;
-  line-height: 1.35; /* ⬅️ clave */
-  font-weight: 400;
-  color: #000000;
-  letter-spacing: 0.03em; /* ⬅️ 0.04em abría demasiado */
+  font-weight: 500;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: clamp(22px, 2vw, 27px);
+  letter-spacing: -1px;
+
+  margin: clamp(8px, 1.1vw, 12px) 0 0;
+  text-align: left;
+
+  width: 100%;
+  max-width: clamp(22ch, 26vw, 32ch); /* <<< más agresivo */
+  overflow-wrap: anywhere;
 }
+
 /* ======================
-   BOTÓN
+   BOTÓN CTA
 ====================== */
-.button {
-  padding: 14px 66px;
-  border-radius: 30px;
+
+.ctaButton {
+  padding: clamp(12px, 1.3vw, 14px) clamp(28px, 5vw, 66px);
+  border-radius: 9999px;
   border: none;
 
-  background-color: #f2a900;
+  background-color: #ea9a00;
   color: #ffffff;
 
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 500;
 
-  /* ⬅️ alineación visual correcta */
-  margin-right: 100px;
+  cursor: pointer;
   white-space: nowrap;
 }
 
 /* ======================
-   MOBILE
+   BREAKPOINTS MÍNIMOS (solo cambios de layout)
 ====================== */
-@media (max-width: 768px) {
-  .banner {
-    min-height: auto;
-    padding: 48px 0 56px;
-    background-position: center top;
+
+@media (max-width: 1170px) {
+  .bannerHeroBox {
+    background-position: right 20% bottom 90%;
+  }
+}
+/* =========================================================
+   BANNER 3 — ORDENADO (sin reglas duplicadas)
+   Objetivo: en 680x1063 y hacia abajo, mantener ROW,
+   sin espacio blanco enorme, y el título centrado
+   respecto del bloque del subtítulo (no corrido a la derecha).
+========================================================= */
+
+/* (opcional) ajuste de background antes */
+@media (max-width: 1170px) {
+  .bannerHeroBox {
+    background-position: right 20% bottom 90%;
+  }
+}
+
+/* =========================================================
+   TABLET CHICA / TU CASO: <= 680px (mantener en fila)
+   ✅ ESTA REGLA REEMPLAZA a la anterior “pasa a columna”
+========================================================= */
+@media (max-width: 680px) {
+  .bannerHeroBox {
+    min-height: clamp(240px, 38vw, 320px);
+    padding: 16px;
   }
 
-  .inner {
-    flex-direction: column;
-    justify-content: center;
+  .bannerHeroChild {
+    width: min(94vw, 980px);
+
+    display: flex;
+    flex-direction: row; /* ✅ ROW */
     align-items: center;
-    padding: 0 20px;
-    gap: 18px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+
+    gap: 14px;
+  }
+
+  /* TEXTO: el contenedor define el ancho “real” del bloque */
+  .bannerTextBox {
+    /* 🔑 para que el título pueda centrarse “sobre” el subtítulo */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start; /* bloque alineado a la izquierda */
+    text-align: left;
+
+    flex: 1 1 auto;
+    min-width: 0;
+
+    /* 🔑 ancho del bloque = ancho del subtítulo */
+    width: fit-content;
+    max-width: 28ch; /* ancho de referencia */
+  }
+
+  /* TÍTULO: centrado respecto del ancho del .bannerTextBox (28ch) */
+  .title {
+    width: 100%;
+    margin: 0 0 6px 0;
+    text-align: center; /* ✅ queda centrado arriba */
+    font-size: 28px;
+    line-height: 30px;
+  }
+
+  .questionMark {
+    font-size: 28px;
+    line-height: 30px;
+  }
+
+  /* SUBTÍTULO: mantiene el ancho del bloque */
+  .subtitle {
+    width: 100%;
+    max-width: 28ch;
+    margin: 0;
+    text-align: left;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* BOTÓN: no baja, no estira */
+  .ctaButton {
+    flex: 0 0 auto;
+    padding: 12px 34px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+}
+
+/* =========================================================
+   Mobile real (recién acá apila)
+========================================================= */
+@media (max-width: 520px) {
+  .bannerHeroChild {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-wrap: nowrap;
+  }
+
+  .bannerTextBox {
+    max-width: 92vw;
     text-align: center;
   }
 
-  .textBlock {
-    max-width: 340px;
-    margin-left: 0; /* ⬅️ se resetea */
-    align-items: center;
-  }
-
-  .title {
-    font-size: 32px;
+  .title,
+  .subtitle {
+    text-align: center;
   }
 
   .subtitle {
-    font-size: 17px;
-    line-height: 1.4;
+    max-width: 26ch;
   }
 
-  .button {
-    margin-right: 0;
-    padding: 14px 72px;
-    font-size: 14px;
+  .ctaButton {
+    width: auto;
   }
 }

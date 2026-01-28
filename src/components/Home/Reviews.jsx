@@ -1,99 +1,188 @@
+import { useEffect, useMemo, useState } from "react";
+import Slider from "react-slick";
 import styles from "./Reviews.module.css";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const reviews = [
   {
-    name: "Teo",
-    stars: 5,
-    text: "La calidad de las preparaciones es muy buena, condimentada pero no salada. La porcion ideal para almuerzo o cena.",
+    rating: 5,
+    quote:
+      "La calidad de las preparaciones es muy buena, condimentada pero no salada. La porcion ideal para almuerzo o cena.",
+    author: "Teo",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 3.png",
   },
   {
-    name: "Ana",
-    stars: 5,
-    text: "Sirven muy bien y con respeto, todo es muy sabroso y abundante. Hay mucha variedad de comidas, da gusto pedir!",
+    rating: 5,
+    quote:
+      "Sirven muy bien y con respeto, todo es muy sabroso y abundante. Hay mucha variedad de comidas, da gusto pedir!",
+    author: "Ana",
+    clientSince: "Review de Google",
     img: "/Reviews/Review.png",
   },
   {
-    name: "Felipe",
-    stars: 4,
-    text: "Llegan en tiempo y forma. Comida sabrosa y bien empacada. Las viandas duran 10 dias en excelentes condiciones.",
+    rating: 4,
+    quote:
+      "Llegan en tiempo y forma. Comida sabrosa y bien empacada. Las viandas duran 10 dias en excelentes condiciones.",
+    author: "Felipe",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 2.png",
   },
   {
-    name: "Dominguez",
-    stars: 5,
-    text: "Llevo tiempo usando sus servicios, aparte de la calidad de la comida, son puntuales y responden inquietudes rapidamente.",
+    rating: 5,
+    quote:
+      "Llevo tiempo usando sus servicios, aparte de la calidad de la comida, son puntuales y responden inquietudes rapidamente.",
+    author: "Dominguez",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 4.png",
   },
   {
-    name: "María Corbo",
-    stars: 5,
-    text: "Muy conforme con la calidad de las viandas, el servicio de entrega y la variedad que tienen. Hace 2 años que las solicito, muy practico para hacer el pedido online.",
+    rating: 5,
+    quote:
+      "Muy conforme con la calidad de las viandas, el servicio de entrega y la variedad que tienen. Hace 2 años que las solicito, muy practico para hacer el pedido online.",
+    author: "María Corbo",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 5.png",
   },
   {
-    name: "Lic. Barragán Ana Elena",
-    stars: 5,
-    text: "Encontramos este servicio para colaborar con mi madre que tiene problemas de movilidad y le cuesta mucho cocinarse. Sinceramente un ÉXITO!",
+    rating: 5,
+    quote:
+      "Encontramos este servicio para colaborar con mi madre que tiene problemas de movilidad y le cuesta mucho cocinarse. Sinceramente un ÉXITO!",
+    author: "Lic. Barragán Ana Elena",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 6.png",
   },
   {
-    name: "Ana",
-    stars: 5,
-    text: "Hola, sirven muy bien y con respeto, todo es muy sabroso y abundante, hay mucha variedad de comidas... da gusto pedir ahí.",
+    rating: 5,
+    quote:
+      "Hola, sirven muy bien y con respeto, todo es muy sabroso y abundante, hay mucha variedad de comidas... da gusto pedir ahí.",
+    author: "Ana",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 7.png",
   },
   {
-    name: "Juan Pablo Pereira",
-    stars: 5,
-    text: "Recomendable, soy comprador frecuente. Buena calidad a un precio razonable, se nota esfuerzo por mejorar siempre. Deberían agregar pagos online.",
+    rating: 5,
+    quote:
+      "Recomendable, soy comprador frecuente. Buena calidad a un precio razonable, se nota esfuerzo por mejorar siempre. Deberían agregar pagos online.",
+    author: "Juan Pablo Pereira",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 8.png",
   },
   {
-    name: "Javier Lombardo Von",
-    stars: 5,
-    text: "1 minuto de micro y tengo mi comida hecha por profesionales, con una porción abundante, sabrosa y al mejor precio del mercado, y con un postre de regalo. Gracias por existir.",
+    rating: 5,
+    quote:
+      "1 minuto de micro y tengo mi comida hecha por profesionales, con una porción abundante, sabrosa y al mejor precio del mercado, y con un postre de regalo. Gracias por existir.",
+    author: "Javier Lombardo Von",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 9.png",
   },
   {
-    name: "Cristina Rolfi",
-    stars: 5,
-    text: "He comprado siete viandas, todas muy ricas. Un buen balance en sabores. Recomiendo.",
+    rating: 5,
+    quote:
+      "He comprado siete viandas, todas muy ricas. Un buen balance en sabores. Recomiendo.",
+    author: "Cristina Rolfi",
+    clientSince: "Review de Google",
     img: "/Reviews/Review 10.png",
   },
 ];
 
 export default function Reviews() {
+  const [is4k, setIs4k] = useState(false);
+
+  useEffect(() => {
+    const compute = () => {
+      const dpr = window.devicePixelRatio || 1;
+
+      // "tamaño efectivo" (aprox. físico) para cubrir casos donde el CSS width sea menor por DPR alto
+      const effectiveW = window.innerWidth * dpr;
+      const effectiveH = window.innerHeight * dpr;
+
+      setIs4k(effectiveW >= 2560 && effectiveH >= 1063);
+    };
+
+    compute();
+    window.addEventListener("resize", compute);
+    window.addEventListener("orientationchange", compute);
+
+    return () => {
+      window.removeEventListener("resize", compute);
+      window.removeEventListener("orientationchange", compute);
+    };
+  }, []);
+
+  const settings = useMemo(
+    () => ({
+      dots: false,
+      infinite: true,
+      speed: 500,
+
+      // ✅ En "normal" (no 4K) se ven 2; cuando alcanza 2560x1063 (efectivo) se ven 3
+      slidesToShow: is4k ? 3 : 2,
+      slidesToScroll: 1,
+
+      centerMode: true,
+      centerPadding: "0px",
+
+      // ✅ móviles/tablets siguen igual
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 399,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    }),
+    [is4k],
+  );
+
   return (
-    <section className={styles.wrapper}>
-      <div className={styles.viewport}>
-        <div className={styles.track}>
-          {[...reviews, ...reviews].map((r, i) => (
-            <div className={styles.card} key={i}>
-              <div className={styles.stars}>
-                {Array.from({ length: 5 }).map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={idx < r.stars ? styles.filled : styles.empty}
-                  >
+    <div className={styles.reviewsCarouselContainer}>
+      <Slider {...settings}>
+        {reviews.map((review, index) => (
+          <div key={index} className={styles.reviewCard}>
+            <div className={styles.reviewRating}>
+              {[...Array(5)].map((_, i) =>
+                i < review.rating ? (
+                  <span key={i} className={styles.starFilled}>
                     ★
                   </span>
-                ))}
-              </div>
+                ) : (
+                  <span key={i} className={styles.starEmpty}>
+                    ★
+                  </span>
+                ),
+              )}
+            </div>
 
-              <p className={styles.text}>"{r.text}"</p>
+            <div className={styles.quoteContenedor}>
+              <p className={styles.reviewQuote}>“{review.quote}”</p>
+            </div>
 
-              <div className={styles.user}>
-                <img src={r.img} alt={r.name} />
-                <div>
-                  <strong>{r.name}</strong>
-                  <span>Review de Google</span>
-                </div>
+            <div className={styles.reviewAuthor}>
+              <img
+                src={review.img}
+                alt={review.author}
+                className={styles.authorImg}
+              />
+              <div>
+                <p className={styles.authorName}>{review.author}</p>
+                <p className={styles.clientSince}>{review.clientSince}</p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }

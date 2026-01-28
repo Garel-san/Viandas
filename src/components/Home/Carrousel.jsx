@@ -1,5 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import Slider from "react-slick";
 import styles from "./Carrousel.module.css";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const items = [
   { title: "Albondigas de carne", img: "/Carousel/carousel1.webp" },
@@ -15,166 +19,50 @@ const items = [
 ];
 
 export default function Carrousel() {
-  const TOTAL = items.length;
-  const extendedItems = [...items, ...items, ...items];
+  const sliderRef = useRef(null);
 
-  const [index, setIndex] = useState(TOTAL);
-  const [animate, setAnimate] = useState(true);
-  const [step, setStep] = useState(0);
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToScroll: 1,
+    slidesToShow: 4,
 
-  const cardRef = useRef(null);
-  const trackRef = useRef(null);
+    // ✅ desactiva arrows internas de slick
+    arrows: false,
 
-  /* ======================
-     DRAG (MOBILE)
-  ====================== */
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const prevTranslate = useRef(0);
-  const currentTranslate = useRef(0);
-
-  const isMobile = () => window.innerWidth <= 768;
-
-  /* ======================
-     MEDICIÓN RESPONSIVE
-  ====================== */
-  useEffect(() => {
-    const measure = () => {
-      if (!cardRef.current) return;
-
-      const card = cardRef.current;
-      const gap = parseFloat(getComputedStyle(card.parentElement).gap || 0);
-
-      const width = card.getBoundingClientRect().width;
-      setStep(width + gap);
-    };
-
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-
-  /* ======================
-     CONTROLES
-  ====================== */
-  const next = () => {
-    setAnimate(true);
-    setIndex((i) => i + 1);
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 3 } },
+      { breakpoint: 700, settings: { slidesToShow: 2 } },
+    ],
   };
 
-  const prev = () => {
-    setAnimate(true);
-    setIndex((i) => i - 1);
-  };
-
-  /* ======================
-     DRAG HANDLERS (MOBILE)
-  ====================== */
-  const onTouchStart = (e) => {
-    if (!isMobile()) return;
-
-    isDragging.current = true;
-    setAnimate(false);
-
-    startX.current = e.touches[0].clientX;
-    prevTranslate.current = -index * step;
-  };
-
-  const onTouchMove = (e) => {
-    if (!isDragging.current) return;
-
-    const currentX = e.touches[0].clientX;
-    const delta = currentX - startX.current;
-
-    currentTranslate.current = prevTranslate.current + delta;
-
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(${currentTranslate.current}px)`;
-    }
-  };
-
-  const onTouchEnd = () => {
-    if (!isDragging.current) return;
-
-    isDragging.current = false;
-
-    const movedBy = currentTranslate.current - prevTranslate.current;
-    const movedSlides = Math.round(movedBy / step);
-
-    let newIndex = index - movedSlides;
-
-    setAnimate(true);
-    setIndex(newIndex);
-  };
-
-  /* ======================
-     LOOP INFINITO
-  ====================== */
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const handleTransitionEnd = () => {
-      if (index >= TOTAL * 2) {
-        setAnimate(false);
-        setIndex(TOTAL);
-      }
-
-      if (index < TOTAL) {
-        setAnimate(false);
-        setIndex(TOTAL + index);
-      }
-    };
-
-    track.addEventListener("transitionend", handleTransitionEnd);
-    return () => {
-      track.removeEventListener("transitionend", handleTransitionEnd);
-    };
-  }, [index, TOTAL]);
-
-  /* ======================
-     RENDER
-  ====================== */
   return (
-    <section className={styles.wrapper}>
+    <div className={styles.carouselContainer}>
+      {/* ✅ flechas fuera del Slider */}
       <button
+        type="button"
         className={styles.arrowLeft}
-        onClick={prev}
+        onClick={() => sliderRef.current?.slickPrev()}
         aria-label="Anterior"
       />
-
       <button
+        type="button"
         className={styles.arrowRight}
-        onClick={next}
+        onClick={() => sliderRef.current?.slickNext()}
         aria-label="Siguiente"
       />
 
-      <div
-        className={styles.viewport}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-      >
-        <div
-          ref={trackRef}
-          className={styles.track}
-          style={{
-            transform: `translateX(-${index * step}px)`,
-            transition: animate
-              ? "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)"
-              : "none",
-          }}
-        >
-          {extendedItems.map((item, i) => (
-            <div className={styles.card} key={i} ref={i === 0 ? cardRef : null}>
+      <Slider ref={sliderRef} {...settings}>
+        {items.map((item, index) => (
+          <div key={index} className={styles.slide}>
+            <div className={styles.card}>
               <img src={item.img} alt={item.title} />
-              <div className={styles.titleOverlay}>
-                <span className={styles.title}>{item.title}</span>
-              </div>
+              <h3 className={styles.title}>{item.title}</h3>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }

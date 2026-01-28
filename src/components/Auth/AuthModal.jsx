@@ -1,3 +1,4 @@
+// AuthModal.jsx
 import { useState } from "react";
 import styles from "./AuthModal.module.css";
 import { FiEye, FiEyeOff, FiX } from "react-icons/fi";
@@ -24,13 +25,19 @@ export default function AuthModal({ onClose }) {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button className={styles.close} onClick={onClose}>
-          <FiX />
-        </button>
+        <div className={styles.header}>
+          <h2 className={styles.title}>
+            {mode === "login" ? "Iniciar sesión" : "Registrarse"}
+          </h2>
 
-        <h2 className={styles.title}>
-          {mode === "login" ? "Iniciar sesión" : "Registrarse"}
-        </h2>
+          <button
+            className={styles.close}
+            onClick={onClose}
+            aria-label="Cerrar"
+          >
+            <FiX />
+          </button>
+        </div>
 
         {mode === "register" && (
           <>
@@ -67,6 +74,9 @@ export default function AuthModal({ onClose }) {
               type="button"
               tabIndex={-1}
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={
+                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+              }
             >
               {showPassword ? <FiEyeOff /> : <FiEye />}
             </button>
@@ -104,20 +114,19 @@ export default function AuthModal({ onClose }) {
 
 /* =======================
    Input flotante
-   ======================= */
+======================= */
 
 function FloatingInput({ label, name, value, onChange, type = "text", icon }) {
   const [focused, setFocused] = useState(false);
 
   return (
     <div
-      className={`${styles.field} ${
-        focused || value ? styles.activeField : ""
-      }`}
+      className={`${styles.field} ${focused || value ? styles.activeField : ""}`}
     >
-      <label>{label}</label>
+      <label className={styles.floatingLabel}>{label}</label>
 
       <input
+        className={styles.input}
         type={type}
         name={name}
         value={value}

@@ -1,17 +1,22 @@
+/* ======================
+   NAVBAR (FULL BLEED)
+====================== */
 .navbar {
-  width: 100%;
-  height: 80px;
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
   z-index: 9000;
   isolation: isolate;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+
+  height: clamp(64px, 6.5vw, 84px);
+
+  display: flex;
   align-items: center;
-  padding: 0 40px;
-  box-sizing: border-box;
-  transition: background 0.25s ease, border-bottom 0.25s ease;
+
+  transition:
+    background 0.25s ease,
+    border-bottom 0.25s ease;
 }
 
 .navbarTop {
@@ -26,17 +31,40 @@
 }
 
 /* ======================
-   REDES (DESKTOP)
+   INNER (LAYOUT REAL)
+====================== */
+.inner {
+  width: 100%;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+
+  padding-inline: clamp(16px, 4vw, 48px);
+  box-sizing: border-box;
+
+  min-width: 0;
+}
+
+/* ======================
+   IZQUIERDA
+====================== */
+.left {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 16px);
+  min-width: 0;
+}
+
+/* ======================
+   REDES
 ====================== */
 .socials {
   display: flex;
-  gap: 10px;
+  gap: clamp(8px, 1.2vw, 12px);
   align-items: center;
-}
-
-.socials a {
-  font-size: 18px;
-  transition: color 0.25s ease, opacity 0.2s ease;
+  min-width: 0;
 }
 
 .socialsTop a {
@@ -47,44 +75,57 @@
   color: #000000;
 }
 
-/* SVG ICONOS DESKTOP */
 .socialIcon {
-  width: 28px;
-  height: 28px;
+  width: clamp(20px, 2.2vw, 28px);
+  height: clamp(20px, 2.2vw, 28px);
   fill: currentColor;
-  display: block;
 }
 
 /* ======================
-   LOGO
+   LOGO (CENTRO)
 ====================== */
 .logoWrapper {
   display: flex;
   justify-content: center;
+  pointer-events: auto;
+  min-width: 0;
 }
 
 .logo {
-  height: 60px;
+  height: clamp(42px, 4.5vw, 60px);
+  width: auto;
   cursor: pointer;
 }
 
 /* ======================
-   BOTONES (DESKTOP)
+   ACCIONES DERECHA
 ====================== */
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: clamp(8px, 1.5vw, 14px);
+  min-width: 0;
 }
 
+/* --- LOGIN --- */
 .loginBtn {
-  font-family: "Poppins", sans-serif;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 15px;
+  font-family: MarkPro;
+  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
   font-weight: 600;
-  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: clamp(0.6em, 0.8vw, 0.9em) clamp(1.1em, 1.4vw, 1.4em);
+
+  border-radius: 999px;
   background: #ffffff;
+  cursor: pointer;
+
+  white-space: nowrap;
+  min-width: clamp(120px, 12vw, 140px);
+  line-height: 1;
 }
 
 .loginBtnTop {
@@ -95,37 +136,40 @@
   border: 1.5px solid #000000;
 }
 
+/* --- CTA --- */
 .orderBtn {
-  font-family: "Poppins", sans-serif;
-  padding: 9px 16px;
-  border-radius: 999px;
-  border: none;
-  background: rgb(242, 163, 0);
-  color: #ffffff;
-  font-size: 15px;
+  font-family: MarkPro;
+  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
   font-weight: 500;
   letter-spacing: 0.04em;
+
+  padding: clamp(0.55em, 0.7vw, 0.7em) clamp(1.1em, 1.4vw, 1.4em);
+
+  border-radius: 999px;
+  border: none;
+  background: rgb(234, 154, 0);
+  color: #ffffff;
+
+  white-space: nowrap;
   cursor: pointer;
+
+  min-width: clamp(110px, 11vw, 120px);
 }
 
 /* ======================
-   MOBILE EXTRA
+   MENU (HAMBURGUESA)
 ====================== */
-.left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .menuBtn {
   display: none;
   background: none;
   border: none;
-  font-size: 26px;
+  font-size: clamp(22px, 4vw, 30px);
   cursor: pointer;
 }
 
-/* OVERLAY */
+/* ======================
+   DRAWER / OVERLAY
+====================== */
 .overlay {
   position: fixed;
   inset: 0;
@@ -133,89 +177,107 @@
   z-index: 8999;
 }
 
-/* ======================
-   DRAWER BASE
-====================== */
 .drawer {
   position: fixed;
   top: 0;
   right: 0;
-  width: 80%;
-  max-width: 320px;
+
+  width: min(78vw, 300px);
   height: 100vh;
+
   background: #ffffff;
   z-index: 9001;
+
   transform: translateX(100%);
-  transition: transform 0.3s ease;
-  padding: 24px;
+  transition: transform 0.28s ease;
+
+  /* limpio */
+  padding: 18px 16px;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-items: flex-start;
 }
 
 .drawerOpen {
   transform: translateX(0);
 }
 
-.closeBtn {
-  align-self: flex-end;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* LOGIN MOBILE */
-.drawerLogin {
+/* contenedor interno simple (para que sea fácil mover/centrar luego) */
+.drawerInner {
   width: 100%;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 12px;
+  padding-top: 6px;
 }
 
-/* ======================
-   REDES DRAWER
-====================== */
+/* botón arriba (simple, como referencia) */
+.drawerLoginBtn {
+  font-family: MarkPro;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+
+  padding: 6px 10px;
+  border-radius: 2px;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  color: #000000;
+
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* fila de íconos debajo */
 .drawerSocials {
   display: flex;
-  gap: 18px;
-  margin-top: 8px;
+  align-items: center;
+  gap: 8px;
+
+  /* queda debajo del botón, pegado como en tu imagen */
+  padding-left: 2px;
 }
 
 .drawerSocialLink {
-  color: #000000;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  width: 32px; /* antes 20px */
+  height: 32px; /* antes 20px */
+
+  color: #000000; /* todos negros */
 }
 
+/* MISMA regla para los 3 => evita “facebook gigante” */
 .drawerSocialIcon {
-  width: 30px;
-  height: 30px;
+  width: 26px; /* antes 16px */
+  height: 26px; /* antes 16px */
   fill: currentColor;
+  display: block;
 }
 
-.drawerReactIcon {
-  font-size: 30px;
-  color: currentColor;
+/* opcional: un hover sutil */
+.drawerSocialLink:hover {
+  opacity: 0.75;
 }
-
 /* ======================
-   MEDIA QUERY (MOBILE)
+   BREAKPOINTS REALES
 ====================== */
-@media (max-width: 768px) {
+
+/* Tablet: aparece hamburguesa */
+@media (max-width: 1200px) {
   .socials {
     display: none;
   }
 
   .menuBtn {
     display: block;
-    font-size: 32px;
     color: #ffffff;
   }
 
@@ -223,33 +285,60 @@
     color: #000000;
   }
 
+  .inner {
+    grid-template-columns: auto auto 1fr;
+  }
+}
+
+/* Mobile real */
+@media (max-width: 900px) {
   .loginBtn {
     display: none;
   }
+}
 
+/* ======================
+   TABLET / iPad (≈768px–1024px)
+   Navbar más alta
+====================== */
+@media (min-width: 720px) and (max-width: 1024px) {
   .navbar {
-    grid-template-columns: auto auto 1fr;
-    padding: 0 14px;
-    height: 72px;
+    height: clamp(80px, 9vw, 96px);
   }
 
-  .logoWrapper {
-    justify-content: flex-start;
-    margin-left: 4px;
+  .inner {
+    padding-inline: clamp(20px, 5vw, 56px);
   }
 
   .logo {
-    height: 52px;
+    height: clamp(52px, 6vw, 68px);
   }
 
+  .menuBtn {
+    font-size: clamp(26px, 5vw, 34px);
+  }
+}
+
+@media (max-width: 520px) {
   .orderBtn {
-    padding: 10px 17px;
-    font-size: 12px;
-    white-space: nowrap;
+    display: none;
+  }
+}
+
+/* ======================
+   MOBILE GRANDE (≈390px–520px)
+   Navbar más alta
+====================== */
+@media (min-width: 390px) and (max-width: 520px) {
+  .navbar {
+    height: clamp(72px, 18vw, 86px);
   }
 
-  /* 🔥 FIX CLAVE: reafirmar fondo en mobile */
-  .navbarScrolled {
-    background: #ffffff;
+  .logo {
+    height: clamp(46px, 12vw, 58px);
+  }
+
+  .menuBtn {
+    font-size: clamp(24px, 6vw, 30px);
   }
 }

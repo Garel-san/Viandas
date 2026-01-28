@@ -2,24 +2,30 @@ import styles from "./Banner2.module.css";
 
 export default function Banner2() {
   return (
-    <section className={styles.wrapper}>
-      <div className={styles.container}>
-        {/* IZQUIERDA */}
-        <div className={styles.imageBox}>
-          <img src="/Banners/hero2.webp" alt="Comida fresca" />
+    <section className={styles.section}>
+      <div className={styles.banner}>
+        {/* COLUMNA IZQUIERDA – IMAGEN */}
+        <div className={styles.imageWrapper}>
+          <img
+            src="/Banners/hero2.webp"
+            alt="Comida fresca"
+            className={styles.image}
+          />
         </div>
 
-        {/* DERECHA */}
+        {/* COLUMNA DERECHA – CONTENIDO */}
         <div className={styles.content}>
-          <h2>
-            Tu comida, siempre fresca.
-            <br />
-            Nunca congelada.
-          </h2>
+          <div className={styles.header}>
+            <h2 className={styles.title}>
+              Tu comida,
+              <br />
+              siempre fresca.
+            </h2>
+            <h2 className={styles.title}>Nunca congelada.</h2>
+          </div>
 
           <div className={styles.features}>
-            {/* FEATURE 1 (ajuste específico) */}
-            <div className={`${styles.feature} ${styles.featureFirst}`}>
+            <div className={styles.feature}>
               <img src="/Banners/tray.png" alt="" />
               <p>
                 Nuestro envasado de alta tecnología mantiene tu comida fresca en

@@ -1,142 +1,288 @@
 /* ======================
-   WRAPPER
-   ====================== */
-.wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 80px 0;
+   WRAPPER (ORIGINAL)
+====================== */
+
+.reviewsCarouselContainer {
+  max-width: 1600px; /* 🔑 visual */
+  margin: 60px auto;
+  overflow: hidden;
 }
 
-/* ======================
-   VIEWPORT
-   ====================== */
-.viewport {
-  width: 92%;
-  max-width: 1400px;
+.reviewsCarouselContainer :global(.slick-list) {
+  max-width: 1760px; /* 🔑 MÁS GRANDE que el container */
+  margin: 0 auto;
   overflow: hidden;
 }
 
 /* ======================
-   TRACK (animado continuo)
-   ====================== */
-.track {
+   SLICK BASE (CLAVE)
+====================== */
+
+.reviewsCarouselContainer :global(.slick-slide) {
+  padding: 0 18px; /* 🔑 sigue habiendo aire, pero entra más ancho */
+}
+
+.reviewsCarouselContainer :global(.slick-slide > div) {
+  display: flex !important;
+  height: 100%;
+}
+
+.reviewsCarouselContainer :global(.slick-track) {
   display: flex;
-  gap: 24px;
-  width: max-content;
-  animation: scroll 80s linear infinite;
+  justify-content: center;
 }
 
 /* ======================
-   ANIMACIÓN
-   ====================== */
-@keyframes scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
+   REVIEW CARD
+====================== */
 
-/* ======================
-   CARD
-   ====================== */
-.card {
-  width: calc((1400px - 48px) / 3);
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 26px 24px;
+.reviewCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 540px; /* podés dejarlo así */
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  padding: 30px 28px; /* menos vertical, más horizontal */
+  min-height: unset; /* 🔑 eliminamos crecimiento en altura */
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
-  pointer-events: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover real del original */
+.reviewCard:hover {
+  transform: scale(1.05);
 }
 
 /* ======================
-   ESTRELLAS
-   ====================== */
-.stars {
-  font-size: 23px;
-  font-weight: 700;
-}
+   STARS
+====================== */
 
-.filled {
+.reviewRating {
   color: #fbbc04;
-}
-
-.empty {
-  color: #e0e0e0;
-}
-
-/* ======================
-   TEXTO
-   ====================== */
-.text {
-  font-size: 18px;
-  line-height: 1.4;
-  color: #222;
-  margin-bottom: 20px;
-  font-weight: 800;
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 12px; /* 🔑 */
 }
 
 /* ======================
-   USUARIO
-   ====================== */
-.user {
+   QUOTE
+====================== */
+
+.quoteContenedor {
+  margin-top: 0;
+  margin-bottom: 18px; /* 🔑 */
+}
+
+.reviewQuote {
+  font-family: MarkPro;
+  text-shadow: 0.2px 0.2px 0.2px black;
+
+  max-width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+
+  line-height: 24px;
+  letter-spacing: 0.3px;
+  margin: 0;
+
+  /* === LÍMITE SANTO === */
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* número de líneas visibles */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* seguridad extra */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+
+  min-height: 120px;
+}
+
+/* ======================
+   AUTHOR
+====================== */
+
+.reviewAuthor {
+  font-family: MarkPro;
+
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-start;
+  margin-top: auto; /* 🔑 empuja el bloque al fondo */
+  padding-top: 12px;
 }
 
-.user img {
+.authorImg {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  object-fit: cover;
+  margin-right: 10px;
 }
 
-.user strong {
-  display: block;
+.authorName {
   font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
 }
 
-.user span {
+.clientSince {
   font-size: 13px;
-  color: #777;
+  color: #888;
+  margin: 0;
 }
 
 /* ======================
-   UX
-   ====================== */
-.track,
-.card,
-.card * {
-  user-select: none;
-}
-
-/* ======================
-   FULL HD / XL FIX — REVIEWS
+   BREAKPOINTS ORIGINALES
 ====================== */
-@media (min-width: 1920px) {
-  /* El viewport deja de ser un contenedor centrado */
-  .viewport {
-    width: 100vw; /* ocupa toda la pantalla */
-    max-width: none; /* rompe el límite visual */
-    margin-left: calc(50% - 50vw); /* ⬅️ CLAVE: pega al borde izquierdo */
+
+@media (max-width: 1279px) {
+  .reviewQuote {
+    min-height: 69px;
+  }
+}
+
+@media (max-width: 867px) {
+  .reviewsCarouselContainer {
+    margin-top: 30px;
+    margin-bottom: 20px;
   }
 
-  /* El track arranca desde la pared */
-  .track {
-    padding-left: 40px; /* aire visual controlado */
+  .reviewQuote {
+    min-height: 69px;
+  }
+}
+
+@media (max-width: 720px) {
+  .reviewQuote {
+    font-size: 15.5px;
+    min-height: 65px;
+  }
+}
+
+@media (max-width: 633px) {
+  .reviewCard {
+    min-height: 295px;
   }
 
-  /* Cards un poco más grandes para llenar el ancho */
-  .card {
-    width: 420px;
+  .reviewQuote {
+    min-height: 80px;
+  }
+}
+
+@media (max-width: 579px) {
+  .reviewCard {
+    min-height: 325px;
+  }
+
+  .reviewQuote {
+    min-height: 90px;
+    font-size: 14.5px;
+  }
+}
+
+@media (max-width: 532px) {
+  .reviewCard {
+    min-height: 330px;
+  }
+
+  .reviewQuote {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .reviewCard {
+    min-height: 330px;
+  }
+
+  .reviewQuote {
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 506px) {
+  .reviewCard {
+    min-height: 350px;
+  }
+
+  .quoteContenedor {
+    min-height: 50%;
+    display: flex;
+    align-items: center;
+  }
+
+  .reviewQuote {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 481px) {
+  .reviewQuote {
+    font-size: 12.5px;
+    line-height: 19px;
+  }
+}
+
+@media (max-width: 460px) {
+  .reviewCard {
+    min-height: 378px;
+  }
+}
+
+@media (max-width: 399px) {
+  .reviewCard {
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+  }
+}
+
+/* =========================================================
+   FIX REVIEW TEXT — 425x1063 aprox (móvil alto)
+   ✅ En este rango NO recortar el texto de la review
+========================================================= */
+@media (max-width: 460px) and (min-width: 401px) and (min-height: 900px) {
+  /* deja respirar un poco la card sin forzar alturas raras */
+  .reviewCard {
+    min-height: unset; /* anula min-heights anteriores */
+    padding: 30px 24px;
+  }
+
+  /* el contenedor del texto puede crecer */
+  .quoteContenedor {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  /* ✅ quitar clamp SOLO en este pixel ratio */
+  .reviewQuote {
+    display: block; /* rompe el -webkit-box */
+    -webkit-line-clamp: unset; /* anula recorte */
+    -webkit-box-orient: unset;
+
+    overflow: visible;
+    text-overflow: unset;
+    min-height: auto;
+
+    /* opcional: ajustes finos para que se lea igual a tu referencia */
+    font-size: 14.5px;
+    line-height: 20px;
+  }
+
+  /* el autor sigue abajo, pero sin “aplastar” el texto */
+  .reviewAuthor {
+    margin-top: 12px;
   }
 }
