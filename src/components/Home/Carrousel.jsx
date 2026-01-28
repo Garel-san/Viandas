@@ -20,20 +20,26 @@ const items = [
 
 export default function Carrousel() {
   const sliderRef = useRef(null);
-
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
-    slidesToShow: 4,
-
-    // ✅ desactiva arrows internas de slick
     arrows: false,
 
+    mobileFirst: true, // 🔑 CLAVE
+
+    slidesToShow: 2, // 🔑 mobile por defecto (Moto G52)
+
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 700, settings: { slidesToShow: 2 } },
+      {
+        breakpoint: 900,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 1200,
+        settings: { slidesToShow: 4 },
+      },
     ],
   };
 

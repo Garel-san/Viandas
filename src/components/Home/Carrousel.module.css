@@ -138,3 +138,9 @@
     --arrowSize: clamp(20px, 5vw, 26px);
   }
 }
+
+@media (max-width: 480px) {
+  .card img {
+    height: clamp(300px, 70vw, 380px);
+  }
+}

@@ -251,38 +251,50 @@
    FIX REVIEW TEXT — 425x1063 aprox (móvil alto)
    ✅ En este rango NO recortar el texto de la review
 ========================================================= */
-@media (max-width: 460px) and (min-width: 401px) and (min-height: 900px) {
-  /* deja respirar un poco la card sin forzar alturas raras */
+/* =========================================================
+   MOBILE REAL (Moto G52 / 425x1063)
+   Ajuste fino reviews
+========================================================= */
+@media (max-width: 460px) and (min-height: 900px) {
+  /* CARD */
   .reviewCard {
-    min-height: unset; /* anula min-heights anteriores */
-    padding: 30px 24px;
+    padding: 26px 20px; /* menos ancho → estrellas más a la izquierda */
+    min-height: unset;
   }
 
-  /* el contenedor del texto puede crecer */
-  .quoteContenedor {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 18px;
+  /* ESTRELLAS */
+  .reviewRating {
+    font-size: 22px; /* más chicas */
+    margin-bottom: 10px;
+    text-align: left;
   }
 
-  /* ✅ quitar clamp SOLO en este pixel ratio */
+  /* TEXTO REVIEW */
   .reviewQuote {
-    display: block; /* rompe el -webkit-box */
-    -webkit-line-clamp: unset; /* anula recorte */
-    -webkit-box-orient: unset;
-
-    overflow: visible;
-    text-overflow: unset;
-    min-height: auto;
-
-    /* opcional: ajustes finos para que se lea igual a tu referencia */
-    font-size: 14.5px;
+    /* antes 5 líneas */
+    -webkit-line-clamp: 7; /* 🔑 más texto visible */
     line-height: 20px;
+    font-size: 14px;
   }
 
-  /* el autor sigue abajo, pero sin “aplastar” el texto */
+  /* AUTOR */
   .reviewAuthor {
-    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .authorImg {
+    width: 26px; /* 🔑 mucho más chica */
+    height: 26px;
+    margin-right: 8px;
+  }
+
+  .authorName {
+    font-size: 11.5px; /* 🔑 */
+    line-height: 14px;
+  }
+
+  .clientSince {
+    font-size: 8.5px;
+    line-height: 13px;
   }
 }
