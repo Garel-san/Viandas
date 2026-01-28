@@ -272,7 +272,7 @@
   /* TEXTO REVIEW */
   .reviewQuote {
     /* antes 5 líneas */
-    -webkit-line-clamp: 7; /* 🔑 más texto visible */
+    -webkit-line-clamp: 10; /* 🔑 más texto visible */
     line-height: 20px;
     font-size: 14px;
   }
@@ -283,18 +283,62 @@
   }
 
   .authorImg {
-    width: 26px; /* 🔑 mucho más chica */
-    height: 26px;
+    width: 20px; /* 🔑 mucho más chica */
+    height: 20px;
     margin-right: 8px;
   }
 
   .authorName {
-    font-size: 11.5px; /* 🔑 */
+    font-size: 8.5px; /* 🔑 */
     line-height: 14px;
   }
 
   .clientSince {
-    font-size: 8.5px;
+    font-size: 5.5px;
+    line-height: 13px;
+  }
+}
+
+/* =========================================================
+   MOBILE CHICO / MOBILE M (≈375px–460px)
+   NO recortar texto de reviews
+========================================================= */
+@media (max-width: 460px) {
+  .reviewQuote {
+    display: block; /* 🔑 rompe -webkit-box */
+    -webkit-line-clamp: unset; /* 🔑 anula clamp */
+    -webkit-box-orient: unset;
+
+    overflow: visible; /* 🔑 deja crecer */
+    text-overflow: unset;
+
+    min-height: auto; /* 🔑 elimina límites */
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .quoteContenedor {
+    min-height: auto; /* 🔑 elimina bloqueo */
+    display: block;
+  }
+
+  .reviewCard {
+    min-height: auto; /* 🔑 deja crecer la card */
+  }
+
+  .authorImg {
+    width: 20px; /* 🔑 mucho más chica */
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  .authorName {
+    font-size: 8.5px; /* 🔑 */
+    line-height: 14px;
+  }
+
+  .clientSince {
+    font-size: 7.5px;
     line-height: 13px;
   }
 }
