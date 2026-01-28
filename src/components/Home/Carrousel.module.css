@@ -147,3 +147,15 @@
     height: clamp(300px, 70vw, 380px);
   }
 }
+
+/* 🔑 LIMITAR ancho REAL del carrusel en mobile */
+@media (max-width: 480px) {
+  .carouselTrack {
+    width: 100vw;
+    margin-inline: auto;
+  }
+
+  .carouselContainer :global(.slick-list) {
+    max-width: 100vw;
+  }
+}

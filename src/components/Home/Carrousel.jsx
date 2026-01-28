@@ -28,11 +28,21 @@ export default function Carrousel() {
     slidesToScroll: 1,
     arrows: false,
 
-    slidesToShow: 4,
+    slidesToShow: 4, // desktop default
+
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 2 } },
+      {
+        breakpoint: 480, // <= mobile
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 768, // <= tablet
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 1200, // <= desktop chico
+        settings: { slidesToShow: 3 },
+      },
     ],
   };
 
