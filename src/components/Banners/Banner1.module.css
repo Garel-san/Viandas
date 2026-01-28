@@ -124,6 +124,7 @@
 
     display: flex;
     align-items: stretch;
+
     justify-content: space-between;
     gap: 16px;
 
@@ -161,6 +162,7 @@
     display: block;
     -webkit-line-clamp: unset;
     overflow: visible;
+    min-height: calc(1.15em * 2); /* 2 líneas exactas */
   }
 
   .tarjetaSlogan {

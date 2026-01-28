@@ -20,6 +20,7 @@ const items = [
 
 export default function Carrousel() {
   const sliderRef = useRef(null);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -27,18 +28,16 @@ export default function Carrousel() {
     slidesToScroll: 1,
     arrows: false,
 
-    mobileFirst: true, // 🔑 CLAVE
-
-    slidesToShow: 2, // 🔑 mobile por defecto (Moto G52)
+    slidesToShow: 4, // ✅ desktop por defecto
 
     responsive: [
       {
-        breakpoint: 900,
+        breakpoint: 1200, // tablet grande
         settings: { slidesToShow: 3 },
       },
       {
-        breakpoint: 1200,
-        settings: { slidesToShow: 4 },
+        breakpoint: 900, // tablet / mobile
+        settings: { slidesToShow: 2 },
       },
     ],
   };
