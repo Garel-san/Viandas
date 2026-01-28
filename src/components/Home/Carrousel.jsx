@@ -28,46 +28,39 @@ export default function Carrousel() {
     slidesToScroll: 1,
     arrows: false,
 
-    slidesToShow: 4, // ✅ desktop por defecto
-
+    slidesToShow: 4,
     responsive: [
-      {
-        breakpoint: 1200, // tablet grande
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 900, // tablet / mobile
-        settings: { slidesToShow: 2 },
-      },
+      { breakpoint: 1200, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 2 } },
     ],
   };
 
   return (
     <div className={styles.carouselContainer}>
-      {/* ✅ flechas fuera del Slider */}
       <button
         type="button"
         className={styles.arrowLeft}
         onClick={() => sliderRef.current?.slickPrev()}
-        aria-label="Anterior"
       />
       <button
         type="button"
         className={styles.arrowRight}
         onClick={() => sliderRef.current?.slickNext()}
-        aria-label="Siguiente"
       />
 
-      <Slider ref={sliderRef} {...settings}>
-        {items.map((item, index) => (
-          <div key={index} className={styles.slide}>
-            <div className={styles.card}>
-              <img src={item.img} alt={item.title} />
-              <h3 className={styles.title}>{item.title}</h3>
+      <div className={styles.carouselTrack}>
+        <Slider ref={sliderRef} {...settings}>
+          {items.map((item, index) => (
+            <div key={index}>
+              <div className={styles.card}>
+                <img src={item.img} alt={item.title} />
+                <h3 className={styles.title}>{item.title}</h3>
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }

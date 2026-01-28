@@ -7,12 +7,15 @@
   width: 100%;
   margin-top: 20px;
 
-  /* ✅ carril lateral para flechas (responsivo) */
   --arrowLane: clamp(26px, 4vw, 56px);
   --arrowSize: clamp(22px, 2.2vw, 28px);
 
+  overflow: visible;
+}
+
+/* 🔑 wrapper interno SOLO para el slider */
+.carouselTrack {
   padding-inline: var(--arrowLane);
-  overflow: visible; /* flechas visibles */
 }
 
 /* ======================
