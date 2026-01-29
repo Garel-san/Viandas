@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Slider from "react-slick";
 import styles from "./Carrousel.module.css";
 
@@ -21,85 +21,70 @@ const items = [
 export default function Carrousel() {
   const sliderRef = useRef(null);
 
-  const [metrics, setMetrics] = useState({
-    innerWidth: 0,
-    innerHeight: 0,
-    screenW: 0,
-    screenH: 0,
-    dpr: 0,
-    vvW: null,
-    vvH: null,
-    vvScale: null,
-    activeCount: 0,
-    firstSlideInlineWidth: "-",
+  const [w, setW] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 9999,
+  );
+
+  const [debug, setDebug] = useState({
+    activeSlides: 0,
+    slideInlineWidth: "-",
   });
 
   useEffect(() => {
-    const update = () => {
-      const active = document.querySelectorAll(
+    const onResize = () => setW(window.innerWidth);
+    onResize();
+    window.addEventListener("resize", onResize);
+    window.visualViewport?.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.visualViewport?.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateDebug = () => {
+      const activeSlides = document.querySelectorAll(
         ".slick-slide.slick-active",
       ).length;
 
       const firstActive = document.querySelector(".slick-slide.slick-active");
-      const inlineWidth =
+      const slideInlineWidth =
         firstActive?.getAttribute("style")?.match(/width:\s*([^;]+);?/)?.[1] ??
         "-";
 
-      setMetrics({
-        innerWidth: window.innerWidth,
-        innerHeight: window.innerHeight,
-        screenW: screen.width,
-        screenH: screen.height,
-        dpr: window.devicePixelRatio,
-        vvW: window.visualViewport?.width ?? null,
-        vvH: window.visualViewport?.height ?? null,
-        vvScale: window.visualViewport?.scale ?? null,
-        activeCount: active,
-        firstSlideInlineWidth: inlineWidth,
-      });
+      setDebug({ activeSlides, slideInlineWidth });
     };
 
-    update();
-    window.addEventListener("resize", update);
-    window.visualViewport?.addEventListener("resize", update);
-    const t = setInterval(update, 500);
-
-    return () => {
-      clearInterval(t);
-      window.removeEventListener("resize", update);
-      window.visualViewport?.removeEventListener("resize", update);
-    };
+    updateDebug();
+    const t = setInterval(updateDebug, 400);
+    return () => clearInterval(t);
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToScroll: 1,
-    slidesToShow: 4,
-    arrows: false,
-    responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 700, settings: { slidesToShow: 2 } },
-    ],
-  };
+  const slidesToShow = useMemo(() => {
+    if (w <= 700) return 2;
+    if (w <= 1200) return 3;
+    return 4;
+  }, [w]);
+
+  const settings = useMemo(
+    () => ({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToScroll: 1,
+      slidesToShow,
+      arrows: false,
+    }),
+    [slidesToShow],
+  );
 
   return (
     <div className={styles.carouselContainer}>
-      <div
-        style={{
-          fontSize: 12,
-          color: "red",
-          marginBottom: 8,
-          wordBreak: "break-word",
-        }}
-      >
-        inner: {metrics.innerWidth}×{metrics.innerHeight} | screen:{" "}
-        {metrics.screenW}×{metrics.screenH} | dpr: {metrics.dpr} | vv:{" "}
-        {metrics.vvW ?? "-"}×{metrics.vvH ?? "-"} | scale:{" "}
-        {metrics.vvScale ?? "-"} <br />
-        activeSlides: {metrics.activeCount} | slideInlineWidth:{" "}
-        {metrics.firstSlideInlineWidth}
+      {/* DEBUG EN PANTALLA (temporal) */}
+      <div style={{ fontSize: 12, color: "red", marginBottom: 8 }}>
+        innerWidth: {w} | slidesToShow(calc): {slidesToShow} <br />
+        activeSlides: {debug.activeSlides} | slideInlineWidth:{" "}
+        {debug.slideInlineWidth}
       </div>
 
       <button
