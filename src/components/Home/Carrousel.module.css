@@ -138,3 +138,9 @@
     --arrowSize: clamp(20px, 5vw, 26px);
   }
 }
+
+@media (max-width: 700px) {
+  .carouselContainer {
+    padding-inline: 0;
+  }
+}

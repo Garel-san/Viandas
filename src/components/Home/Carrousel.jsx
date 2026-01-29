@@ -26,51 +26,43 @@ export default function Carrousel() {
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
+    slidesToShow: 4,
+
+    // ✅ desactiva arrows internas de slick
     arrows: false,
 
-    slidesToShow: 4, // desktop default
-
     responsive: [
-      {
-        breakpoint: 480, // <= mobile
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 768, // <= tablet
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 1200, // <= desktop chico
-        settings: { slidesToShow: 3 },
-      },
+      { breakpoint: 1200, settings: { slidesToShow: 3 } },
+      { breakpoint: 700, settings: { slidesToShow: 2 } },
     ],
   };
 
   return (
     <div className={styles.carouselContainer}>
+      {/* ✅ flechas fuera del Slider */}
       <button
         type="button"
         className={styles.arrowLeft}
         onClick={() => sliderRef.current?.slickPrev()}
+        aria-label="Anterior"
       />
       <button
         type="button"
         className={styles.arrowRight}
         onClick={() => sliderRef.current?.slickNext()}
+        aria-label="Siguiente"
       />
 
-      <div className={styles.carouselTrack}>
-        <Slider ref={sliderRef} {...settings}>
-          {items.map((item, index) => (
-            <div key={index}>
-              <div className={styles.card}>
-                <img src={item.img} alt={item.title} />
-                <h3 className={styles.title}>{item.title}</h3>
-              </div>
+      <Slider ref={sliderRef} {...settings}>
+        {items.map((item, index) => (
+          <div key={index} className={styles.slide}>
+            <div className={styles.card}>
+              <img src={item.img} alt={item.title} />
+              <h3 className={styles.title}>{item.title}</h3>
             </div>
-          ))}
-        </Slider>
-      </div>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
