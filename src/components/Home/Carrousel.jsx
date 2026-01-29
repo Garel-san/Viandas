@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import styles from "./Carrousel.module.css";
 
@@ -21,36 +21,40 @@ const items = [
 export default function Carrousel() {
   const sliderRef = useRef(null);
 
+  const [metrics, setMetrics] = useState({
+    innerWidth: 0,
+    innerHeight: 0,
+    screenW: 0,
+    screenH: 0,
+    dpr: 0,
+    vvW: null,
+    vvH: null,
+    vvScale: null,
+  });
+
   useEffect(() => {
-    const log = () => {
-      console.log("UA:", navigator.userAgent);
-      console.log(
-        "innerWidth:",
-        window.innerWidth,
-        "innerHeight:",
-        window.innerHeight,
-      );
-      console.log(
-        "screen:",
-        screen.width,
-        "x",
-        screen.height,
-        "dpr:",
-        window.devicePixelRatio,
-      );
-      console.log(
-        "visualViewport:",
-        window.visualViewport?.width,
-        "x",
-        window.visualViewport?.height,
-        "scale:",
-        window.visualViewport?.scale,
-      );
+    const update = () => {
+      setMetrics({
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+        screenW: screen.width,
+        screenH: screen.height,
+        dpr: window.devicePixelRatio,
+        vvW: window.visualViewport?.width ?? null,
+        vvH: window.visualViewport?.height ?? null,
+        vvScale: window.visualViewport?.scale ?? null,
+      });
     };
 
-    log();
-    window.addEventListener("resize", log);
-    return () => window.removeEventListener("resize", log);
+    update();
+
+    window.addEventListener("resize", update);
+    window.visualViewport?.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("resize", update);
+      window.visualViewport?.removeEventListener("resize", update);
+    };
   }, []);
 
   const settings = {
@@ -68,6 +72,21 @@ export default function Carrousel() {
 
   return (
     <div className={styles.carouselContainer}>
+      {/* DEBUG EN PANTALLA (temporal) */}
+      <div
+        style={{
+          fontSize: 12,
+          color: "red",
+          marginBottom: 8,
+          wordBreak: "break-word",
+        }}
+      >
+        inner: {metrics.innerWidth}×{metrics.innerHeight} | screen:{" "}
+        {metrics.screenW}×{metrics.screenH} | dpr: {metrics.dpr} | vv:{" "}
+        {metrics.vvW ?? "-"}×{metrics.vvH ?? "-"} | scale:{" "}
+        {metrics.vvScale ?? "-"}
+      </div>
+
       <button
         type="button"
         className={styles.arrowLeft}
