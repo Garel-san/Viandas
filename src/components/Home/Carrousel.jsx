@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import styles from "./Carrousel.module.css";
 
@@ -21,16 +21,45 @@ const items = [
 export default function Carrousel() {
   const sliderRef = useRef(null);
 
+  useEffect(() => {
+    const log = () => {
+      console.log("UA:", navigator.userAgent);
+      console.log(
+        "innerWidth:",
+        window.innerWidth,
+        "innerHeight:",
+        window.innerHeight,
+      );
+      console.log(
+        "screen:",
+        screen.width,
+        "x",
+        screen.height,
+        "dpr:",
+        window.devicePixelRatio,
+      );
+      console.log(
+        "visualViewport:",
+        window.visualViewport?.width,
+        "x",
+        window.visualViewport?.height,
+        "scale:",
+        window.visualViewport?.scale,
+      );
+    };
+
+    log();
+    window.addEventListener("resize", log);
+    return () => window.removeEventListener("resize", log);
+  }, []);
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
     slidesToShow: 4,
-
-    // ✅ desactiva arrows internas de slick
     arrows: false,
-
     responsive: [
       { breakpoint: 1200, settings: { slidesToShow: 3 } },
       { breakpoint: 700, settings: { slidesToShow: 2 } },
@@ -39,7 +68,6 @@ export default function Carrousel() {
 
   return (
     <div className={styles.carouselContainer}>
-      {/* ✅ flechas fuera del Slider */}
       <button
         type="button"
         className={styles.arrowLeft}
