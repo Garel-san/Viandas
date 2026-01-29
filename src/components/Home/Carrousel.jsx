@@ -30,10 +30,21 @@ export default function Carrousel() {
     vvW: null,
     vvH: null,
     vvScale: null,
+    activeCount: 0,
+    firstSlideInlineWidth: "-",
   });
 
   useEffect(() => {
     const update = () => {
+      const active = document.querySelectorAll(
+        ".slick-slide.slick-active",
+      ).length;
+
+      const firstActive = document.querySelector(".slick-slide.slick-active");
+      const inlineWidth =
+        firstActive?.getAttribute("style")?.match(/width:\s*([^;]+);?/)?.[1] ??
+        "-";
+
       setMetrics({
         innerWidth: window.innerWidth,
         innerHeight: window.innerHeight,
@@ -43,15 +54,18 @@ export default function Carrousel() {
         vvW: window.visualViewport?.width ?? null,
         vvH: window.visualViewport?.height ?? null,
         vvScale: window.visualViewport?.scale ?? null,
+        activeCount: active,
+        firstSlideInlineWidth: inlineWidth,
       });
     };
 
     update();
-
     window.addEventListener("resize", update);
     window.visualViewport?.addEventListener("resize", update);
+    const t = setInterval(update, 500);
 
     return () => {
+      clearInterval(t);
       window.removeEventListener("resize", update);
       window.visualViewport?.removeEventListener("resize", update);
     };
@@ -72,7 +86,6 @@ export default function Carrousel() {
 
   return (
     <div className={styles.carouselContainer}>
-      {/* DEBUG EN PANTALLA (temporal) */}
       <div
         style={{
           fontSize: 12,
@@ -84,7 +97,9 @@ export default function Carrousel() {
         inner: {metrics.innerWidth}×{metrics.innerHeight} | screen:{" "}
         {metrics.screenW}×{metrics.screenH} | dpr: {metrics.dpr} | vv:{" "}
         {metrics.vvW ?? "-"}×{metrics.vvH ?? "-"} | scale:{" "}
-        {metrics.vvScale ?? "-"}
+        {metrics.vvScale ?? "-"} <br />
+        activeSlides: {metrics.activeCount} | slideInlineWidth:{" "}
+        {metrics.firstSlideInlineWidth}
       </div>
 
       <button
