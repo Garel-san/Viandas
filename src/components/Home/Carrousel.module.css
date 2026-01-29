@@ -1,18 +1,28 @@
 /* ======================
-   CONTAINER
+   SHELL (flechas afuera del slider)
 ====================== */
 
-.carouselContainer {
+.carouselShell {
   position: relative;
   width: 100%;
   margin-top: 20px;
 
-  /* ✅ carril lateral para flechas (responsivo) */
+  /* carril lateral real para flechas */
   --arrowLane: clamp(26px, 4vw, 56px);
   --arrowSize: clamp(22px, 2.2vw, 28px);
 
+  /* el shell crea el espacio para flechas */
   padding-inline: var(--arrowLane);
-  overflow: visible; /* flechas visibles */
+  overflow: visible;
+}
+
+/* ======================
+   CONTAINER (solo slider)
+====================== */
+
+.carouselContainer {
+  width: 100%;
+  overflow: visible;
 }
 
 /* ======================
@@ -28,7 +38,6 @@
   align-items: stretch;
 }
 
-/* ✅ gap responsivo entre cards (en vez de padding-right fijo) */
 .carouselContainer :global(.slick-slide) {
   padding-inline: clamp(6px, 1.2vw, 14px);
 }
@@ -43,7 +52,7 @@
 
 .card img {
   width: 100%;
-  height: clamp(260px, 38vw, 360px); /* ✅ altura responsiva */
+  height: clamp(260px, 38vw, 360px);
   object-fit: cover;
   display: block;
   border-radius: 12px;
@@ -69,7 +78,6 @@
   box-sizing: border-box;
   text-align: left;
 
-  /* ✅ evita desbordes feos */
   white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -78,13 +86,13 @@
 }
 
 /* ======================
-   ARROWS
+   FLECHAS CUSTOM (estilo slick)
 ====================== */
 
 .arrowLeft,
 .arrowRight {
   all: unset;
-  position: absolute;
+  position: absolute; /* clave */
   top: 50%;
   transform: translateY(-50%);
 
@@ -94,11 +102,28 @@
   background: #373636;
 
   cursor: pointer;
-  z-index: 10;
+  z-index: 50;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* evita highlight en mobile */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+/* que NO cambien al click/focus */
+.arrowLeft:hover,
+.arrowRight:hover,
+.arrowLeft:focus,
+.arrowRight:focus,
+.arrowLeft:active,
+.arrowRight:active {
+  background: #373636;
+  outline: none;
+  box-shadow: none;
 }
 
 .arrowLeft::before,
@@ -118,7 +143,7 @@
   transform: rotate(45deg);
 }
 
-/* ✅ clave: flechas dentro del carril lateral (no sobre las cards) */
+/* ubicarlas en el carril lateral del shell (fuera de las cards) */
 .arrowLeft {
   left: calc((var(--arrowLane) - var(--arrowSize)) / 2);
 }
@@ -128,19 +153,28 @@
 }
 
 /* ======================
-   MOBILE (ajuste leve)
+   MOBILE
 ====================== */
 
 @media (max-width: 768px) {
-  .carouselContainer {
+  .carouselShell {
     margin-top: 14px;
     --arrowLane: clamp(18px, 4vw, 36px);
     --arrowSize: clamp(20px, 5vw, 26px);
   }
 }
 
+/* en mobile: flechas pegadas a laterales (y sin carril para no achicar cards) */
 @media (max-width: 700px) {
-  .carouselContainer {
+  .carouselShell {
     padding-inline: 0;
+  }
+
+  .arrowLeft {
+    left: -20px;
+  }
+
+  .arrowRight {
+    right: -20px;
   }
 }

@@ -25,11 +25,6 @@ export default function Carrousel() {
     typeof window !== "undefined" ? window.innerWidth : 9999,
   );
 
-  const [debug, setDebug] = useState({
-    activeSlides: 0,
-    slideInlineWidth: "-",
-  });
-
   useEffect(() => {
     const onResize = () => setW(window.innerWidth);
     onResize();
@@ -39,25 +34,6 @@ export default function Carrousel() {
       window.removeEventListener("resize", onResize);
       window.visualViewport?.removeEventListener("resize", onResize);
     };
-  }, []);
-
-  useEffect(() => {
-    const updateDebug = () => {
-      const activeSlides = document.querySelectorAll(
-        ".slick-slide.slick-active",
-      ).length;
-
-      const firstActive = document.querySelector(".slick-slide.slick-active");
-      const slideInlineWidth =
-        firstActive?.getAttribute("style")?.match(/width:\s*([^;]+);?/)?.[1] ??
-        "-";
-
-      setDebug({ activeSlides, slideInlineWidth });
-    };
-
-    updateDebug();
-    const t = setInterval(updateDebug, 400);
-    return () => clearInterval(t);
   }, []);
 
   const slidesToShow = useMemo(() => {
@@ -73,20 +49,16 @@ export default function Carrousel() {
       speed: 500,
       slidesToScroll: 1,
       slidesToShow,
+
+      // ✅ desactiva flechas nativas y usa las tuyas
       arrows: false,
     }),
     [slidesToShow],
   );
 
   return (
-    <div className={styles.carouselContainer}>
-      {/* DEBUG EN PANTALLA (temporal) */}
-      <div style={{ fontSize: 12, color: "red", marginBottom: 8 }}>
-        innerWidth: {w} | slidesToShow(calc): {slidesToShow} <br />
-        activeSlides: {debug.activeSlides} | slideInlineWidth:{" "}
-        {debug.slideInlineWidth}
-      </div>
-
+    <div className={styles.carouselShell}>
+      {/* Flechas fuera del contenedor del Slider */}
       <button
         type="button"
         className={styles.arrowLeft}
@@ -100,16 +72,19 @@ export default function Carrousel() {
         aria-label="Siguiente"
       />
 
-      <Slider ref={sliderRef} {...settings}>
-        {items.map((item, index) => (
-          <div key={index} className={styles.slide}>
-            <div className={styles.card}>
-              <img src={item.img} alt={item.title} />
-              <h3 className={styles.title}>{item.title}</h3>
+      {/* Contenedor “real” del carrusel */}
+      <div className={styles.carouselContainer}>
+        <Slider ref={sliderRef} {...settings}>
+          {items.map((item, index) => (
+            <div key={index} className={styles.slide}>
+              <div className={styles.card}>
+                <img src={item.img} alt={item.title} />
+                <h3 className={styles.title}>{item.title}</h3>
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }
