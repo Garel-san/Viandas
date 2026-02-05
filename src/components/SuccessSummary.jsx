@@ -106,33 +106,42 @@ export default function SuccessSummary({
       {/* INFO */}
       <div className={styles.infoList}>
         <div className={styles.infoItem}>
-          ⏱ Tu entrega está agendada para{" "}
-          <span className={styles.highlight}>
-            {delivery.date?.toLocaleDateString()}
+          ⏱{" "}
+          <span>
+            Tu entrega está agendada para{" "}
+            <span className={styles.highlight}>
+              {delivery.date?.toLocaleDateString()}
+            </span>
           </span>
         </div>
 
         <div className={styles.infoItem}>
-          📦 Recibirás tu paquete en{" "}
-          <span className={styles.highlight}>
-            {delivery.mode === "pickup"
-              ? "Retiro en local"
-              : `${delivery.address.street} ${delivery.address.number}`}
+          📦{" "}
+          <span>
+            Recibirás tu paquete en{" "}
+            <span className={styles.highlight}>
+              {delivery.mode === "pickup"
+                ? "Retiro en local"
+                : `${delivery.address.street} ${delivery.address.number}`}
+            </span>
           </span>
         </div>
 
         <div className={styles.infoItem}>
-          💰 Cobraremos <span className={styles.highlight}>${total}</span>{" "}
-          {payment.method === "cash"
-            ? "en efectivo"
-            : payment.method === "pos"
-              ? "con POS"
-              : "con tarjeta"}{" "}
-          al momento de la entrega
+          💰{" "}
+          <span>
+            Cobraremos <span className={styles.highlight}>${total}</span>{" "}
+            {payment.method === "cash"
+              ? "en efectivo"
+              : payment.method === "pos"
+                ? "con POS"
+                : "con tarjeta"}{" "}
+            al momento de la entrega
+          </span>
         </div>
       </div>
 
-      {/* ACTIONS (ahora acá) */}
+      {/* ACTIONS */}
       <div className={styles.actions}>
         <button
           type="button"

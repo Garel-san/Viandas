@@ -360,4 +360,42 @@
     padding: 12px 0;
     font-size: 13px;
   }
+
+  .header {
+    align-items: center; /* ✅ alinea el círculo con el texto */
+    gap: 10px;
+  }
+
+  .check {
+    width: 32px; /* ✅ menos angosto */
+    height: 32px;
+    flex: 0 0 32px; /* ✅ evita que se “achique” */
+    font-size: 16px; /* ✅ tilde más grande */
+    line-height: 1; /* ✅ centra el ✓ */
+  }
+
+  .title {
+    line-height: 1.15; /* ayuda al alineado visual */
+  }
+}
+
+/* Fix puntual: <= 424px (texto pegado al icono) */
+@media (max-width: 424px) {
+  .infoItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px; /* distancia icono-texto */
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .infoItem > span {
+    display: block;
+    min-width: 0; /* permite wrap correcto */
+  }
+
+  .infoItem .highlight {
+    display: inline;
+    white-space: nowrap; /* evita que $total quede colgado */
+  }
 }
