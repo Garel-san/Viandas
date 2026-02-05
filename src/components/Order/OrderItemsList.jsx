@@ -6,16 +6,22 @@ export default function OrderItemsList({
   onIncrement,
   onDecrement,
   onRemove,
-  mode = "editable", // 🔹 NUEVO: modo del listado
+  mode = "editable",
 }) {
   if (!orderItems.length) {
     return (
       <div className={styles.empty}>
         <img
-          src="/Order/otra.png"
+          src="/Order/otra.svg"
           alt="No hay platos seleccionados"
           className={styles.emptyImage}
         />
+
+        <p className={styles.emptyText}>
+          No seleccionaste
+          <br />
+          ningún plato aún.
+        </p>
       </div>
     );
   }
@@ -26,7 +32,7 @@ export default function OrderItemsList({
         <OrderItemCard
           key={`${item.productId}-${item.size}-${item.garnishId}`}
           item={item}
-          editable={mode === "editable"} // 🔹 NUEVO
+          editable={mode === "editable"}
           onIncrement={onIncrement}
           onDecrement={onDecrement}
           onRemove={onRemove}

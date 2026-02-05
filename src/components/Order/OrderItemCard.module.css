@@ -1,9 +1,13 @@
 .card {
   display: flex;
-  gap: 10px;
+  align-items: flex-start; /* 🔑 arriba como la referencia */
+  gap: 12px;
 
   background: #ffffff;
   border-radius: 12px;
+
+  /* 🔑 da la altura/presencia de la referencia sin desalinear textos */
+  padding: 10px 12px;
 }
 
 /* =====================
@@ -14,6 +18,9 @@
   width: 80px;
   height: 80px;
   flex-shrink: 0;
+
+  /* micro ajuste para que el top de la imagen coincida con el top visual del texto */
+  margin-top: 1px;
 }
 
 .image {
@@ -30,21 +37,28 @@
   top: -6px;
   left: -6px;
 
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: none;
 
   background: #ffffff;
+  border: 1px solid #000000;
   color: #ef4444;
-  cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  cursor: pointer;
   z-index: 2;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.removeBtn svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Controles sobre la imagen */
@@ -58,10 +72,9 @@
   align-items: center;
 
   border-radius: 999px;
-  overflow: hidden; /* clave para unir las 3 piezas */
+  overflow: hidden;
 }
 
-/* Botón base */
 .controlBtn {
   width: 22px;
   height: 22px;
@@ -74,13 +87,11 @@
   font-size: 12px;
 }
 
-/* - gris */
 .decrement {
   background: #e5e7eb;
   color: #374151;
 }
 
-/* contador blanco */
 .counter {
   min-width: 22px;
   height: 22px;
@@ -96,40 +107,77 @@
   font-weight: 600;
 }
 
-/* + naranja */
 .increment {
   background: #f59e0b;
   color: #ffffff;
 }
 
-.quantity {
-  font-size: 12px;
-  font-weight: 600;
-  color: #ffffff;
-
-  min-width: 14px;
-  text-align: center;
-  line-height: 1;
-}
-
 /* =====================
    INFO DERECHA
 ===================== */
+.infoWrapper {
+  flex: 1; /* ocupa el espacio */
+  min-width: 0; /* permite wraps correctos */
+}
+
 .info {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  /* 🔥 sacamos el offset grande que te desalineaba todo */
+  margin-top: 0;
+
+  /* ancho controlado como venías buscando */
+  max-width: 245px;
+}
+
+/* IMPORTANTÍSIMO: reset de márgenes para que el ritmo sea idéntico */
+.title,
+.garnish {
+  margin: 0;
 }
 
 .title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #f59e0b;
-  line-height: 1.1;
-  margin-bottom: 2px;
+  font-family: MarkPro;
+  font-weight: 600;
+  color: #ea9a00;
+
+  line-height: 1.15; /* compacto como referencia */
+  margin-top: 1px; /* micro ajuste (no más de 1px) */
+}
+
+.garnish {
+  font-family: MarkPro;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.15;
+  margin-top: 2px;
 }
 
 .size {
-  font-size: 11px;
+  margin-top: 2px;
+  font-size: 13px;
   color: #6b7280;
+}
+
+/* =====================
+   READONLY MODE
+===================== */
+.readonlyQuantity {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: rgba(17, 24, 39, 0.85);
+  color: #ffffff;
+
+  padding: 4px 6px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ==========================
@@ -141,17 +189,16 @@
     padding: 12px 16px;
   }
 
-  /* Imagen más grande */
   .imageWrapper {
-    width: 96px;
-    height: 96px;
+    width: 100px;
+    height: 120px;
+    margin-top: 1px;
   }
 
   .image {
     border-radius: 14px;
   }
 
-  /* Botón eliminar más cómodo */
   .removeBtn {
     width: 26px;
     height: 26px;
@@ -160,7 +207,6 @@
     font-size: 14px;
   }
 
-  /* Controles más grandes */
   .controlsOverlay {
     bottom: 8px;
   }
@@ -177,41 +223,28 @@
     font-size: 14px;
   }
 
-  /* Info */
+  .info {
+    max-width: 400px;
+  }
+
   .title {
     font-size: 15px;
-    line-height: 1.3;
-    margin-bottom: 4px;
+    line-height: 1.2;
+    margin-top: 1px;
     font-weight: 700;
   }
 
-  .size {
-    font-size: 12px;
+  .garnish {
+    font-size: 15px;
+    line-height: 1.2;
+    margin-top: 3px;
   }
-}
 
-/* =====================
-   READONLY MODE
-===================== */
-.readonlyQuantity {
-  position: absolute;
-  bottom: 3px;
-  left: 50%;
-  transform: translateX(-50%);
+  .size {
+    font-size: 15px;
+    margin-top: 3px;
+  }
 
-  background: rgba(17, 24, 39, 0.85); /* gris oscuro */
-  color: #ffffff;
-
-  padding: 4px 6px;
-  border-radius: 999px;
-
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* Mobile */
-@media (max-width: 1023px) {
   .readonlyQuantity {
     bottom: 8px;
     font-size: 13px;

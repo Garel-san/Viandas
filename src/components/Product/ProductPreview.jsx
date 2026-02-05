@@ -31,12 +31,12 @@ export default function ProductPreview({ product, onAdd }) {
             <FiStar className={styles.star} />
           )}
         </button>
-      </div>
 
-      {/* BOTÓN + */}
-      <button className={styles.addFloatingBtn} onClick={onAdd}>
-        <FiPlus />
-      </button>
+        {/* BOTÓN + (anclado a la imagen para que caiga en el borde con el footer) */}
+        <button className={styles.addFloatingBtn} onClick={onAdd}>
+          <FiPlus />
+        </button>
+      </div>
 
       {/* Footer */}
       <div className={styles.footer}>

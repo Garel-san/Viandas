@@ -1,18 +1,39 @@
 import styles from "./OrderItemCard.module.css";
-import { FiPlus, FiMinus, FiTrash2 } from "react-icons/fi";
+import { FiPlus, FiMinus } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
+import { useProductsData } from "../../context/ProductsDataContext";
 
 export default function OrderItemCard({
   item,
-  editable = true, // 🔹 NUEVO
+  editable = true,
   onIncrement,
   onDecrement,
   onRemove,
 }) {
+  const { products } = useProductsData();
+
   const identity = {
     productId: item.productId,
     size: item.size,
     garnishId: item.garnishId,
   };
+
+  /* ======================
+     RESOLVER GUARNICIÓN
+  ====================== */
+  let garnishLabel = null;
+
+  if (item.garnishId) {
+    const product = products.find((p) => p.id === item.productId);
+
+    if (product && product.garnishes?.length) {
+      const garnish = product.garnishes.find((g) => g.id === item.garnishId);
+
+      if (garnish) {
+        garnishLabel = garnish.label;
+      }
+    }
+  }
 
   return (
     <div className={styles.card}>
@@ -25,7 +46,7 @@ export default function OrderItemCard({
             onClick={() => onRemove(identity)}
             aria-label="Eliminar producto"
           >
-            <FiTrash2 />
+            <MdDeleteOutline />
           </button>
         )}
 
@@ -35,7 +56,6 @@ export default function OrderItemCard({
         {/* CONTROLES / INFO CANTIDAD */}
         {editable ? (
           <div className={styles.controlsOverlay}>
-            {/* - gris */}
             <button
               className={`${styles.controlBtn} ${styles.decrement}`}
               onClick={() => onDecrement(identity)}
@@ -43,10 +63,8 @@ export default function OrderItemCard({
               <FiMinus />
             </button>
 
-            {/* contador */}
             <span className={styles.counter}>{item.quantity}</span>
 
-            {/* + naranja */}
             <button
               className={`${styles.controlBtn} ${styles.increment}`}
               onClick={() => onIncrement(identity)}
@@ -62,9 +80,14 @@ export default function OrderItemCard({
       </div>
 
       {/* INFO DERECHA */}
-      <div className={styles.info}>
-        <p className={styles.title}>{item.title}</p>
-        <span className={styles.size}>Tamaño: {item.size}</span>
+      <div className={styles.infoWrapper}>
+        <div className={styles.info}>
+          <p className={styles.title}>{item.title}</p>
+
+          {garnishLabel && <p className={styles.garnish}>con {garnishLabel}</p>}
+
+          <span className={styles.size}>Tamaño: {item.size}</span>
+        </div>
       </div>
     </div>
   );

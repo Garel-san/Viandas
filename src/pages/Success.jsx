@@ -52,17 +52,9 @@ export default function Success() {
         payment={payment}
         orderItems={orderItems}
         total={total}
+        onNewOrder={handleNewOrder}
+        onGoHome={handleGoHome}
       />
-
-      <div className={styles.actions}>
-        <button className={styles.primaryBtn} onClick={handleNewOrder}>
-          HACER OTRO PEDIDO
-        </button>
-
-        <button className={styles.secondaryBtn} onClick={handleGoHome}>
-          VOLVER AL INICIO
-        </button>
-      </div>
     </main>
   );
 }

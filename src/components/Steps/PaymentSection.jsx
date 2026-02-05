@@ -89,7 +89,7 @@ export default function PaymentSection() {
           onClick={handleSubmit}
           disabled={!payment.method}
         >
-          CONFIRMAR PEDIDO
+          PROCEDER AL PAGO
         </button>
 
         <button type="button" className={styles.linkBtn} onClick={prevStep}>

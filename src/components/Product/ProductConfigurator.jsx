@@ -1,13 +1,13 @@
 import { useState, useMemo, useEffect } from "react";
 import styles from "./ProductConfigurator.module.css";
 import { useOrder } from "../../context/OrderDataContext";
-import { FiChevronDown, FiCheck } from "react-icons/fi";
+import { FiChevronDown, FiCheck, FiX } from "react-icons/fi";
 
 export default function ProductConfigurator({ product, onCancel }) {
   const { addItem } = useOrder();
 
   const [isMobile, setIsMobile] = useState(
-    window.matchMedia("(max-width: 1023px)").matches
+    window.matchMedia("(max-width: 1023px)").matches,
   );
 
   useEffect(() => {
@@ -34,35 +34,59 @@ export default function ProductConfigurator({ product, onCancel }) {
 
   const [size, setSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
-  const [garnishId, setGarnishId] = useState(null);
+
+  // ✅ undefined = no eligió todavía (bloquea el botón)
+  // ✅ null = "Sin guarnición" (válido, habilita el botón)
+  const [garnishId, setGarnishId] = useState(undefined);
+
   const [openGarnish, setOpenGarnish] = useState(false);
+
+  const selectedGarnish = useMemo(() => {
+    if (garnishId == null) return null; // null = sin guarnición (válido)
+    return garnishes.find((g) => String(g.id) === String(garnishId));
+  }, [garnishes, garnishId]);
 
   const totalPrice = useMemo(() => {
     let total = basePrice * quantity;
     if (size === "XL") total += basePrice * 0.5 * quantity;
-    const garnishExtra = garnishes.find((g) => g.id === garnishId)?.extra || 0;
+
+    const garnishExtra = selectedGarnish?.extra || 0;
     return total + garnishExtra * quantity;
-  }, [basePrice, size, quantity, garnishId, garnishes]);
+  }, [basePrice, size, quantity, selectedGarnish]);
 
   const handleConfirm = () => {
-    if (garnishId === null) return;
-
-    const garnish = garnishes.find((g) => g.id === garnishId);
+    // ❌ solo bloquea si todavía no eligió nada
+    if (typeof garnishId === "undefined") return;
 
     addItem({
       productId: id,
       title,
       image,
       size,
-      garnishId: garnish?.id || null,
-      garnishLabel: garnish?.label || null,
-      garnishExtra: garnish?.extra || 0,
+      garnishId: selectedGarnish?.id || null,
+      garnishLabel:
+        garnishId === null ? "Sin guarnición" : selectedGarnish?.label || null,
+      garnishExtra: selectedGarnish?.extra || 0,
       unitPrice: basePrice,
       quantity,
     });
 
     onCancel();
   };
+
+  const handleClearGarnish = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setGarnishId(undefined); // ✅ vuelve a "no seleccionado"
+    setOpenGarnish(false);
+  };
+
+  const headerLabel =
+    typeof garnishId === "undefined"
+      ? "Guarnición del plato"
+      : garnishId === null
+        ? "Sin guarnición"
+        : selectedGarnish?.label || "Guarnición del plato";
 
   const content = (
     <>
@@ -77,6 +101,7 @@ export default function ProductConfigurator({ product, onCancel }) {
             <button
               className={size === "M" ? styles.active : ""}
               onClick={() => setSize("M")}
+              type="button"
             >
               M
             </button>
@@ -85,6 +110,7 @@ export default function ProductConfigurator({ product, onCancel }) {
               <button
                 className={size === "XL" ? styles.active : ""}
                 onClick={() => setSize("XL")}
+                type="button"
               >
                 XL
               </button>
@@ -95,11 +121,16 @@ export default function ProductConfigurator({ product, onCancel }) {
         <div className={styles.col}>
           <p className={styles.labelCentered}>Cant.</p>
           <div className={styles.qtyControls}>
-            <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+            <button
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              type="button"
+            >
               −
             </button>
             <span className={styles.qty}>{quantity}</span>
-            <button onClick={() => setQuantity(quantity + 1)}>+</button>
+            <button onClick={() => setQuantity(quantity + 1)} type="button">
+              +
+            </button>
           </div>
         </div>
       </div>
@@ -109,16 +140,29 @@ export default function ProductConfigurator({ product, onCancel }) {
         <button
           className={styles.dropdownHeader}
           onClick={() => setOpenGarnish((v) => !v)}
+          type="button"
         >
-          <span>
-            {garnishes.find((g) => g.id === garnishId)?.label ||
-              "Guarnición del plato"}
+          <span className={styles.dropdownLabel}>{headerLabel}</span>
+
+          <span className={styles.rightControls}>
+            {/* ✅ mostrar X solo si ya eligió algo (incluye "Sin guarnición") */}
+            {typeof garnishId !== "undefined" && (
+              <button
+                className={styles.clearBtn}
+                type="button"
+                aria-label="Quitar guarnición"
+                onClick={handleClearGarnish}
+              >
+                <FiX />
+              </button>
+            )}
+            <FiChevronDown className={styles.chevronIcon} />
           </span>
-          <FiChevronDown />
         </button>
 
         {openGarnish && (
           <div className={styles.dropdownList}>
+            {/* ✅ "Sin guarnición" es una selección válida (null) */}
             <div
               className={`${styles.option} ${
                 garnishId === null ? styles.selected : ""
@@ -127,24 +171,30 @@ export default function ProductConfigurator({ product, onCancel }) {
                 setGarnishId(null);
                 setOpenGarnish(false);
               }}
+              role="button"
+              tabIndex={0}
             >
               <span>Sin guarnición</span>
-              {garnishId === null && <FiCheck />}
+              {garnishId === null && <FiCheck className={styles.optionCheck} />}
             </div>
 
             {garnishes.map((g) => (
               <div
                 key={g.id}
                 className={`${styles.option} ${
-                  garnishId === g.id ? styles.selected : ""
+                  String(g.id) === String(garnishId) ? styles.selected : ""
                 }`}
                 onClick={() => {
                   setGarnishId(g.id);
                   setOpenGarnish(false);
                 }}
+                role="button"
+                tabIndex={0}
               >
                 <span>{g.label}</span>
-                {garnishId === g.id && <FiCheck />}
+                {String(g.id) === String(garnishId) && (
+                  <FiCheck className={styles.optionCheck} />
+                )}
               </div>
             ))}
           </div>
@@ -162,14 +212,16 @@ export default function ProductConfigurator({ product, onCancel }) {
 
       {/* Acciones */}
       <div className={styles.actions}>
-        <button className={styles.cancel} onClick={onCancel}>
+        <button className={styles.cancel} onClick={onCancel} type="button">
           Volver
         </button>
 
         <button
           className={styles.confirm}
-          disabled={garnishId === null}
+          // ✅ habilita si eligió una guarnición o "Sin guarnición"
+          disabled={typeof garnishId === "undefined"}
           onClick={handleConfirm}
+          type="button"
         >
           AÑADIR +
         </button>

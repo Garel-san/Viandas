@@ -2,16 +2,16 @@ import { createContext, useContext, useMemo, useState } from "react";
 
 /* ======================
    CONTEXT
-   ====================== */
+====================== */
 const ProductsDataContext = createContext(null);
 
 /* ======================
    PROVIDER
-   ====================== */
+====================== */
 export function ProductsDataProvider({ children }) {
   /* ======================
      CONFIG DE FILTROS
-     ====================== */
+  ====================== */
   const filtersConfig = [
     { id: "proteina", label: "Proteína+" },
     { id: "gluten", label: "Gluten Free" },
@@ -34,7 +34,7 @@ export function ProductsDataProvider({ children }) {
 
   /* ======================
      PRODUCTOS (mock)
-     ====================== */
+  ====================== */
   const [products] = useState([
     {
       id: "p1",
@@ -121,22 +121,141 @@ export function ProductsDataProvider({ children }) {
         { id: "ensalada", label: "Ensalada fresca", extra: 0 },
       ],
     },
+
+    /* ======================
+       NUEVOS PRODUCTOS
+    ====================== */
+
+    {
+      id: "p9",
+      title: "Pamplona de Cerdo",
+      image: "/products/pamplona-cerdo.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["carnes", "proteina", "invierno", "nuevos"],
+      garnishes: [
+        { id: "pure", label: "Puré", extra: 40 },
+        { id: "papas", label: "Papas al horno", extra: 50 },
+      ],
+    },
+    {
+      id: "p10",
+      title: "Ensalada Verde",
+      image: "/products/ensalada-verde.webp",
+      basePrice: 330,
+      allowsXL: false,
+      tags: ["ensaladas", "vegano", "light", "baja_caloria"],
+      garnishes: [],
+    },
+    {
+      id: "p11",
+      title: "Chop Suey con Champiñones",
+      image: "/products/chop-suey-champi.webp",
+      basePrice: 330,
+      allowsXL: false,
+      tags: ["vegetariano", "light"],
+      garnishes: [],
+    },
+    {
+      id: "p12",
+      title: "Pechuga con Espinacas",
+      image: "/products/pechuga-espinacas.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["pollo", "proteina", "light"],
+      garnishes: [{ id: "arroz", label: "Arroz", extra: 0 }],
+    },
+    {
+      id: "p13",
+      title: "Milanesa de Pescado",
+      image: "/products/milanesa-pescado.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["pescado", "proteina"],
+      garnishes: [
+        { id: "pure", label: "Puré", extra: 40 },
+        { id: "ensalada", label: "Ensalada fresca", extra: 0 },
+      ],
+    },
+    {
+      id: "p14",
+      title: "Cordero con Curry",
+      image: "/products/cordero-curry.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["carnes", "proteina", "invierno"],
+      garnishes: [{ id: "arroz", label: "Arroz especiado", extra: 0 }],
+    },
+    {
+      id: "p15",
+      title: "Crepes de Espinaca",
+      image: "/products/crepes-espinaca.webp",
+      basePrice: 330,
+      allowsXL: false,
+      tags: ["pastas", "vegetariano"],
+      garnishes: [],
+    },
+    {
+      id: "p16",
+      title: "Guiso de Carne con salsa Criolla",
+      image: "/products/guiso-carne-criolla.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["carnes", "invierno"],
+      garnishes: [],
+    },
+    {
+      id: "p17",
+      title: "Hamburguesa de Espinaca",
+      image: "/products/hamburguesa-espinaca.webp",
+      basePrice: 330,
+      allowsXL: false,
+      tags: ["vegetariano", "light"],
+      garnishes: [{ id: "ensalada", label: "Ensalada fresca", extra: 0 }],
+    },
+    {
+      id: "p18",
+      title: "Muslo de pollo relleno",
+      image: "/products/muslo-pollo-relleno.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["pollo", "proteina", "invierno"],
+      garnishes: [{ id: "papas", label: "Papas rústicas", extra: 50 }],
+    },
+    {
+      id: "p19",
+      title: "Solomillo de Cerdo",
+      image: "/products/solomillo-cerdo.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["carnes", "proteina"],
+      garnishes: [{ id: "pure", label: "Puré", extra: 40 }],
+    },
+    {
+      id: "p20",
+      title: "Sorrentinos de Jamón y Queso",
+      image: "/products/sorrentinos-jamon.webp",
+      basePrice: 330,
+      allowsXL: true,
+      tags: ["pastas", "invierno"],
+      garnishes: [],
+    },
   ]);
 
   /* ======================
      ESTADO DE FILTROS
-     ====================== */
+  ====================== */
   const [activeFilters, setActiveFilters] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   /* ======================
      HANDLERS
-     ====================== */
+  ====================== */
   const toggleFilter = (filterId) => {
     setActiveFilters((prev) =>
       prev.includes(filterId)
         ? prev.filter((id) => id !== filterId)
-        : [...prev, filterId]
+        : [...prev, filterId],
     );
   };
 
@@ -147,7 +266,7 @@ export function ProductsDataProvider({ children }) {
 
   /* ======================
      PRODUCTOS FILTRADOS
-     ====================== */
+  ====================== */
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const matchesFilters =
@@ -164,7 +283,7 @@ export function ProductsDataProvider({ children }) {
 
   /* ======================
      CONTEXT VALUE
-     ====================== */
+  ====================== */
   const value = {
     products,
     filteredProducts,
@@ -185,12 +304,12 @@ export function ProductsDataProvider({ children }) {
 
 /* ======================
    HOOK
-   ====================== */
+====================== */
 export function useProductsData() {
   const context = useContext(ProductsDataContext);
   if (!context) {
     throw new Error(
-      "useProductsData debe usarse dentro de ProductsDataProvider"
+      "useProductsData debe usarse dentro de ProductsDataProvider",
     );
   }
   return context;

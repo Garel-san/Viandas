@@ -2,14 +2,14 @@
    STICKY WRAPPER
 ====================== */
 
-/* ======================
-   STICKY WRAPPER
-====================== */
+/* 🔑 Variable centralizada para el sticky */
+:root {
+  --filters-top: 70px;
+}
 
-/* ✅ DESKTOP: sticky debajo del breadcrumb */
 .stickyWrapper {
   position: sticky;
-  top: 65px; /* altura real del PedirBreadcrumb en desktop */
+  top: var(--filters-top);
   z-index: 900;
   background: #ffffff;
 }
@@ -23,11 +23,10 @@
   gap: 6px;
 
   padding: 7px 0;
-  background: rgb(250, 249, 249);
+  background-color: rgb(255, 255, 255);
 
   border-bottom: 1px solid #e5e7eb;
 
-  /* Desktop offsets */
   margin-left: -24px;
   margin-right: -24px;
   padding-left: 24px;
@@ -88,11 +87,12 @@
   position: relative;
   padding: 5px 16px;
   border-radius: 999px;
-  background: #e5e7eb;
+  background-color: rgb(233, 233, 233);
   border: none;
 
-  font-size: 15px;
-  color: #293042;
+  font-weight: normal;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
   cursor: pointer;
 
   display: inline-flex;
@@ -101,11 +101,9 @@
 
   margin-bottom: 2px;
 
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.chip:hover {
-  background: #d1d5db;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
 
 .chip::after {
@@ -138,7 +136,7 @@
   height: 1px;
   background: #bdc2de;
   margin: 2px 0;
-  max-width: 910px;
+  width: 100%;
 }
 
 /* ======================
@@ -191,7 +189,9 @@
   font-size: 15px;
   color: #6b7280;
   padding: 6px;
-  transition: transform 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
 }
 
 .search.open .searchButton {
@@ -206,7 +206,10 @@
   pointer-events: none;
   padding: 0;
 
-  transition: width 0.25s ease, opacity 0.2s ease, transform 0.25s ease;
+  transition:
+    width 0.25s ease,
+    opacity 0.2s ease,
+    transform 0.25s ease;
 
   border: none;
   background: transparent;
@@ -241,7 +244,9 @@
   white-space: nowrap;
 
   opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .clearFilters:hover {
@@ -251,14 +256,96 @@
 }
 
 /* ======================
-   MOBILE
+   TOP OFFSETS (MISMO COMPORTAMIENTO, CONSOLIDADO)
+====================== */
+@media (max-width: 1886px) {
+  :root {
+    --filters-top: 64px;
+  }
+}
+@media (max-width: 1655px) {
+  :root {
+    --filters-top: 60px;
+  }
+}
+@media (max-width: 1424px) {
+  :root {
+    --filters-top: 56px;
+  }
+}
+@media (max-width: 1386px) {
+  :root {
+    --filters-top: 58px;
+  }
+}
+@media (max-width: 1258px) {
+  :root {
+    --filters-top: 54px;
+  }
+}
+@media (max-width: 1186px) {
+  :root {
+    --filters-top: 55px;
+  }
+}
+@media (max-width: 1168px) {
+  :root {
+    --filters-top: 52px;
+  }
+}
+@media (max-width: 1026px) {
+  :root {
+    --filters-top: 50px;
+  }
+}
+
+/* =========================================================
+   “OCULTAR” DESDE 1500px
+========================================================= */
+@media (max-width: 1500px) {
+  .chipsRow {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    min-width: 0;
+  }
+
+  .chipsRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bottomRow {
+    position: relative;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+
+  .bottomRow .chipsRow {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    padding-right: 0;
+  }
+
+  .searchGroup {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: #ffffff;
+    padding-left: 12px;
+    padding-right: 4px;
+  }
+}
+
+/* ======================
+   MOBILE (<= 1023)
 ====================== */
 @media (max-width: 1023px) {
-  /* ✅ MOBILE: sticky real debajo del breadcrumb */
-  .stickyWrapper {
-    position: sticky;
-    top: 76px; /* altura real del PedirBreadcrumb */
-    z-index: 900;
+  :root {
+    --filters-top: 50px;
   }
 
   .wrapper {
@@ -295,5 +382,18 @@
 
   .bottomRow {
     gap: 12px;
+    position: relative;
+    min-width: 0;
+  }
+
+  .searchGroup {
+    background: #ffffff;
+    padding-left: 12px;
+  }
+}
+
+@media (max-width: 921px) {
+  :root {
+    --filters-top: 48px;
   }
 }

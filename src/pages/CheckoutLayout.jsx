@@ -67,7 +67,9 @@ function LeftContent() {
   if (checkoutStarted) {
     return (
       <div className={styles.checkoutFlow}>
-        <CheckoutFlow />
+        <div className={styles.stepsWrapper}>
+          <CheckoutFlow />
+        </div>
       </div>
     );
   }
@@ -114,7 +116,11 @@ export default function CheckoutLayout() {
       <PedirBreadcrumb />
 
       {/* ================= CONTENIDO ================= */}
-      <div className={styles.content}>
+      <div
+        className={`${styles.content} ${
+          checkoutStarted ? styles.contentSteps : ""
+        }`}
+      >
         {/* ===== COLUMNA IZQUIERDA ===== */}
         <section className={styles.left}>
           {!checkoutStarted && (
@@ -144,11 +150,16 @@ export default function CheckoutLayout() {
       </div>
 
       {/* ================= MOBILE ================= */}
-      {isMobile && totalItems > 0 && !isOrderOpen && (
-        <OrderHeader variant="bar" totalViandas={totalItems} />
-      )}
+      {isMobile && !checkoutStarted && (
+        <>
+          {!isOrderOpen && (
+            <OrderHeader variant="bar" totalViandas={totalItems} />
+          )}
 
-      {isMobile && isOrderOpen && <OrderOverlay />}
+          {/* ✅ Siempre montado para poder animar open/close */}
+          <OrderOverlay isOpen={isOrderOpen} />
+        </>
+      )}
     </main>
   );
 }

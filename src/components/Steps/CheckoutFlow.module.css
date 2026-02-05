@@ -2,8 +2,8 @@
    WRAPPER GENERAL
 ================================ */
 .flow {
-  max-width: 760px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* ===============================
@@ -11,7 +11,7 @@
 ================================ */
 .step {
   border-bottom: 1px solid #e5e7eb;
-  padding: 24px 0;
+  padding: clamp(18px, 2.4vw, 28px) 0;
 }
 
 /* ===============================
@@ -20,10 +20,11 @@
 .stepHeader {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 20px;
+  gap: 9px; /* más compacto, como la original */
+
+  font-family: MarkProBold;
+  font-size: 24px;
   font-weight: 800;
-  cursor: default;
 }
 
 /* Header cuando está activo */
@@ -45,21 +46,27 @@
    STEP INDICATOR
 ================================ */
 .stepIndicator {
-  width: 28px;
-  height: 28px;
+  width: 23px;
+  height: 23px;
+
+  padding-top: 1px; /* ajuste óptico como la original */
+
   border-radius: 50%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 16px;
-  font-weight: 600;
+  font-family: MarkPro;
+  font-size: 13px;
+  font-weight: 500;
+
+  background-color: transparent;
 }
 
 /* Pendiente / activo */
 .indicatorDefault {
-  border: 1px solid #d1d5db;
+  border: 2px solid #9ca3af; /* gray real como la original */
   color: #6b7280;
 }
 
@@ -68,24 +75,44 @@
   background-color: #f59e0b;
   color: #ffffff;
   border: none;
+
+  font-size: 14px;
+  font-weight: 700;
+  padding-top: 0; /* el ✓ no necesita corrección óptica */
 }
 
 /* ===============================
    BODY (ACCORDION)
 ================================ */
 .stepBody {
-  margin-top: 12px;
+  margin-top: clamp(10px, 1.6vw, 14px);
 }
 
 /* ===============================
-   SUMMARY (futuro)
+   SUMMARY
 ================================ */
 .stepSummary {
-  margin-left: 40px;
+  margin-left: clamp(32px, 4vw, 40px);
   margin-top: 6px;
-  font-size: 15px;
+  font-family: MarkPro;
+  font-size: clamp(13px, 1.2vw, 15px);
   color: #000000;
   font-weight: 400;
+}
+
+/* ===============================
+   TABLET COMPACT
+   (≈900–1100px)
+================================ */
+@media (max-width: 1100px) {
+  .stepHeader {
+    font-size: 19px;
+  }
+
+  .stepSummary {
+    margin-left: 34px;
+    font-size: 13px;
+  }
 }
 
 /* ===============================
@@ -95,18 +122,41 @@
   .step {
     padding: 16px 0;
   }
-
-  .stepHeader {
-    font-size: 20px;
-    gap: 10px;
+  .stepIndicator {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
   }
 
+  .stepHeader {
+    font-size: 19px;
+    gap: 8px;
+  }
   .stepBody {
     margin-top: 8px;
   }
 
   .stepSummary {
     font-size: 13px;
-    margin-left: 38px;
+    margin-left: 32px;
+  }
+}
+
+/* ===============================
+   MOBILE REAL
+================================ */
+@media (max-width: 767px) {
+  .stepHeader {
+    font-size: 17px;
+  }
+
+  .stepIndicator {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+  }
+
+  .stepSummary {
+    margin-left: 28px;
   }
 }

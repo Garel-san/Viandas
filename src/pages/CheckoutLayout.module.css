@@ -5,16 +5,28 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #fafafa;
+  background: #ffffff;
 }
 
 /* =========================
    CONTENEDOR PRINCIPAL
+   ✅ full-bleed (SIN max-width / SIN margin auto / SIN padding extra)
+   ✅ columna derecha responsiva de forma CONTINUA (4K -> 1800 -> 1400)
 ========================= */
 .content {
   flex: 1;
+  width: 100%;
+
+  /* ya lo tenías */
+  --right-col: clamp(340px, 20vw, 500px);
+
+  /* NUEVO: guardamos el gap en variable para reutilizarlo */
+  --content-gap: clamp(10px, 1.3vw, 22px);
+
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-columns: minmax(0, 1fr) var(--right-col);
+
+  column-gap: var(--content-gap);
 }
 
 /* =========================
@@ -25,8 +37,28 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 16px 24px 24px;
+  flex: 1; /* 🔑 CLAVE */
+  padding: 96px 80px 24px 24px;
   box-sizing: border-box;
+}
+
+.checkoutFlow {
+  flex: 1;
+  display: flex;
+  align-items: center; /* centro vertical */
+  justify-content: center; /* centro horizontal lógico */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contentSteps {
+  background: #f2f3f5; /* o el color exacto que quieras */
+}
+
+.stepsWrapper {
+  width: 100%;
+  max-width: 1500px;
+  margin-right: auto; /* arranque más desde la izquierda */
 }
 
 /* Grid de productos */
@@ -44,49 +76,58 @@
 }
 
 .introTitle {
-  font-size: 33px;
-  line-height: 1.2;
-  font-weight: 800;
-  color: #ec9808;
+  color: #ea9a00;
+  text-align: center;
+  letter-spacing: 0px;
+  font-family: MarkProBold;
+  font-size: 32px;
+  font-weight: 400;
   margin: 0 0 4px 0;
 }
 
 .introSubtitle {
+  font-family: MarkProLight;
   font-size: 20px;
+  font-weight: 600;
   line-height: 1.5;
-  font-weight: 500;
-  color: #545a66;
+
+  color: #5b5b5b;
   margin: 0;
 }
 
 /* =========================
-   CHECKOUT FLOW WRAPPER
-========================= */
-.checkoutFlow {
-  max-width: 760px;
-}
-
-/* =========================
    COLUMNA DERECHA (ORDER)
+   ✅ ocupa toda su columna (que es responsiva)
 ========================= */
 .right {
   position: sticky;
   top: 72px;
+  background: #ffffff;
 
   align-self: stretch;
   height: calc(100vh - 72px);
 
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
 }
+
 /* =========================
    LOADER OVERLAY
 ========================= */
 .loaderOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1000;
-  background: #fafafa;
+  position: fixed;
+  z-index: 99999;
+
+  top: var(--pb-h, 72px);
+  bottom: 0;
+
+  left: 0;
+  right: calc(var(--right-col) + var(--content-gap));
+
+  background: #ffffff;
 
   display: flex;
   justify-content: center;
@@ -114,67 +155,130 @@
 }
 
 /* =========================
-   RESPONSIVE (MOBILE)
+   ULTRA-WIDE (2K/4K)
+   ✅ un poco más grande en 4K, sin volverse desproporcionado
+========================= */
+@media (min-width: 2200px) {
+  .content {
+    --right-col: clamp(380px, 21vw, 600px);
+    --content-gap: clamp(14px, 1.4vw, 28px);
+    column-gap: var(--content-gap);
+  }
+}
+
+@media (min-width: 1800px) {
+  .stepsWrapper {
+    max-width: 1120px;
+  }
+}
+
+/* =========================
+   RESPONSIVE (≤1023px)
 ========================= */
 @media (max-width: 1023px) {
-  /* ⚠️ IMPORTANTE:
-     NO se toca html/body
-     NO se encierra el scroll
-     El scroll sigue siendo global
-  */
-
   .content {
     grid-template-columns: 1fr;
+    column-gap: 0;
   }
 
-  .left {
-    padding: 16px;
+  @media (max-width: 1023px) {
+    /* La columna izquierda pasa a full-bleed */
+    .left {
+      padding: 72px 0 16px;
+    }
+
+    /* Reinyectamos padding SOLO donde hace falta */
+    .intro,
+    .products,
+    .checkoutFlow {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   .right {
     display: none;
   }
 
-  /* Breadcrumb full-width en mobile */
+  /* Breadcrumb full-width */
   .page > header {
     margin-left: -16px;
     margin-right: -16px;
   }
 
+  /* =========================
+     INTRO (TABLET / SMALL)
+     1023px → 661px
+  ========================= */
   .intro {
-    max-width: 420px;
-    margin: -10px auto 16px;
+    max-width: 520px;
+    margin: 16px auto 20px; /* ⬅️ vuelve al flujo normal */
+    padding: 0 12px;
+    text-align: center;
+  }
+
+  .introTitle {
+    font-size: 22px;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .introSubtitle {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  :root {
+    --orderbar-h: 86px; /* ajustable */
+  }
+
+  /* ✅ Reserva espacio para que el fixed bar NO tape las cards */
+  .page {
+    padding-bottom: var(--orderbar-h);
+  }
+}
+
+@media (max-width: 1023px) {
+  .loaderOverlay {
+    right: 0;
+    top: var(--pb-h, 72px);
+    bottom: var(--orderbar-h);
+    left: 0;
+  }
+}
+
+/* =========================
+   MOBILE REAL (≤660px)
+========================= */
+@media (max-width: 660px) {
+  .left {
+    padding: 120px 0 16px;
+  }
+
+  :root {
+    --orderbar-h: 92px; /* un poco más en mobile chico */
+  }
+
+  .intro,
+  .products,
+  .checkoutFlow {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .intro {
+    max-width: 100%;
+    margin: 12px auto 16px;
     padding: 0 8px;
   }
 
   .introTitle {
     font-size: 20px;
-    line-height: 1.25;
-    font-weight: 700;
-    margin-bottom: 6px;
+    line-height: 1.2;
   }
 
   .introSubtitle {
-    font-size: 15px;
-    line-height: 1.4;
-    font-weight: 500;
-  }
-}
-
-/* =========================
-   FULL HD LAYOUT
-========================= */
-@media (min-width: 1440px) {
-  .content {
-    grid-template-columns: minmax(0, 1fr) 420px;
-  }
-
-  /* Ajuste óptico del título en Full HD */
-  .intro {
-    max-width: 900px;
-    transform: translateX(40px);
-  }
-  .left {
-    padding-right: 96px;
+    font-size: 14.5px;
+    line-height: 1.35;
   }
 }

@@ -1,7 +1,8 @@
 .header {
-  padding: 4px 20px;
-  background: #f9fafb;
+  /* un poco más alto (sube min / vh / max y le das 2px más abajo) */
+  padding: clamp(30px, 8vh, 80px) 20px 14px;
 
+  background-color: #efefef;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,9 +20,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-
   z-index: 1200;
-
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -29,7 +28,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
@@ -41,6 +39,11 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
+
+  /* Antes: padding-top: 6px; */
+  /* ✅ Evita sumar altura extra en ratios bajos */
+  padding-top: 0;
+  padding-left: 10px;
 }
 
 .right {
@@ -53,16 +56,30 @@
 ========================== */
 
 .title {
-  font-size: 30px;
-  font-weight: 800;
-  color: #f59e0b;
-  line-height: 1.1;
+  font-family: MarkPro;
+  font-weight: 600;
+  font-size: 29px;
+  letter-spacing: 1%;
+  text-shadow: 0px 1px 1px #ea9a00;
+  color: #ea9a00;
+
+  margin: 0;
+  line-height: 1.02;
 }
 
 .subtitle {
-  font-size: 16px;
-  font-weight: 500;
-  color: #6b7280;
+  font-family: MarkPro;
+  font-size: 17px;
+  letter-spacing: 1%;
+
+  margin: 0;
+
+  /* Antes: margin-top: 5px; margin-bottom: 19px; */
+  /* ✅ Compacta en altura sin perder separación */
+  margin-top: 2px;
+  margin-bottom: 0;
+
+  line-height: 1.05;
 }
 
 /* ==========================
@@ -70,21 +87,27 @@
 ========================== */
 
 .primary {
-  background: #f59e0b;
-  color: #ffffff;
+  background: none;
   border: none;
-  border-radius: 999px;
+  box-shadow: none;
 
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 700;
+  padding: 0;
+  margin: 0;
+
+  color: rgb(234, 154, 0);
+  border: 0px;
+  background-color: transparent;
+  font-family: MarkPro;
+  cursor: pointer;
+  font-size: 16px;
 
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.35);
+  line-height: 1;
 }
 
 .primary:hover {
-  filter: brightness(0.95);
+  text-decoration: underline;
+  filter: none;
 }
 
 .secondary {
@@ -106,22 +129,45 @@
 ========================== */
 
 @media (max-width: 1023px) {
+  .bar {
+    min-height: var(--orderbar-h);
+
+    /* ✅ más aire real a los bordes (subimos bastante) */
+    padding: 16px 36px 14px;
+  }
+
   .header {
-    gap: 120px;
-    padding: 8px 16px;
-    justify-content: center;
+    /* mismo aire lateral que el bar */
+    padding: 40px 36px 14px;
+    background-color: rgb(233, 233, 233);
   }
 
   .left,
   .right {
     max-width: 420px;
   }
+
+  .left {
+    padding-top: 0;
+
+    /* ✅ que el bloque izquierdo no vuelva a pegarse a la pared */
+    padding-left: 0;
+  }
+
   .title {
-    font-size: 20px;
+    font-family: MarkPro;
+    font-weight: 400;
+    font-size: 23px;
+    color: #ea9a00;
+    margin-bottom: 20px;
   }
 
   .subtitle {
-    font-size: 14px;
+    border: 0px;
+    background-color: transparent;
+    font-family: MarkPro;
+    cursor: pointer;
+    font-size: 16px;
   }
 }
 
@@ -138,4 +184,52 @@
   .right {
     display: none;
   }
+}
+
+/* ==========================
+   EXTRA: pantallas “bajas” (poco alto)
+   ✅ achica fuerte SIN depender del ancho/pixel ratio
+========================== */
+@media (max-height: 780px) and (min-width: 1024px) {
+  .header {
+    padding: clamp(10px, 3.2vh, 26px) 20px 10px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-top: 1px;
+  }
+}
+
+/* ==========================
+   PANEL (ABIERTO) – distribución como referencia
+========================== */
+
+.panelHeader {
+  /* asegura que la altura se distribuya bien */
+  align-items: center;
+}
+
+.leftPanel {
+  /* ✅ textos más pegados entre sí */
+  gap: 0;
+}
+
+.leftPanel .title {
+  margin-bottom: 0; /* por si en mobile/bar lo estabas usando */
+  line-height: 1.05;
+}
+
+.leftPanel .subtitle {
+  margin-top: 1px;
+  line-height: 1.05;
+}
+
+/* ✅ botón a altura intermedia (centrado respecto a los dos textos) */
+.rightPanel {
+  align-self: center;
 }

@@ -6,9 +6,10 @@ import OrderHeader from "./OrderHeader";
 import OrderItemsList from "./OrderItemsList";
 import OrderFooter from "./OrderFooter";
 
-export default function OrderOverlay() {
+export default function OrderOverlay({ isOpen = false }) {
   const {
     orderItems,
+    totalItems, // ✅ agregar
     subtotal,
     shipping,
     total,
@@ -20,24 +21,22 @@ export default function OrderOverlay() {
     closeOrder,
   } = useOrder();
 
-  const { checkoutStarted } = useCheckout(); // 🔹 CLAVE
+  const { checkoutStarted } = useCheckout();
 
   return (
-    <div className={styles.overlay}>
-      <aside className={styles.panel}>
-        {/* HEADER PANEL */}
-        <OrderHeader variant="panel" />
+    <div className={`${styles.overlay} ${isOpen ? styles.open : ""}`}>
+      <aside className={`${styles.panel} ${isOpen ? styles.panelOpen : ""}`}>
+        {/* ✅ ahora pasa el total correcto */}
+        <OrderHeader variant="panel" totalViandas={totalItems} />
 
-        {/* LISTA */}
         <OrderItemsList
           orderItems={orderItems}
           onIncrement={incrementItem}
           onDecrement={decrementItem}
           onRemove={removeItem}
-          mode={checkoutStarted ? "readonly" : "editable"} // 🔹 CLAVE
+          mode={checkoutStarted ? "readonly" : "editable"}
         />
 
-        {/* FOOTER */}
         <OrderFooter
           totalPedido={subtotal}
           envio={shipping}

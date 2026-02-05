@@ -14,8 +14,8 @@
 }
 
 .check {
-  width: 28px;
-  height: 28px;
+  width: 33px;
+  height: 33px;
   border-radius: 50%;
   background-color: #f59e0b;
   color: #ffffff;
@@ -26,44 +26,43 @@
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #f59e0b;
+  color: #ea9a00;
+  font-family: MarkProBold;
+  font-size: 29px;
+  font-weight: 400;
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: 16px;
+  color: #000000;
   margin-bottom: 24px;
   font-weight: 800;
+  font-family: MarkPro;
+  max-width: 320px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 /* ======================
    PRODUCT SLIDER
 ====================== */
-
-/* Wrapper general (solo spacing vertical) */
 .productsSliderWrapper {
   margin-bottom: 32px;
 }
 
-/* 🔑 Viewport real: referencia de flechas */
 .productsSliderViewport {
   position: relative;
   width: fit-content;
   max-width: 100%;
-  padding: 0 32px; /* espacio interno real para flechas */
+  padding: 0 32px;
 }
 
-/* Track real */
 .productsSlider {
   display: flex;
   gap: 16px;
   overflow-x: auto;
   scroll-behavior: smooth;
-
   padding: 4px 0 12px;
-
   scrollbar-width: none;
 }
 
@@ -79,31 +78,26 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 36px;
   height: 36px;
   border-radius: 50%;
-
   background: #ffffff;
   border: 1px solid #e5e7eb;
-
   color: #111827;
   font-size: 22px;
   font-weight: 700;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   z-index: 5;
   pointer-events: auto;
-
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-/* 🔑 Ahora se posicionan respecto al contenido real */
 .sliderButtonLeft {
   left: -10px;
 }
@@ -119,36 +113,50 @@
 }
 
 /* ======================
-   PRODUCT CARD
+   PRODUCT CARD (estilo app original)
 ====================== */
 .productCard {
+  /* antes: display:flex; gap:16px; width:260px; padding:16px; */
   display: flex;
-  gap: 16px;
-  width: 260px;
-  padding: 16px;
+  flex-direction: column;
+  width: 220px; /* card más “compacta” pero más alta */
   flex-shrink: 0;
 
   background-color: #ffffff;
-  border-radius: 16px;
+  border-radius: 14px;
+  overflow: hidden; /* 🔑 para que la imagen respete bordes */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
 .productImage {
-  width: 90px;
-  height: 90px;
-  border-radius: 12px;
+  /* antes: 90x90 */
+  width: 100%;
+  height: 130px; /* imagen arriba, grande */
   object-fit: cover;
+  border-radius: 0; /* la redondez la maneja el contenedor */
 }
 
 .productInfo {
   display: flex;
   flex-direction: column;
+  padding: 10px 12px 12px;
+
+  /* ✅ centra los textos debajo del título */
+  align-items: center;
+  text-align: center;
 }
 
 .productTitle {
-  font-size: 14px;
+  margin: 0;
+  font-size: 16px;
   font-weight: 800;
   color: #f59e0b;
+
+  /* 🔑 título en una sola línea con ... */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .productMetaGroup {
@@ -156,12 +164,15 @@
   flex-direction: column;
   gap: 2px;
   margin-top: 6px;
+
+  /* ✅ asegura centrado del grupo */
+  align-items: center;
 }
 
 .productMeta {
   margin: 0;
-  font-size: 14px;
-  color: #6b7280;
+  width: 100%; /* por si elipsis/centrado */
+  text-align: center;
 }
 
 /* ======================
@@ -188,33 +199,37 @@
 }
 
 /* ======================
-   ACTIONS
+   ACTIONS (FINAL)
 ====================== */
 .actions {
   display: flex;
   gap: 12px;
   margin-left: 20px;
+  margin-bottom: 24px;
 }
 
 .primaryBtn {
   padding: 10px 20px;
   border: none;
   border-radius: 999px;
-  background-color: #f59e0b;
+  background-color: #ea9a00;
   color: #ffffff;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   cursor: pointer;
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.28);
 }
 
 .secondaryBtn {
   padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid #f59e0b;
+  border: 2px solid #f59e0b;
   background-color: transparent;
   color: #f59e0b;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   cursor: pointer;
 }
 
@@ -223,8 +238,9 @@
 ================================ */
 @media (max-width: 1023px) {
   .wrapper {
-    max-width: 100%;
-    padding: 24px 16px;
+    width: 100%;
+    padding: 18px 16px;
+    box-sizing: border-box;
   }
 
   .header {
@@ -232,25 +248,40 @@
     gap: 10px;
   }
 
+  .check {
+    width: 28px;
+    height: 28px;
+  }
+
   .title {
     font-size: 20px;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
   .subtitle {
     font-size: 13px;
-    margin-bottom: 20px;
+    line-height: 1.25;
+    max-width: 100%;
+    margin-left: 0;
+    margin-bottom: 12px;
   }
 
-  /* Mobile: cards en vertical */
+  /* ===== Slider: en mobile sigue horizontal scrolleable ===== */
+  .productsSliderWrapper {
+    margin-bottom: 18px;
+  }
+
   .productsSliderViewport {
-    padding: 0;
+    width: 100%;
+    padding: 0; /* sin espacio para flechas (no existen en mobile) */
   }
 
   .productsSlider {
-    flex-direction: column;
+    flex-direction: row; /* ✅ no columna */
+    overflow-x: auto; /* ✅ scroll horizontal */
+    overflow-y: hidden;
     gap: 12px;
-    overflow: visible;
+    padding: 6px 2px 10px;
   }
 
   .sliderButtonLeft,
@@ -258,46 +289,75 @@
     display: none;
   }
 
+  /* ===== Card: imagen arriba full, texto abajo centrado ===== */
   .productCard {
-    width: 100%;
-    padding: 14px;
+    width: 200px; /* ajustable (190-220) */
+    padding: 0; /* ✅ clave: la imagen pega arriba */
+    border-radius: 14px;
+    overflow: hidden;
   }
 
   .productImage {
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 120px; /* imagen grande arriba */
+    object-fit: cover;
+  }
+
+  .productInfo {
+    padding: 10px 10px 12px;
+    align-items: center;
+    text-align: center;
   }
 
   .productTitle {
-    font-size: 15px;
-  }
-
-  .productMeta {
     font-size: 13px;
   }
 
+  .productMeta {
+    font-size: 12px;
+  }
+
+  /* ===== Info list ===== */
   .infoList {
-    gap: 12px;
-    margin-bottom: 28px;
+    gap: 10px;
+    margin-bottom: 14px;
   }
 
   .infoItem {
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.35;
     align-items: flex-start;
   }
 
+  /* ===== Actions: como pills (no full width) ===== */
+  .actions {
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 0;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: auto;
+    padding: 10px 14px;
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+/* Extra: en pantallas muy chicas, ahí sí apilá botones */
+@media (max-width: 520px) {
   .actions {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
   }
 
   .primaryBtn,
   .secondaryBtn {
     width: 100%;
-    text-align: center;
-    font-size: 14px;
     padding: 12px 0;
+    font-size: 13px;
   }
 }

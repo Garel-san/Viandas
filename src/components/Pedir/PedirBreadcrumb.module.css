@@ -1,231 +1,402 @@
 /* ==========================
-   BASE (DESKTOP)
+   ORDER STEPPER (UNIVERSAL / ADAPTABLE)
 ========================== */
-.wrapper {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 6px 12px;
+/* ==========================
+   CONTAINER
+========================== */
+.orderStepperContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+
   display: flex;
   align-items: center;
+  justify-content: center;
+
+  background-color: #fff;
+  z-index: 9999;
+
+  padding: clamp(6px, 0.7vw, 10px) 0;
+  box-sizing: border-box;
+
+  box-shadow: 1px -1px 4px 2px rgba(168, 168, 168, 0.24);
+  -webkit-box-shadow: 1px -1px 4px 2px rgba(168, 168, 168, 0.24);
+  -moz-box-shadow: 1px -1px 4px 2px rgba(168, 168, 168, 0.24);
+
+  /* ===== TOKENS UNIVERSALES ===== */
+  --stepper-scale: 1;
+
+  /* logo */
+  --logo-w: clamp(120px, 10vw, 155px);
+  --logo-left: clamp(16px, 3vw, 65px);
+  --logo-gap: clamp(14px, 2vw, 36px);
+  --logo-safe: calc(var(--logo-left) + var(--logo-w) + var(--logo-gap));
+
+  /* 🔑 wrapper y stepper ahora NO se “planchan” en 1800px */
+  --wrapper-maxw: clamp(1100px, 92vw, 2600px);
+  --stepper-maxw: clamp(520px, 70vw, 2400px);
+
+  --wrapper-pad-right: clamp(14px, 3vw, 60px);
+
+  /* dots & labels */
+  --dot: clamp(16px, 1.05vw, 22px);
+  --dotTop: clamp(1px, 0.25vw, 3px);
+  --dot-border: clamp(1.6px, 0.14vw, 2.2px);
+  --inner: calc(var(--dot) * 0.45);
+
+  --label-size: clamp(12px, 0.85vw, 16px);
+  --label-gap: clamp(2px, 0.25vw, 6px);
+
+  /* connector (derivado del dot, adaptable) */
+  --line-thickness: 1px;
+
+  /* mínimo real para que no colapse en mobile / pantallas chicas */
+  --connector-min: clamp(26px, 6.2vw, 160px);
+
+  /* overlap basado en el tamaño del círculo (siempre “cerca”) */
+  --connector-overlap: calc((var(--dot) / 2) + clamp(2px, 0.35vw, 6px));
+
+  /* colors */
+  --active: #ea9a00;
+  --inactive: #b3b3b3;
 }
 
 /* ==========================
    LOGO
 ========================== */
-.logo {
-  display: flex;
-  align-items: center;
+.orderStepperLogo {
   cursor: pointer;
-}
 
-.logo img {
-  height: 52px;
-  margin-left: 50px;
-}
-
-/* ==========================
-   STEPPER (DESKTOP)
-========================== */
-.flowWrapper {
-  margin-left: 140px;
-  margin-right: 440px;
-  display: grid;
-  width: 100%;
-  max-width: 660px;
-
-  grid-template-columns: 16px 1fr 16px 1fr 16px;
-  grid-template-rows: auto auto;
-  row-gap: 1px;
-  align-items: center;
-}
-
-/* ==========================
-   DOT
-========================== */
-.dot {
-  grid-row: 1;
-  justify-self: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 1px solid #d1d5db;
-  background: #ffffff;
+  /* el logo vive “encima” del wrapper */
+  position: absolute;
+  left: var(--logo-left);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
 
   display: flex;
   align-items: center;
+}
+
+.orderStepperLogoImage {
+  width: var(--logo-w);
+
+  /* evita que lo tape el wrapper */
+  position: static;
+  transform: none;
+  display: block;
+}
+
+/* (no usar display:none en scroll en desktop; solo se usa en mobile) */
+.logoHidden {
+  display: none;
+}
+
+/* ==========================
+   WRAPPER (desktop/tablet: EN FLUJO, reserva espacio para el logo)
+========================== */
+.orderStepperWrapper {
+  width: 100%;
+  max-width: var(--wrapper-maxw);
+
+  display: flex;
   justify-content: center;
-}
+  align-items: center;
 
-.dot1 {
-  grid-column: 1;
-}
-.dot2 {
-  grid-column: 3;
-}
-.dot3 {
-  grid-column: 5;
-}
+  /* el contenedor ya es blanco */
+  background-color: transparent;
 
-/* ==========================
-   LINE
-========================== */
-.line {
-  grid-row: 1;
-  height: 2px;
-  background: #e5e7eb;
-  margin: 0 10px;
-}
+  /* reserva espacio para el logo a la izquierda */
+  padding-left: var(--logo-safe);
+  padding-right: var(--wrapper-pad-right);
+  box-sizing: border-box;
 
-.line1 {
-  grid-column: 2;
-}
-.line2 {
-  grid-column: 4;
+  position: relative;
+  z-index: 1; /* debajo del logo */
 }
 
 /* ==========================
-   TEXT
+   STEPPER
 ========================== */
-.text {
-  grid-row: 2;
-  justify-self: center;
-  width: 100px;
+.orderStepper {
+  width: 100%;
+  max-width: var(--stepper-maxw);
+
+  margin-top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 0;
+}
+
+/* ==========================
+   STEP (icon + label)
+========================== */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* no empujar el conector */
+  padding: 0;
+}
+
+/* círculo */
+.stepperIcon {
+  position: relative;
+  display: block;
+  z-index: 1; /* arriba de la línea */
+
+  border-radius: 50%;
+  width: calc(var(--dot) * var(--stepper-scale));
+  height: calc(var(--dot) * var(--stepper-scale));
+
+  border: calc(var(--dot-border) * var(--stepper-scale)) solid var(--inactive);
+  background-color: transparent;
+
+  margin-top: var(--dotTop);
+
+  box-sizing: border-box;
+}
+
+.stepperIconActive {
+  border-color: var(--active);
+}
+
+/* punto interno */
+.stepperIconInner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  width: calc(var(--inner) * var(--stepper-scale));
+  height: calc(var(--inner) * var(--stepper-scale));
+  border-radius: 50%;
+  background-color: var(--active);
+
+  will-change: transform;
+}
+
+/* ==========================
+   LABEL
+========================== */
+.stepLabel {
+  font-family: MarkPro;
+  font-size: calc(var(--label-size) * var(--stepper-scale));
+  letter-spacing: -0.4px;
+
+  margin: 0;
+  margin-top: var(--label-gap);
+
+  color: var(--inactive);
+  font-weight: 500;
+
   text-align: center;
-
-  font-size: 14px;
-  font-weight: 400;
-  color: #9ca3af;
+  white-space: nowrap;
 }
 
-.text1 {
-  grid-column: 1;
-}
-.text2 {
-  grid-column: 3;
-}
-.text3 {
-  grid-column: 5;
-}
-
-/* ==========================
-   STATES
-========================== */
-.dot.active {
-  border-color: #f59e0b;
-}
-
-.textActive {
-  color: #f59e0b;
+.stepLabelActive {
+  color: var(--active);
   font-weight: 600;
 }
 
-/* ==========================
-   LINE STATES
-========================== */
-.lineActive {
-  background: #f8a617;
+.stepLabelDisabled {
+  color: var(--inactive);
+  font-weight: 500;
 }
 
 /* ==========================
-   INNER DOT
+   CONNECTOR (línea)
 ========================== */
-.innerDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+.connector {
+  height: calc(var(--line-thickness) * var(--stepper-scale));
+  background-color: var(--inactive);
+
+  /* se adapta siempre */
+  flex: 1 1 auto;
+  min-width: var(--connector-min);
+
+  /* entra debajo del círculo para “pegarse” */
+  margin-inline: calc(var(--connector-overlap) * -1);
+
+  align-self: flex-start;
+  transform: translateY(calc(var(--dotTop) + (var(--dot) / 2)));
+
+  opacity: 1;
+  position: relative;
+  z-index: 0;
 }
 
-/* Step activo */
-.innerActive {
-  background: #f59e0b;
-}
-
-/* Steps inactivos */
-.innerInactive {
-  background: #d1d5db;
+.connectorActive {
+  background-color: var(--active) !important;
+  opacity: 1 !important;
 }
 
 /* =========================================================
-   MOBILE
+   GRANDES (QHD/2K+) – sigue responsivo (no “planchado”)
+   - NO reducimos scale para no achicar en 4K
+   - ampliamos el “aire” de trabajo del stepper
 ========================================================= */
-@media (max-width: 1023px) {
-  /* ==========================
-     HEADER
-  ========================== */
-  .wrapper {
-    display: block;
-    padding: 12px 0 0;
-    border-bottom: none;
-    background: #ffffff;
-  }
+@media (min-width: 1800px) {
+  .orderStepperContainer {
+    /* el stepper y wrapper ganan ancho de forma continua */
+    --wrapper-maxw: clamp(1400px, 92vw, 2800px);
+    --stepper-maxw: clamp(900px, 72vw, 2600px);
 
-  /* ==========================
-     LOGO (MOBILE)
-  ========================== */
-  .logo {
-    justify-content: center;
-  }
-
-  .logo img {
-    height: 54px;
-    margin-left: 0;
-  }
-
-  /* Logo oculto cuando isMobile && isScrolled */
-  .logoHidden {
-    display: none;
-  }
-
-  /* ==========================
-     STEPPER (MOBILE)
-  ========================== */
-  .flowWrapper {
-    margin: 0 auto;
-    max-width: 360px;
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: auto 1fr auto 1fr auto;
-    grid-template-rows: auto auto;
-    row-gap: 6px;
-    align-items: center;
-
-    background: #ffffff;
-    padding: 12px 16px 10px;
-  }
-
-  /* Elevación sticky del stepper */
-  .flowSticky {
-    position: sticky;
-    top: 0;
-    z-index: 950;
-    border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  }
-
-  /* Líneas más largas */
-  .line {
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-
-  /* Textos */
-  .text {
-    width: auto;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
+    /* opcional: permite líneas más generosas en grandes */
+    --connector-min: clamp(34px, 5.6vw, 200px);
   }
 }
 
-@media (min-width: 1440px) {
-  .flowWrapper {
-    max-width: 910px;
-    margin-left: 300px;
-    margin-right: 420px;
+/* =========================================================
+   MEDIOS (<= 1100) – compacta progresivo
+========================================================= */
+@media (max-width: 1100px) {
+  .orderStepperContainer {
+    --logo-w: clamp(118px, 13vw, 140px);
+
+    /* mantiene responsivo sin topes rígidos */
+    --wrapper-maxw: clamp(980px, 96vw, 1400px);
+    --stepper-maxw: clamp(520px, 72vw, 980px);
+
+    --connector-min: clamp(30px, 6.4vw, 110px);
+  }
+}
+
+/* =========================================================
+   PRE-MOBILE (<= 740) – reduce conectores
+========================================================= */
+@media (max-width: 740px) {
+  .orderStepperContainer {
+    --logo-left: clamp(10px, 2.2vw, 18px);
+    --logo-w: clamp(110px, 18vw, 128px);
+    --logo-gap: clamp(10px, 2vw, 18px);
+
+    --wrapper-maxw: 100%;
+    --stepper-maxw: 100%;
+
+    --connector-min: clamp(18px, 7.8vw, 80px);
+  }
+
+  .step {
+    padding: 0;
+  }
+}
+
+/* =========================================================
+   MOBILE (<= 660)
+   - fixed + transform (anti CLS)
+========================================================= */
+@media (max-width: 660px) {
+  .orderStepperContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    padding: 0;
+    display: block;
+
+    /* tokens mobile */
+    --logo-w: 145px;
+    --logo-safe: 0px;
+
+    --wrapper-maxw: 100%;
+    --stepper-maxw: 100%;
+
+    --connector-min: clamp(18px, 9vw, 90px);
+
+    /* alturas */
+    --logo-block-h: 64px;
+    --stepper-block-h: 56px;
+
+    background-color: #fff;
+    z-index: 9999;
+  }
+
+  /* LOGO arriba */
+  .orderStepperLogo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: var(--logo-block-h);
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff;
+
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+
+    transition:
+      transform 160ms ease,
+      opacity 160ms ease;
+    will-change: transform, opacity;
+  }
+
+  .orderStepperLogoImage {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+
+    width: var(--logo-w);
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* RUTA debajo del logo (mobile) */
+  .orderStepperWrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
+    height: var(--stepper-block-h);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff;
+
+    /* aire lateral adaptable */
+    padding: 10px clamp(12px, 4vw, 22px);
+    box-sizing: border-box;
+
+    transform: translateY(var(--logo-block-h));
+    transition: transform 160ms ease;
+    will-change: transform;
+  }
+
+  .orderStepper {
+    max-width: none;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  /* ✅ ESTADO SCROLLED (la clase está en el contenedor) */
+  .scrolled .orderStepperLogo {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .scrolled .orderStepperWrapper {
+    transform: translateY(0);
   }
 }

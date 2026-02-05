@@ -4,12 +4,10 @@
 .grid {
   width: 100%;
   display: grid;
-
-  /* 🔥 MOBILE: siempre 2 cards */
   grid-template-columns: repeat(2, 1fr);
-
   gap: 12px;
-  align-items: stretch;
+  align-items: start;
+  grid-auto-rows: auto;
 }
 
 /* ───────────────────────────── */

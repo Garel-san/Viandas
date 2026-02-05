@@ -35,7 +35,7 @@
   width: 100%;
 
   /* tu intención: 43vw, pero evita alturas ridículas con clamps */
-  height: clamp(520px, 43vw, 700px);
+  height: clamp(620px, 50vw, 960px);
 
   background:
     linear-gradient(0deg, rgba(255, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 105%),
@@ -454,5 +454,41 @@
     width: 100%;
     max-width: none;
     margin: 0;
+  }
+}
+
+@media (max-width: 660px) {
+  .heroSection {
+    /* más alto y estable en pantallas angostas */
+    height: clamp(680px, 92vh, 700px);
+
+    /* suele ayudar a que la foto “respire” como en la original */
+    background-position: center top;
+  }
+
+  .heroHeader {
+    width: 100%;
+    max-width: 520px;
+
+    /* textos más grandes como tu referencia */
+    font-size: clamp(30px, 6.2vw, 38px);
+    line-height: clamp(34px, 6.4vw, 42px);
+    letter-spacing: -1.2px;
+  }
+
+  .heroSlogan {
+    width: 100%;
+    max-width: 440px;
+
+    font-size: clamp(16px, 3.8vw, 20px);
+    line-height: clamp(20px, 4.2vw, 24px);
+    letter-spacing: -0.6px;
+
+    margin-top: 14px;
+  }
+
+  .ctaButton {
+    margin-top: 22px;
+    min-width: 200px;
   }
 }

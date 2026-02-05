@@ -26,11 +26,11 @@ export default function FiltersBar() {
       "vegetariano",
       "vegano",
       "extras",
-    ].includes(f.id)
+    ].includes(f.id),
   );
 
   const bottomFilters = filtersConfig.filter(
-    (f) => !topFilters.some((tf) => tf.id === f.id)
+    (f) => !topFilters.some((tf) => tf.id === f.id),
   );
 
   const hasActiveFilters = activeFilters.length > 0 || searchValue;
@@ -40,13 +40,6 @@ export default function FiltersBar() {
       {/* ================= FILTROS STICKY REAL ================= */}
       <section className={styles.stickyWrapper}>
         <div className={styles.wrapper}>
-          {/* ===== INFO FILTROS ===== */}
-          {activeFilters.length > 0 && (
-            <div className={styles.filtersInfo}>
-              Filtros ({activeFilters.length})
-            </div>
-          )}
-
           {/* ================= FILA SUPERIOR ================= */}
           <div className={`${styles.chipsRow} ${styles.scrollRow}`}>
             {topFilters.map((filter) => {

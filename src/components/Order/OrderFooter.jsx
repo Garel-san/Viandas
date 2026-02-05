@@ -9,7 +9,7 @@ export default function OrderFooter({
   isMinReached,
   onStartCheckout,
 }) {
-  const { startCheckout, checkoutStarted } = useCheckout(); // 🔹 usamos estado
+  const { startCheckout, checkoutStarted } = useCheckout();
 
   return (
     <footer className={styles.footer}>
@@ -24,24 +24,30 @@ export default function OrderFooter({
       {/* Totales */}
       <div className={styles.summary}>
         <div className={styles.row}>
-          <div className={styles.label}>
-            <img src="/Order/shop1.png" alt="" />
-            Pedido
+          <div className={styles.leftText}>
+            <img className={styles.icon} src="/Order/shop1.png" alt="" />
+            <span className={styles.labelText}>Pedido</span>
           </div>
-          <span>${totalPedido}</span>
+
+          <span className={styles.rightText}>${totalPedido}</span>
         </div>
 
         <div className={styles.row}>
-          <div className={styles.label}>
-            <img src="/Order/shop2.png" alt="" />
-            Envío
+          <div className={styles.leftText}>
+            <img className={styles.icon} src="/Order/shop2.png" alt="" />
+            <span className={styles.labelText}>Envío</span>
           </div>
-          <span>{envio === 0 ? "GRATIS" : `$${envio}`}</span>
+
+          <span className={styles.rightText}>
+            {envio === 0 ? "GRATIS" : `$${envio}`}
+          </span>
         </div>
 
-        <div className={`${styles.row} ${styles.total}`}>
-          <span>Total</span>
-          <span>${totalFinal}</span>
+        <div className={`${styles.row} ${styles.totalRow}`}>
+          <span className={styles.leftText}>Total</span>
+          <span className={`${styles.rightText} ${styles.totalValue}`}>
+            ${totalFinal}
+          </span>
         </div>
       </div>
 
@@ -51,8 +57,8 @@ export default function OrderFooter({
           className={styles.cta}
           disabled={!isMinReached}
           onClick={() => {
-            onStartCheckout(); // cierra overlay (Order)
-            startCheckout(); // inicia checkout (Steps)
+            onStartCheckout();
+            startCheckout();
           }}
         >
           PROCEDER AL PAGO

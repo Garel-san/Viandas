@@ -51,7 +51,7 @@ export default function DeliverySection() {
   }, [today]);
 
   const [currentMonth, setCurrentMonth] = useState(
-    new Date(minDate.getFullYear(), minDate.getMonth(), 1)
+    new Date(minDate.getFullYear(), minDate.getMonth(), 1),
   );
 
   /* ======================
@@ -207,8 +207,8 @@ export default function DeliverySection() {
                       new Date(
                         currentMonth.getFullYear(),
                         currentMonth.getMonth() - 1,
-                        1
-                      )
+                        1,
+                      ),
                     )
                   }
                 >
@@ -228,8 +228,8 @@ export default function DeliverySection() {
                       new Date(
                         currentMonth.getFullYear(),
                         currentMonth.getMonth() + 1,
-                        1
-                      )
+                        1,
+                      ),
                     )
                   }
                 >
@@ -301,6 +301,7 @@ export default function DeliverySection() {
             checked={form.mode === "range"}
             onChange={() => handleModeChange("range")}
           />
+          <span className={styles.customCheckbox}></span>
           Recibir entre 8:30 a.m y 16:00 p.m
         </label>
 
@@ -310,6 +311,7 @@ export default function DeliverySection() {
             checked={form.mode === "specific"}
             onChange={() => handleModeChange("specific")}
           />
+          <span className={styles.customCheckbox}></span>
           Recibir en horario específico (+$350)
         </label>
 
@@ -319,6 +321,7 @@ export default function DeliverySection() {
             checked={form.mode === "pickup"}
             onChange={() => handleModeChange("pickup")}
           />
+          <span className={styles.customCheckbox}></span>
           Retirar en local (Av. Gabriela Mistral 4223, Montevideo)
         </label>
       </div>

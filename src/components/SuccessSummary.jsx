@@ -8,6 +8,8 @@ export default function SuccessSummary({
   result,
   orderItems,
   total,
+  onNewOrder,
+  onGoHome,
 }) {
   const sliderRef = useRef(null);
 
@@ -23,17 +25,11 @@ export default function SuccessSummary({
   }
 
   const scrollLeft = () => {
-    sliderRef.current?.scrollBy({
-      left: -260,
-      behavior: "smooth",
-    });
+    sliderRef.current?.scrollBy({ left: -260, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    sliderRef.current?.scrollBy({
-      left: 260,
-      behavior: "smooth",
-    });
+    sliderRef.current?.scrollBy({ left: 260, behavior: "smooth" });
   };
 
   return (
@@ -55,7 +51,6 @@ export default function SuccessSummary({
       {/* ================== PRODUCTOS (SLIDER) ================== */}
       <div className={styles.productsSliderWrapper}>
         <div className={styles.productsSliderViewport}>
-          {/* Flecha izquierda */}
           {orderItems.length > 1 && (
             <button
               type="button"
@@ -67,7 +62,6 @@ export default function SuccessSummary({
             </button>
           )}
 
-          {/* Track */}
           <div className={styles.productsSlider} ref={sliderRef}>
             {orderItems.map((item) => (
               <div
@@ -96,7 +90,6 @@ export default function SuccessSummary({
             ))}
           </div>
 
-          {/* Flecha derecha */}
           {orderItems.length > 1 && (
             <button
               type="button"
@@ -133,10 +126,29 @@ export default function SuccessSummary({
           {payment.method === "cash"
             ? "en efectivo"
             : payment.method === "pos"
-            ? "con POS"
-            : "con tarjeta"}{" "}
+              ? "con POS"
+              : "con tarjeta"}{" "}
           al momento de la entrega
         </div>
+      </div>
+
+      {/* ACTIONS (ahora acá) */}
+      <div className={styles.actions}>
+        <button
+          type="button"
+          className={styles.primaryBtn}
+          onClick={onNewOrder}
+        >
+          IR A MI PERFIL
+        </button>
+
+        <button
+          type="button"
+          className={styles.secondaryBtn}
+          onClick={onGoHome}
+        >
+          VOLVER AL INICIO
+        </button>
       </div>
     </section>
   );

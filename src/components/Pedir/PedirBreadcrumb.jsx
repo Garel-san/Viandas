@@ -1,18 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../../context/CheckoutContext";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./PedirBreadcrumb.module.css";
 
 export default function PedirBreadcrumb() {
   const navigate = useNavigate();
   const { checkoutStarted, step } = useCheckout();
 
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleGoHome = () => navigate("/");
+  const containerRef = useRef(null);
+
+  const handleLogoStepperClick = () => {
+    navigate("/"); // no modificar rutas
+  };
 
   const currentStep = checkoutStarted ? step : 1;
+
+  const updateBreadcrumbHeightVar = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const h = Math.ceil(el.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--pb-h", `${h}px`);
+  };
 
   /* ==========================
      DETECTAR MOBILE
@@ -25,116 +36,150 @@ export default function PedirBreadcrumb() {
   }, []);
 
   /* ==========================
-     SCROLL
+     SCROLL (como el original)
   ========================== */
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 8);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 2);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  /* ==========================
+     MEDIR ALTURA REAL DEL BREADCRUMB
+     y exponerla como CSS var: --pb-h
+  ========================== */
+  useLayoutEffect(() => {
+    updateBreadcrumbHeightVar();
+  }, [isMobile, scrolled, checkoutStarted]);
+
+  useEffect(() => {
+    updateBreadcrumbHeightVar();
+
+    const onResize = () => updateBreadcrumbHeightVar();
+    window.addEventListener("resize", onResize);
+
+    let ro;
+    if (containerRef.current && "ResizeObserver" in window) {
+      ro = new ResizeObserver(() => updateBreadcrumbHeightVar());
+      ro.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (ro) ro.disconnect();
+    };
   }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      ref={containerRef}
+      className={`${styles.orderStepperContainer} ${
+        isMobile && scrolled ? styles.scrolled : ""
+      }`}
+    >
       {/* LOGO */}
       <div
-        className={`${styles.logo} ${
-          isMobile && isScrolled ? styles.logoHidden : ""
-        }`}
-        onClick={handleGoHome}
+        onClick={handleLogoStepperClick}
+        className={styles.orderStepperLogo}
+        style={{ cursor: "pointer" }}
         aria-label="Volver al inicio"
       >
-        <img src="/Logo/logo.png" alt="Viandas Hotel del Prado" />
+        <img
+          src="/Logo/logo.png"
+          alt="Viandas Hotel del Prado"
+          className={styles.orderStepperLogoImage}
+        />
       </div>
 
-      {/* STEPPER */}
-      <nav
-        className={`${styles.flowWrapper} ${
-          isMobile && isScrolled ? styles.flowSticky : ""
-        }`}
-      >
-        {/* STEP 1 */}
-        <span
-          className={`${styles.dot} ${styles.dot1} ${
-            currentStep >= 1 ? styles.active : ""
-          }`}
-        >
+      {/* WRAPPER */}
+      <div className={styles.orderStepperWrapper}>
+        <nav className={styles.orderStepper} aria-label="Checkout stepper">
+          {/* STEP 1 */}
+          <div className={styles.step}>
+            <span
+              className={`${styles.stepperIcon} ${
+                currentStep >= 1 ? styles.stepperIconActive : ""
+              }`}
+              aria-hidden="true"
+            >
+              {currentStep >= 1 && <span className={styles.stepperIconInner} />}
+            </span>
+
+            <span
+              className={`${styles.stepLabel} ${
+                currentStep >= 1
+                  ? styles.stepLabelActive
+                  : styles.stepLabelDisabled
+              }`}
+            >
+              Elegir platos
+            </span>
+          </div>
+
+          {/* CONNECTOR 1 */}
           <span
-            className={`${styles.innerDot} ${
-              currentStep >= 1 ? styles.innerActive : styles.innerInactive
+            className={`${styles.connector} ${
+              currentStep >= 2 ? styles.connectorActive : ""
             }`}
+            aria-hidden="true"
           />
-        </span>
 
-        {/* LINE 1 */}
-        <span
-          className={`${styles.line} ${styles.line1} ${
-            currentStep >= 2 ? styles.lineActive : ""
-          }`}
-        />
+          {/* STEP 2 */}
+          <div className={styles.step}>
+            <span
+              className={`${styles.stepperIcon} ${
+                currentStep >= 2 ? styles.stepperIconActive : ""
+              }`}
+              aria-hidden="true"
+            >
+              {currentStep >= 2 && <span className={styles.stepperIconInner} />}
+            </span>
+            <span
+              className={`${styles.stepLabel} ${
+                currentStep >= 2
+                  ? styles.stepLabelActive
+                  : styles.stepLabelDisabled
+              }`}
+            >
+              Datos y pago
+            </span>
+          </div>
 
-        {/* STEP 2 */}
-        <span
-          className={`${styles.dot} ${styles.dot2} ${
-            currentStep >= 2 ? styles.active : ""
-          }`}
-        >
+          {/* CONNECTOR 2 */}
           <span
-            className={`${styles.innerDot} ${
-              currentStep >= 2 ? styles.innerActive : styles.innerInactive
+            className={`${styles.connector} ${
+              currentStep >= 3 ? styles.connectorActive : ""
             }`}
+            aria-hidden="true"
           />
-        </span>
 
-        {/* LINE 2 */}
-        <span
-          className={`${styles.line} ${styles.line2} ${
-            currentStep >= 3 ? styles.lineActive : ""
-          }`}
-        />
-
-        {/* STEP 3 */}
-        <span
-          className={`${styles.dot} ${styles.dot3} ${
-            currentStep >= 3 ? styles.active : ""
-          }`}
-        >
-          <span
-            className={`${styles.innerDot} ${
-              currentStep >= 3 ? styles.innerActive : styles.innerInactive
-            }`}
-          />
-        </span>
-
-        {/* TEXTOS */}
-        <span
-          className={`${styles.text} ${styles.text1} ${
-            currentStep >= 1 ? styles.textActive : ""
-          }`}
-        >
-          Elegir platos
-        </span>
-
-        <span
-          className={`${styles.text} ${styles.text2} ${
-            currentStep >= 2 ? styles.textActive : ""
-          }`}
-        >
-          Datos y pago
-        </span>
-
-        <span
-          className={`${styles.text} ${styles.text3} ${
-            currentStep >= 3 ? styles.textActive : ""
-          }`}
-        >
-          Confirmación
-        </span>
-      </nav>
+          {/* STEP 3 */}
+          <div className={styles.step}>
+            <span
+              className={`${styles.stepperIcon} ${
+                currentStep >= 3 ? styles.stepperIconActive : ""
+              }`}
+              aria-hidden="true"
+            >
+              {currentStep >= 3 && <span className={styles.stepperIconInner} />}
+            </span>
+            <span
+              className={`${styles.stepLabel} ${
+                currentStep >= 3
+                  ? styles.stepLabelActive
+                  : styles.stepLabelDisabled
+              }`}
+            >
+              Confirmación
+            </span>
+          </div>
+        </nav>
+      </div>
     </div>
   );
 }

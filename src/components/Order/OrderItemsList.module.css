@@ -18,17 +18,29 @@
   flex: 1;
 
   display: flex;
+  flex-direction: column; /* 👈 clave */
   align-items: center;
   justify-content: center;
 
-  padding: 4px;
+  gap: 10px; /* separación imagen-texto */
+  padding: 16px;
+  text-align: center; /* texto centrado como en la referencia */
 }
 
 /* Imagen empty */
 .emptyImage {
-  width: 210px; /* más presencia */
+  width: 70px;
   max-width: 100%;
-  opacity: 0.9; /* sutil, no compite */
-  margin-right: 16px;
-  transform: scale(1.2); /* 🔍 ZOOM VISUAL */
+  opacity: 0.9;
+  transform: scale(1.2);
+  margin: 0; /* 👈 quitamos el margin-right */
+}
+
+/* Texto empty debajo del ícono */
+.emptyText {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.25;
+  color: #5c6066; /* gris suave */
+  max-width: 220px;
 }
