@@ -37,6 +37,7 @@
   /* tu intención: 43vw, pero evita alturas ridículas con clamps */
   height: clamp(620px, 50vw, 960px);
 
+  /* DESKTOP/TABLET: fondo normal */
   background:
     linear-gradient(0deg, rgba(255, 0, 0, 0) 75%, rgba(0, 0, 0, 1) 105%),
     url("/Banners/hero-image.webp");
@@ -57,6 +58,10 @@
   /* mismo criterio que el resto */
   padding-inline: var(--gutter);
   box-sizing: border-box;
+
+  /* por encima de ::before/::after en mobile */
+  position: relative;
+  z-index: 2;
 }
 
 .heroContent {
@@ -137,8 +142,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* no fijes text-align acá (te contamina cards) */
 }
 
 .banner1Inner {
@@ -234,6 +237,7 @@
   width: 100%;
   background: #ffffff;
 }
+
 .banner2Wrapper {
   margin: 0 auto;
   padding-inline: clamp(0px, 2vw, 24px);
@@ -243,6 +247,7 @@
   width: 100%;
   background: #ffffff;
 }
+
 .reviewsWrapper {
   max-width: var(--max-reviews);
   margin: 0 auto;
@@ -291,6 +296,7 @@
   width: 100%;
   background: #ffffff;
 }
+
 .faqWrapper {
   max-width: var(--max-content);
   margin: 0 auto;
@@ -306,6 +312,7 @@
   width: 100%;
   background: #ffffff;
 }
+
 .banner3Wrapper {
   width: 100%;
 }
@@ -360,7 +367,6 @@
 
 /* 3) <= 768: tablet — texto arriba, carrusel abajo */
 @media (max-width: 768px) {
-  /* en tablet conviene NO depender de widths % del hero */
   .heroHeader {
     width: 100%;
     max-width: 680px;
@@ -399,7 +405,6 @@
     margin: 6px auto 0;
     letter-spacing: 0.6px;
 
-    /* tu intención 30/28 en tablet */
     font-size: 30px;
     line-height: 28px;
   }
@@ -409,7 +414,6 @@
     width: 100%;
     margin: 8px auto 0;
 
-    /* tu intención 20/30 en tablet */
     font-size: 20px;
     line-height: 30px;
     text-align: center;
@@ -434,22 +438,20 @@
 
 /* 4) Ajuste SOLO si la tablet es “alta” (tu caso 768x1063) */
 @media (max-width: 768px) and (min-height: 900px) {
-  /* si necesitás flechas fuera, evitá que el recorte venga del page */
   .home {
     overflow-x: visible;
   }
+
   .carouselSection,
   .carouselRow,
   .carouselContent {
     overflow: visible;
   }
 
-  /* canal lateral real para flechas, sin hardcodear 56 siempre */
   .carouselRow {
     padding-inline: clamp(40px, 7vw, 56px);
   }
 
-  /* si en tablet te limita el banner1 wrapper */
   .banner1Inner {
     width: 100%;
     max-width: none;
@@ -457,20 +459,69 @@
   }
 }
 
+/* =========================================================
+   MOBILE HERO (<= 660)
+   Objetivo:
+   - el contenido toca bordes (sin gutter)
+   - el fondo “se aleja” como en la original
+   - el ajuste aplica también en 628px (tu screenshot) => por eso es 660
+========================================================= */
+/* =========================================================
+   MOBILE HERO (<= 660) — MUCHÍSIMO MENOS ZOOM
+   Clave: bajar el scale y compensar con inset más negativo
+========================================================= */
 @media (max-width: 660px) {
-  .heroSection {
-    /* más alto y estable en pantallas angostas */
-    height: clamp(680px, 92vh, 700px);
+  :root {
+    --gutter: 0px;
+  }
 
-    /* suele ayudar a que la foto “respire” como en la original */
-    background-position: center top;
+  .heroSection {
+    height: clamp(600px, 104vh, 700px) !important;
+    background: none !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  .heroSection::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: -55% !important;
+    z-index: 0 !important;
+
+    background-image: url("/Banners/hero-image.webp") !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+
+    /* ✅ movés la imagen hacia la derecha (más elementos visibles) */
+    background-position: 24% 56% !important;
+
+    /* ✅ menos zoom pero sin perder “comida” */
+    transform: scale(0.48) !important;
+    transform-origin: center !important;
+  }
+
+  .heroSection::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+
+    background: linear-gradient(
+      0deg,
+      rgba(255, 0, 0, 0) 75%,
+      rgba(0, 0, 0, 1) 105%
+    ) !important;
+    pointer-events: none !important;
+  }
+
+  .heroInner {
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   .heroHeader {
     width: 100%;
     max-width: 520px;
-
-    /* textos más grandes como tu referencia */
     font-size: clamp(30px, 6.2vw, 38px);
     line-height: clamp(34px, 6.4vw, 42px);
     letter-spacing: -1.2px;
@@ -479,16 +530,52 @@
   .heroSlogan {
     width: 100%;
     max-width: 440px;
-
     font-size: clamp(16px, 3.8vw, 20px);
     line-height: clamp(20px, 4.2vw, 24px);
     letter-spacing: -0.6px;
-
     margin-top: 14px;
   }
 
   .ctaButton {
     margin-top: 22px;
     min-width: 200px;
+  }
+}
+
+/* =========================================================
+   EXTRA MOBILE (<= 470px) — textos como la app original
+========================================================= */
+@media (max-width: 470px) {
+  .heroContent {
+    padding-top: 6px;
+  }
+
+  .heroHeader {
+    width: 94%;
+    max-width: 420px;
+
+    font-size: 34px;
+    line-height: 36px;
+    letter-spacing: -1.2px;
+
+    margin-top: 6px;
+  }
+
+  .heroSlogan {
+    width: 92%;
+    max-width: 400px;
+
+    font-size: 20px;
+    line-height: 18px;
+    letter-spacing: -0.4px;
+
+    margin-top: 12px;
+  }
+
+  .ctaButton {
+    margin-top: 18px;
+    min-width: 200px;
+    height: 46px;
+    font-size: 13px;
   }
 }

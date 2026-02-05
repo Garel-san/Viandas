@@ -8,3 +8,16 @@
   padding-top: 96px; /* 72px + margen */
   box-sizing: border-box;
 }
+
+@media (max-width: 660px) {
+  .page {
+    min-height: 100vh;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+
+    /* ✅ empuja todo el contenido debajo del PedirBreadcrumb fijo/sticky */
+    padding-top: 110px; /* 72px + margen */
+    box-sizing: border-box;
+  }
+}
