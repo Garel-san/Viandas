@@ -161,3 +161,7 @@
     height: 17px;
   }
 }
+
+.faqTitleBold {
+  font-weight: 700;
+}

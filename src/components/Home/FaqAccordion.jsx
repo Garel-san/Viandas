@@ -101,9 +101,11 @@ function ChevronIcon({ className }) {
   );
 }
 
-export default function FaqAccordion() {
+export default function FaqAccordion({ variant }) {
   const [openIndexes, setOpenIndexes] = useState([]);
-  const contentRefs = useRef([]); // ✅ refs por item (sin hooks dentro del map)
+  const contentRefs = useRef([]);
+
+  const isBoldTitles = variant === "bold-titles";
 
   const toggle = (index) => {
     setOpenIndexes((prev) =>
@@ -126,9 +128,14 @@ export default function FaqAccordion() {
               type="button"
               aria-expanded={isOpen}
             >
-              <h3 className={styles.faqTitle}>{faq.title}</h3>
+              <h3
+                className={`${styles.faqTitle} ${
+                  isBoldTitles ? styles.faqTitleBold : ""
+                }`}
+              >
+                {faq.title}
+              </h3>
 
-              {/* Flecha derecha: abajo (cerrado) / arriba (abierto) */}
               <span
                 className={`${styles.faqIcon} ${isOpen ? styles.open : ""}`}
                 aria-hidden="true"

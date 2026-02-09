@@ -1,0 +1,113 @@
+.wrapper {
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+  max-width: clamp(420px, 36vw, 940px);
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.label {
+  font-family: MarkPro;
+  font-size: 16px;
+  margin: 16px 0 8px;
+  color: #2b2b2b;
+}
+
+/* ======================
+   SEGMENTED CONTROL
+====================== */
+
+.segment {
+  display: flex;
+  border: 1px solid #8f8f8f;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.segmentBtn {
+  flex: 1;
+  padding: 10px 0;
+  font-family: MarkPro;
+  font-size: 14px;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.segmentBtn:not(:last-child) {
+  border-right: 1px solid #8f8f8f;
+}
+
+.active {
+  background: #bfbfbf;
+}
+
+.check {
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+/* ======================
+   SUMMARY
+====================== */
+
+.summary {
+  border: 1px solid #e1e1e1;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 18px;
+}
+
+.summaryTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.week {
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+.row,
+.rowTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.rowTotal {
+  font-weight: 700;
+}
+
+.free {
+  font-weight: 600;
+}
+
+/* ======================
+   CTA
+====================== */
+
+.cta {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+  background: #f2a900;
+  color: #fff;
+  font-family: MarkProBold;
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -1,0 +1,124 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgb(245, 245, 245);
+}
+
+/* ======================
+   HEADER
+====================== */
+
+.header {
+  text-align: center;
+  margin: 32px 0 40px;
+  padding: 30px 16px;
+}
+
+.title {
+  font-family: MarkProBold;
+  color: rgb(234, 154, 0);
+  font-weight: 400;
+
+  /* ⬇️ escala progresiva */
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.15;
+
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-family: MarkPro;
+  color: #4b4b4b;
+
+  /* ⬇️ escala suave */
+  font-size: clamp(14px, 2.4vw, 16px);
+  line-height: 1.4;
+
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ======================
+   CONTENT LAYOUT
+====================== */
+
+.content {
+  width: 100%;
+
+  padding: 0 clamp(48px, 6vw, 140px) 80px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+
+  gap: clamp(32px, 4vw, 72px);
+}
+
+/* ======================
+   CARDS
+====================== */
+
+.left,
+.right {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 16px;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* ======================
+   CONTROL DE ANCHO INTERNO
+====================== */
+
+.left > * {
+  width: 100%;
+  max-width: clamp(620px, 52vw, 1300px);
+}
+
+.right > * {
+  width: 100%;
+  max-width: clamp(420px, 36vw, 940px);
+}
+
+/* ======================
+   RESPONSIVE
+====================== */
+
+@media (max-width: 767px) {
+  .content {
+    grid-template-columns: 1fr;
+    padding: 0 24px 80px;
+  }
+
+  .left,
+  .right {
+    padding: 12px;
+  }
+
+  .right {
+    margin-top: 24px;
+    max-width: 100%;
+  }
+}
+
+/* ======================
+   MOBILE EXTRA
+   (conserva tu height)
+====================== */
+
+@media (max-width: 660px) {
+  .header {
+    padding: 80px 16px 0;
+  }
+
+  .title {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
