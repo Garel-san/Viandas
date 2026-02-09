@@ -10,22 +10,20 @@
 
 /* =========================
    CONTENEDOR PRINCIPAL
-   ✅ full-bleed (SIN max-width / SIN margin auto / SIN padding extra)
-   ✅ columna derecha responsiva de forma CONTINUA (4K -> 1800 -> 1400)
+   Full-bleed, sin saltos de gap
 ========================= */
 .content {
   flex: 1;
   width: 100%;
 
-  /* ya lo tenías */
-  --right-col: clamp(340px, 20vw, 500px);
+  /* Columna derecha flexible */
+  --right-col: clamp(280px, 18vw, 480px);
 
-  /* NUEVO: guardamos el gap en variable para reutilizarlo */
-  --content-gap: clamp(10px, 1.3vw, 22px);
+  /* GAP BASE = 0 → evita saltos 1310 / 1309 */
+  --content-gap: 0px;
 
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--right-col);
-
   column-gap: var(--content-gap);
 }
 
@@ -37,7 +35,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  flex: 1; /* 🔑 CLAVE */
+  flex: 1;
   padding: 96px 80px 24px 24px;
   box-sizing: border-box;
 }
@@ -45,29 +43,28 @@
 .checkoutFlow {
   flex: 1;
   display: flex;
-  align-items: center; /* centro vertical */
-  justify-content: center; /* centro horizontal lógico */
+  align-items: center;
+  justify-content: center;
   width: 100%;
   box-sizing: border-box;
 }
 
 .contentSteps {
-  background: #f2f3f5; /* o el color exacto que quieras */
+  background: #f2f3f5;
 }
 
 .stepsWrapper {
   width: 100%;
   max-width: 1500px;
-  margin-right: auto; /* arranque más desde la izquierda */
+  margin-right: auto;
 }
 
-/* Grid de productos */
 .products {
   flex: 1;
 }
 
 /* =========================
-   TEXTO INTRO (TÍTULO + SUBTÍTULO)
+   TEXTO INTRO
 ========================= */
 .intro {
   max-width: 760px;
@@ -77,12 +74,10 @@
 
 .introTitle {
   color: #ea9a00;
-  text-align: center;
-  letter-spacing: 0px;
   font-family: MarkProBold;
   font-size: 32px;
   font-weight: 400;
-  margin: 0 0 4px 0;
+  margin: 0 0 4px;
 }
 
 .introSubtitle {
@@ -90,26 +85,21 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 1.5;
-
   color: #5b5b5b;
   margin: 0;
 }
 
 /* =========================
    COLUMNA DERECHA (ORDER)
-   ✅ ocupa toda su columna (que es responsiva)
 ========================= */
 .right {
   position: sticky;
   top: 72px;
   background: #ffffff;
-
   align-self: stretch;
   height: calc(100vh - 72px);
-
   display: flex;
   flex-direction: column;
-
   width: 100%;
   min-width: 0;
 }
@@ -120,15 +110,14 @@
 .loaderOverlay {
   position: fixed;
   z-index: 99999;
-
   top: var(--pb-h, 72px);
   bottom: 0;
-
   left: 0;
+
+  /* sincronizado con gap */
   right: calc(var(--right-col) + var(--content-gap));
 
   background: #ffffff;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,20 +144,35 @@
 }
 
 /* =========================
-   ULTRA-WIDE (2K/4K)
-   ✅ un poco más grande en 4K, sin volverse desproporcionado
+   DESKTOP GRANDE
+   Gap solo donde suma
 ========================= */
+@media (min-width: 1400px) {
+  .content {
+    --content-gap: 18px;
+  }
+}
+
 @media (min-width: 2200px) {
   .content {
     --right-col: clamp(380px, 21vw, 600px);
-    --content-gap: clamp(14px, 1.4vw, 28px);
-    column-gap: var(--content-gap);
+    --content-gap: 28px;
   }
 }
 
 @media (min-width: 1800px) {
   .stepsWrapper {
     max-width: 1120px;
+  }
+}
+
+/* =========================
+   DESKTOP MEDIO
+   Reduce padding lateral
+========================= */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .left {
+    padding-right: 24px;
   }
 }
 
@@ -181,46 +185,35 @@
     column-gap: 0;
   }
 
-  @media (max-width: 1023px) {
-    /* La columna izquierda pasa a full-bleed */
-    .left {
-      padding: 72px 0 16px;
-    }
+  .left {
+    padding: 72px 0 16px;
+  }
 
-    /* Reinyectamos padding SOLO donde hace falta */
-    .intro,
-    .products,
-    .checkoutFlow {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
+  .intro,
+  .products,
+  .checkoutFlow {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .right {
     display: none;
   }
 
-  /* Breadcrumb full-width */
   .page > header {
     margin-left: -16px;
     margin-right: -16px;
   }
 
-  /* =========================
-     INTRO (TABLET / SMALL)
-     1023px → 661px
-  ========================= */
   .intro {
     max-width: 520px;
-    margin: 16px auto 20px; /* ⬅️ vuelve al flujo normal */
+    margin: 16px auto 20px;
     padding: 0 12px;
-    text-align: center;
   }
 
   .introTitle {
     font-size: 22px;
     line-height: 1.25;
-    margin-bottom: 6px;
   }
 
   .introSubtitle {
@@ -229,10 +222,9 @@
   }
 
   :root {
-    --orderbar-h: 86px; /* ajustable */
+    --orderbar-h: 86px;
   }
 
-  /* ✅ Reserva espacio para que el fixed bar NO tape las cards */
   .page {
     padding-bottom: var(--orderbar-h);
   }
@@ -256,7 +248,7 @@
   }
 
   :root {
-    --orderbar-h: 92px; /* un poco más en mobile chico */
+    --orderbar-h: 92px;
   }
 
   .intro,
@@ -267,7 +259,6 @@
   }
 
   .intro {
-    max-width: 100%;
     margin: 12px auto 16px;
     padding: 0 8px;
   }

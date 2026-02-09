@@ -35,7 +35,7 @@
   width: 100%;
 
   /* tu intención: 43vw, pero evita alturas ridículas con clamps */
-  height: clamp(620px, 50vw, 960px);
+  height: clamp(700px, 58vw, 1080px);
 
   /* DESKTOP/TABLET: fondo normal */
   background:
@@ -577,5 +577,11 @@
     min-width: 200px;
     height: 46px;
     font-size: 13px;
+  }
+}
+
+@media (min-width: 200px) and (max-width: 426px) {
+  .faqWrapper {
+    padding-inline: clamp(20px, 6vw, 32px);
   }
 }

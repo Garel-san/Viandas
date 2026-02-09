@@ -137,8 +137,7 @@
   }
 
   .header {
-    /* mismo aire lateral que el bar */
-    padding: 40px 36px 14px;
+    padding: 20px 36px; /* ⬅️ simétrico arriba / abajo */
     background-color: rgb(233, 233, 233);
   }
 
@@ -156,8 +155,8 @@
 
   .title {
     font-family: MarkPro;
-    font-weight: 400;
-    font-size: 23px;
+    font-weight: 500;
+    font-size: 24px;
     color: #ea9a00;
     margin-bottom: 20px;
   }

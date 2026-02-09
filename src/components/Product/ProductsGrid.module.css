@@ -1,51 +1,62 @@
 /* ───────────────────────────── */
-/* GRID – MOBILE FIRST */
+/* GRID – BASE */
+/* 3 cards por defecto */
+/* (aplica entre 810px y 1023px) */
 /* ───────────────────────────── */
 .grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
   gap: 12px;
   align-items: start;
   grid-auto-rows: auto;
 }
 
 /* ───────────────────────────── */
-/* DESKTOP (NO SE MODIFICA) */
+/* ≤ 494px → 2 cards */
 /* ───────────────────────────── */
-@media (min-width: 1024px) {
+@media (max-width: 494px) {
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 12px;
+  }
+}
+
+/* ───────────────────────────── */
+/* 495px → 810px → 3 cards */
+/* (ya cubierto por base, solo aire) */
+/* ───────────────────────────── */
+@media (min-width: 495px) and (max-width: 810px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+    gap: 14px;
+  }
+}
+
+/* ───────────────────────────── */
+/* 811px → 1023px → 4 cards */
+/* ───────────────────────────── */
+@media (min-width: 811px) and (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: 16px;
+  }
+}
+
+/* ───────────────────────────── */
+/* 1024px → 1301px → 3 cards */
+/* ───────────────────────────── */
+@media (min-width: 1024px) and (max-width: 1301px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
     gap: 18px;
   }
 }
 
 /* ───────────────────────────── */
-/* ESTADO VACÍO */
+/* ≥ 1302px → 4 cards */
 /* ───────────────────────────── */
-.empty {
-  width: 100%;
-  padding: 60px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.empty p {
-  font-size: 15px;
-  font-weight: 500;
-  color: #6b7280;
-}
-
-/* ───────────────────────────── */
-/* FULL HD (1440px+) */
-/* Fuerza EXACTAMENTE 4 productos */
-/* ───────────────────────────── */
-/* ───────────────────────────── */
-/* FULL HD (1440px+) */
-/* 4 productos, más angostos */
-/* ───────────────────────────── */
-@media (min-width: 1440px) {
+@media (min-width: 1302px) {
   .grid {
     grid-template-columns: repeat(4, minmax(220px, 1fr));
     gap: 20px;

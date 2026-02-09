@@ -39,33 +39,32 @@
   color: #ffffff;
 }
 
-/* ✅ IZQUIERDA (más weight) */
+/* IZQUIERDA */
 .leftText {
   display: flex;
   align-items: center;
   gap: 10px;
 
-  font-weight: 900; /* ⬆️ izquierda más pesada */
+  font-weight: 900;
 }
 
-/* Texto literal del label (opcional, por si querés afinar luego) */
 .labelText {
   font-weight: 900;
 }
 
-/* Íconos (mantiene tamaño actual) */
+/* Íconos */
 .icon {
   width: 18px;
   height: 18px;
   display: block;
 }
 
-/* ✅ DERECHA (menos weight) */
+/* DERECHA */
 .rightText {
-  font-weight: 200; /* ⬇️ derecha más liviana */
+  font-weight: 200;
 }
 
-/* Total row (mantiene distribución + separador) */
+/* Total */
 .totalRow {
   border-top: 1px solid rgba(255, 255, 255, 0.85);
   margin-top: 10px;
@@ -75,9 +74,8 @@
   line-height: 1.1;
 }
 
-/* Valor del total (derecha) */
 .totalValue {
-  font-weight: 200; /* mismo criterio: derecha liviana */
+  font-weight: 200;
 }
 
 /* Botón */
@@ -103,7 +101,6 @@
   cursor: not-allowed;
 }
 
-/* Botón habilitado */
 .cta:not(:disabled) {
   background: #ffffff;
   color: #f59e0b;
@@ -114,38 +111,58 @@
   filter: brightness(0.98);
 }
 
-/* MOBILE */
+/* ───────────────────────────── */
+/* MOBILE – AJUSTE REAL */
+/* SOLO MOBILE */
+/* ───────────────────────────── */
 @media (max-width: 1023px) {
+  /* Barra negra */
   .notice {
-    font-size: 14px;
-    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 6px 14px; /* ⬅️ menos alto */
   }
 
+  /* Contenedor */
   .summary {
-    padding: 20px 22px 12px;
+    padding: 14px 20px 6px; /* ⬅️ reduce altura total */
   }
 
+  /* Filas */
   .row {
-    font-size: 17px;
-    margin-bottom: 8px;
+    font-size: 20px; /* ⬆️ texto más grande */
+    line-height: 1.05; /* ⬅️ compacta */
+    margin-bottom: 6px; /* ⬅️ menos aire */
+    font-weight: 600;
   }
 
   .leftText {
-    gap: 10px;
+    gap: 8px;
+    font-weight: 800;
   }
 
-  .icon {
-    width: 18px;
-    height: 18px;
+  .rightText {
+    font-weight: 600;
   }
 
+  /* Total */
   .totalRow {
-    font-size: 22px;
+    font-size: 26px; /* ⬆️ más jerarquía */
+    line-height: 1.05;
+    margin-top: 4px; /* ⬅️ junta */
+    padding-top: 4px;
   }
 
+  .totalValue {
+    font-weight: 800;
+  }
+
+  /* Botón */
   .cta {
-    margin: 12px 22px 16px;
-    height: 38px;
-    font-size: 12px;
+    margin: 8px 20px 14px; /* ⬅️ menos alto */
+    height: 36px; /* ⬅️ más bajo */
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
   }
 }

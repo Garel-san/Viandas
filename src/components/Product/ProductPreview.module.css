@@ -199,3 +199,56 @@
 
   overflow: hidden;
 }
+
+@media (max-width: 665px) {
+  .card {
+    border-radius: 20px;
+  }
+
+  /* Imagen mucho más compacta */
+  .imageWrapper {
+    height: 90px;
+  }
+
+  .image {
+    object-position: center;
+  }
+
+  /* Precio y favoritos un poco más chicos */
+  .price {
+    padding: 4px 10px;
+    font-size: 14px;
+  }
+
+  .favoriteBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .star,
+  .starActive {
+    font-size: 18px;
+  }
+
+  /* Botón + acompaña el nuevo tamaño */
+  .addFloatingBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    bottom: -5px;
+    right: 22px;
+  }
+
+  /* Footer más compacto */
+  .footer {
+    padding: 14px 12px 10px;
+  }
+
+  .title {
+    font-size: 15px;
+    line-height: 18px;
+
+    min-height: calc(18px * 3);
+    max-height: calc(18px * 3);
+  }
+}
