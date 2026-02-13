@@ -13,16 +13,9 @@
   background: #ffffff;
 }
 
-/* ✅ Fondo para steps (mobile/tablet) */
-.pageSteps {
-  background: #efefef;
-}
-
-/* ✅ Desde 1024px en adelante */
-@media (min-width: 1024px) {
-  .pageSteps {
-    background: #efefef;
-  }
+/* ✅ nuevo: solo se aplica cuando el bar mobile existe */
+.withOrderBar {
+  /* base (desktop) no hace nada; se activa en mediaquery */
 }
 
 /* =========================
@@ -55,23 +48,27 @@
 
 .checkoutFlow {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   box-sizing: border-box;
+
+  /* en vez de centrar, estirá */
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
-/* ⛔️ Ya no lo usamos para el fondo de página, lo dejamos neutro */
 .contentSteps {
-  background-color: transparent;
+  background-color: #efefef;
 }
 
 .stepsWrapper {
-  margin-left: 40px;
   width: 100%;
-  max-width: 1500px;
-  margin-right: auto;
+  max-width: none; /* 🔑 sin límite */
+  margin: 0; /* 🔑 sin auto-centering ni offset */
+  box-sizing: border-box;
+
+  /* opcional: si querés “gutter” */
+  padding: 0 24px;
 }
 
 .products {
@@ -125,7 +122,7 @@
   min-height: 0;
 }
 
-/* 🔑 que OrderSummary ocupe todo el alto */
+/* 🔑 ESTO es lo que suele faltar: que OrderSummary ocupe todo el alto */
 .right > * {
   flex: 1 1 auto;
   min-height: 0;
@@ -213,12 +210,6 @@
   }
 }
 
-@media (min-width: 1800px) {
-  .stepsWrapper {
-    max-width: 1120px;
-  }
-}
-
 /* =========================
    DESKTOP MEDIO
 ========================= */
@@ -277,7 +268,12 @@
     --orderbar-h: 86px;
   }
 
+  /* ✅ antes estaba en .page (siempre). Ahora solo cuando aplica */
   .page {
+    padding-bottom: 0;
+  }
+
+  .withOrderBar {
     padding-bottom: var(--orderbar-h);
   }
 }

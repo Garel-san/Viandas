@@ -112,7 +112,9 @@ export default function CheckoutLayout() {
 
   return (
     <main
-      className={`${styles.page} ${checkoutStarted ? styles.pageSteps : ""}`}
+      className={`${styles.page} ${
+        isMobile && !checkoutStarted ? styles.withOrderBar : ""
+      }`}
     >
       {/* ================= HEADER ================= */}
       <PedirBreadcrumb />
