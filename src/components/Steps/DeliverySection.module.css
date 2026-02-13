@@ -6,25 +6,34 @@
   max-width: 100%;
 }
 
-/* ===============================
-   SUBTÍTULO
-================================ */
+/* SUBTÍTULO */
 .subtitle {
   color: #000;
   font-family: MarkPro;
   font-size: clamp(14px, 1.1vw, 16px);
-  margin-bottom: clamp(14px, 1.6vw, 20px);
+
+  /* antes: margin-bottom: clamp(14px, 1.6vw, 20px); */
+  margin-bottom: clamp(6px, 0.8vw, 10px); /* ✅ más cerca del primer input */
+
+  margin-left: 30px;
+  line-height: 1.15; /* opcional: reduce alto visual */
 }
 
-/* ===============================
-   GRID DEL FORM
-================================ */
+/* GRID DEL FORM */
 .formGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(260px, 1fr));
   column-gap: clamp(16px, 2vw, 28px);
   row-gap: clamp(14px, 1.6vw, 20px);
-  margin-bottom: clamp(18px, 2vw, 26px);
+
+  /* antes: margin-bottom: clamp(18px, 2vw, 26px); */
+  margin-bottom: clamp(
+    12px,
+    1.4vw,
+    18px
+  ); /* ✅ menos aire antes de los checks */
+
+  margin-left: 30px;
 }
 
 /* ===============================
@@ -156,6 +165,7 @@
   flex-direction: column;
   gap: clamp(8px, 1vw, 12px);
   margin-bottom: clamp(18px, 2vw, 26px);
+  margin-left: 30px;
 }
 
 .mode {

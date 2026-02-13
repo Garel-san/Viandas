@@ -116,6 +116,24 @@
   overflow-wrap: anywhere;
 }
 
+@media (max-width: 1147px) {
+  .section {
+    padding-inline: 0;
+  }
+
+  .banner {
+    width: 100%;
+    border-radius: 0;
+  }
+  /* 🔹 Solo quitar redondeo del lado izquierdo */
+  .image {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: clamp(26px, 3vw, 40px);
+    border-bottom-right-radius: clamp(26px, 3vw, 40px);
+  }
+}
+
 /* =========================================================
    BREAKPOINT ÚNICO NECESARIO:
    - cuando realmente ya no entra en 2 columnas: apila

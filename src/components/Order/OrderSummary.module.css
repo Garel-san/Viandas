@@ -32,11 +32,9 @@
 
     height: calc(100vh - 72px);
 
-    border-left: 1px solid #e5e5e5;
-
     /* 🔹 padding interno más ajustado */
     padding-left: 14px;
-    padding-right: 14px;
+    padding-right: 0px;
     box-sizing: border-box;
   }
 }
@@ -48,6 +46,6 @@
 @media (min-width: 1366px) {
   .sidebar {
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 0px;
   }
 }

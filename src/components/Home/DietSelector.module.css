@@ -469,6 +469,11 @@
   cursor: pointer;
 
   white-space: nowrap;
+
+  /* 🔴 AGREGAR ESTO */
+  border: none;
+  box-shadow: none;
+  outline: none;
 }
 
 /* ==========================

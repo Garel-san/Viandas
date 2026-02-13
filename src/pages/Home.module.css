@@ -87,7 +87,8 @@
   letter-spacing: -1.5px;
 
   /* en vez de min-width 726 fijo */
-  width: min(62%, 780px);
+  width: clamp(600px, 75%, 820px);
+
   min-width: 0;
   margin: 0;
 }
@@ -321,6 +322,15 @@
    BREAKPOINTS LIMPIOS
 ========================================================= */
 
+/* 👇 A partir de 1147px hacia abajo */
+@media (max-width: 1147px) {
+  .banner2Wrapper {
+    padding-inline: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+}
+
 /* 1) <= 1104: tu ajuste de hero (pero ya está clamp-eado) */
 @media (max-width: 1104px) {
   .heroSection {
@@ -356,12 +366,6 @@
     width: 76%;
     margin-top: 10px;
     padding-left: 0;
-  }
-
-  .banner2Wrapper {
-    padding-inline: 0;
-    margin: 0;
-    max-width: 100%;
   }
 }
 

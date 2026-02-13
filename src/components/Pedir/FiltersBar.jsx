@@ -37,7 +37,6 @@ export default function FiltersBar() {
 
   return (
     <>
-      {/* ================= FILTROS STICKY REAL ================= */}
       <section className={styles.stickyWrapper}>
         <div className={styles.wrapper}>
           {/* ================= FILA SUPERIOR ================= */}
@@ -84,8 +83,22 @@ export default function FiltersBar() {
               })}
             </div>
 
-            {/* ================= SEARCH + LIMPIAR ================= */}
+            {/* ================= LIMPIAR + SEARCH ================= */}
             <div className={styles.searchGroup}>
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  className={styles.clearFilters}
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    clearFilters();
+                  }}
+                >
+                  <FiX />
+                  Limpiar filtros
+                </button>
+              )}
+
               <div
                 className={`${styles.search} ${
                   isSearchOpen ? styles.open : ""
@@ -113,20 +126,6 @@ export default function FiltersBar() {
                   }}
                 />
               </div>
-
-              {hasActiveFilters && (
-                <button
-                  type="button"
-                  className={styles.clearFilters}
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    clearFilters();
-                  }}
-                >
-                  <FiX />
-                  Limpiar
-                </button>
-              )}
             </div>
           </div>
         </div>

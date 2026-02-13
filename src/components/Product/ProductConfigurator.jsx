@@ -7,12 +7,13 @@ export default function ProductConfigurator({ product, onCancel }) {
   const { addItem } = useOrder();
 
   const [isMobile, setIsMobile] = useState(
-    window.matchMedia("(max-width: 1023px)").matches,
+    window.matchMedia("(max-width: 665px)").matches,
   );
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 1023px)");
+    const media = window.matchMedia("(max-width: 665px)");
     const listener = () => setIsMobile(media.matches);
+
     media.addEventListener("change", listener);
     return () => media.removeEventListener("change", listener);
   }, []);

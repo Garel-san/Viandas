@@ -11,9 +11,11 @@
 ================================ */
 .subtitle {
   color: #666;
-  margin-bottom: clamp(12px, 1.2vw, 18px);
+  margin-bottom: clamp(6px, 0.6vw, 10px); /* ✅ más cerca del input */
   font-family: MarkPro;
   font-size: clamp(13px, 1.1vw, 15px);
+  margin-left: 30px;
+  line-height: 1.15; /* opcional: reduce alto visual del renglón */
 }
 
 /* ===============================
@@ -25,6 +27,7 @@
   column-gap: clamp(16px, 2vw, 28px);
   row-gap: clamp(14px, 1.6vw, 20px);
   max-width: 100%;
+  margin-left: 30px;
 }
 
 /* ===============================
@@ -68,6 +71,7 @@
   align-items: center;
   gap: clamp(12px, 2vw, 18px);
   margin-top: clamp(18px, 2vw, 26px);
+  margin-left: 30px;
 }
 
 /* ===============================
@@ -119,6 +123,7 @@
   font-family: MarkPro;
   font-size: clamp(11px, 1vw, 13px);
   cursor: pointer;
+  margin-left: 30px;
 }
 
 /* ===============================
@@ -165,7 +170,7 @@
 @media (max-width: 767px) {
   .subtitle {
     font-size: 13px;
-    margin-bottom: 16px;
+    margin-bottom: 10px; /* ✅ antes 16px */
   }
 
   .field label {
