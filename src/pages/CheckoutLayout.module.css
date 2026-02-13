@@ -13,6 +13,18 @@
   background: #ffffff;
 }
 
+/* ✅ Fondo para steps (mobile/tablet) */
+.pageSteps {
+  background: #efefef;
+}
+
+/* ✅ Desde 1024px en adelante */
+@media (min-width: 1024px) {
+  .pageSteps {
+    background: #efefef;
+  }
+}
+
 /* =========================
    CONTENEDOR PRINCIPAL
 ========================= */
@@ -50,8 +62,9 @@
   box-sizing: border-box;
 }
 
+/* ⛔️ Ya no lo usamos para el fondo de página, lo dejamos neutro */
 .contentSteps {
-  background-color: #efefef;
+  background-color: transparent;
 }
 
 .stepsWrapper {
@@ -93,9 +106,6 @@
 
 /* =========================
    COLUMNA DERECHA (ORDER)
-   ✅ usa mediaqueries (pb-fixed)
-   ✅ si existe --pb-h, lo usa como prioridad
-   ✅ fuerza al hijo a estirar (esto era clave)
 ========================= */
 .right {
   position: sticky;
@@ -115,7 +125,7 @@
   min-height: 0;
 }
 
-/* 🔑 ESTO es lo que suele faltar: que OrderSummary ocupe todo el alto */
+/* 🔑 que OrderSummary ocupe todo el alto */
 .right > * {
   flex: 1 1 auto;
   min-height: 0;
@@ -160,7 +170,6 @@
 
 /* =========================
    MEDIAQUERIES para --pb-fixed
-   (aproxima variación del breadcrumb)
 ========================= */
 @media (max-width: 1800px) {
   :root {
@@ -289,6 +298,7 @@
   .stepsWrapper {
     margin-left: 0px;
   }
+
   .left {
     padding: 120px 0 16px;
   }
