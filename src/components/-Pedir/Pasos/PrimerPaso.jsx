@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import { useCheckout } from "../../context/CheckoutContext";
-import styles from "./GuestSection.module.css";
+import { useCheckout } from "../../../context/CheckoutContext";
+import styles from "./PrimerPaso.module.css";
 
 export default function GuestSection() {
   const { guest, completeGuest, resetCheckout } = useCheckout();

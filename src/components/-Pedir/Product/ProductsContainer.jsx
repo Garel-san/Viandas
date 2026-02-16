@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductCard from "./ProductCard";
-import styles from "./ProductsGrid.module.css";
-import { useProductsData } from "../../context/ProductsDataContext";
+import styles from "./ProductsContainer.module.css";
+import { useProductsData } from "../../../context/ProductsDataContext";
 
 export default function ProductsGrid() {
   const { filteredProducts } = useProductsData();

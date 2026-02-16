@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./DietSelector.module.css";
+import styles from "./Dietas.module.css";
 
 const DIETS = [
   { key: "vegetariano", label: "Vegetariano" },

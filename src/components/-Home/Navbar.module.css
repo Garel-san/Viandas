@@ -9,7 +9,8 @@
   z-index: 9000;
   isolation: isolate;
 
-  height: clamp(64px, 6.5vw, 84px);
+  /* un poco más alta */
+  height: clamp(70px, 7.2vw, 92px);
 
   display: flex;
   align-items: center;
@@ -41,7 +42,8 @@
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
 
-  padding-inline: clamp(16px, 4vw, 48px);
+  /* un poco más de aire lateral */
+  padding-inline: clamp(18px, 4.5vw, 56px);
   box-sizing: border-box;
 
   min-width: 0;
@@ -53,7 +55,7 @@
 .left {
   display: flex;
   align-items: center;
-  gap: clamp(8px, 1.5vw, 16px);
+  gap: clamp(10px, 1.7vw, 18px);
   min-width: 0;
 }
 
@@ -62,7 +64,7 @@
 ====================== */
 .socials {
   display: flex;
-  gap: clamp(8px, 1.2vw, 12px);
+  gap: clamp(10px, 1.4vw, 14px);
   align-items: center;
   min-width: 0;
 }
@@ -75,9 +77,10 @@
   color: #000000;
 }
 
+/* un poco más grandes */
 .socialIcon {
-  width: clamp(20px, 2.2vw, 28px);
-  height: clamp(20px, 2.2vw, 28px);
+  width: clamp(22px, 2.4vw, 30px);
+  height: clamp(22px, 2.4vw, 30px);
   fill: currentColor;
 }
 
@@ -91,8 +94,9 @@
   min-width: 0;
 }
 
+/* ligeramente más grande */
 .logo {
-  height: clamp(42px, 4.5vw, 60px);
+  height: clamp(46px, 4.9vw, 66px);
   width: auto;
   cursor: pointer;
 }
@@ -103,28 +107,28 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: clamp(8px, 1.5vw, 14px);
+  gap: clamp(10px, 1.7vw, 16px);
   min-width: 0;
 }
 
 /* --- LOGIN --- */
 .loginBtn {
   font-family: MarkPro;
-  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+  font-size: clamp(0.75rem, 0.95vw, 0.9rem);
   font-weight: 600;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: clamp(0.6em, 0.8vw, 0.9em) clamp(1.1em, 1.4vw, 1.4em);
+  padding: clamp(0.7em, 0.9vw, 1em) clamp(1.25em, 1.5vw, 1.6em);
 
   border-radius: 999px;
   background: #ffffff;
   cursor: pointer;
 
   white-space: nowrap;
-  min-width: clamp(120px, 12vw, 140px);
+  min-width: clamp(130px, 13vw, 150px);
   line-height: 1;
 }
 
@@ -139,11 +143,11 @@
 /* --- CTA --- */
 .orderBtn {
   font-family: MarkPro;
-  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+  font-size: clamp(0.75rem, 0.95vw, 0.9rem);
   font-weight: 500;
   letter-spacing: 0.04em;
 
-  padding: clamp(0.55em, 0.7vw, 0.7em) clamp(1.1em, 1.4vw, 1.4em);
+  padding: clamp(0.65em, 0.85vw, 0.85em) clamp(1.25em, 1.5vw, 1.6em);
 
   border-radius: 999px;
   border: none;
@@ -153,7 +157,7 @@
   white-space: nowrap;
   cursor: pointer;
 
-  min-width: clamp(110px, 11vw, 120px);
+  min-width: clamp(120px, 12vw, 140px);
 }
 
 /* ======================
@@ -163,7 +167,7 @@
   display: none;
   background: none;
   border: none;
-  font-size: clamp(22px, 4vw, 30px);
+  font-size: clamp(24px, 4.3vw, 32px);
   cursor: pointer;
 }
 
@@ -191,7 +195,6 @@
   transform: translateX(100%);
   transition: transform 0.28s ease;
 
-  /* limpio */
   padding: 18px 16px;
   box-sizing: border-box;
 
@@ -204,7 +207,6 @@
   transform: translateX(0);
 }
 
-/* contenedor interno simple (para que sea fácil mover/centrar luego) */
 .drawerInner {
   width: 100%;
   display: flex;
@@ -215,7 +217,6 @@
   padding-top: 6px;
 }
 
-/* botón arriba (simple, como referencia) */
 .drawerLoginBtn {
   font-family: MarkPro;
   font-size: 11px;
@@ -233,13 +234,10 @@
   line-height: 1;
 }
 
-/* fila de íconos debajo */
 .drawerSocials {
   display: flex;
   align-items: center;
   gap: 8px;
-
-  /* queda debajo del botón, pegado como en tu imagen */
   padding-left: 2px;
 }
 
@@ -248,24 +246,22 @@
   align-items: center;
   justify-content: center;
 
-  width: 32px; /* antes 20px */
-  height: 32px; /* antes 20px */
-
-  color: #000000; /* todos negros */
+  width: 32px;
+  height: 32px;
+  color: #000000;
 }
 
-/* MISMA regla para los 3 => evita “facebook gigante” */
 .drawerSocialIcon {
-  width: 26px; /* antes 16px */
-  height: 26px; /* antes 16px */
+  width: 26px;
+  height: 26px;
   fill: currentColor;
   display: block;
 }
 
-/* opcional: un hover sutil */
 .drawerSocialLink:hover {
   opacity: 0.75;
 }
+
 /* ======================
    BREAKPOINTS REALES
 ====================== */
@@ -299,7 +295,6 @@
 
 /* ======================
    TABLET / iPad (≈768px–1024px)
-   Navbar más alta
 ====================== */
 @media (min-width: 720px) and (max-width: 1024px) {
   .navbar {
@@ -327,7 +322,6 @@
 
 /* ======================
    MOBILE GRANDE (≈390px–520px)
-   Navbar más alta
 ====================== */
 @media (min-width: 390px) and (max-width: 520px) {
   .navbar {

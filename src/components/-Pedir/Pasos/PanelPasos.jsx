@@ -1,10 +1,10 @@
-import { useCheckout } from "../../context/CheckoutContext";
+import { useCheckout } from "../../../context/CheckoutContext";
 
-import GuestSection from "./GuestSection";
-import DeliverySection from "./DeliverySection";
-import PaymentSection from "./PaymentSection";
+import GuestSection from "./PrimerPaso";
+import DeliverySection from "./SegundoPaso";
+import PaymentSection from "./TercerPaso";
 
-import styles from "./CheckoutFlow.module.css";
+import styles from "./PanelPasos.module.css";
 
 /* =====================================================
    HELPERS – SUMMARY TEXT
@@ -60,8 +60,8 @@ function CheckoutStep({
           status === "completed"
             ? styles.completed
             : status === "active"
-            ? styles.active
-            : styles.pending
+              ? styles.active
+              : styles.pending
         }`}
       >
         <div

@@ -1,6 +1,6 @@
-import styles from "./OrderOverlay.module.css";
-import { useOrder } from "../../context/OrderDataContext";
-import { useCheckout } from "../../context/CheckoutContext";
+import styles from "./OrderMovil.module.css";
+import { useOrder } from "../../../context/OrderDataContext";
+import { useCheckout } from "../../../context/CheckoutContext";
 
 import OrderHeader from "./OrderHeader";
 import OrderItemsList from "./OrderItemsList";

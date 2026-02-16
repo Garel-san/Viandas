@@ -1,4 +1,4 @@
-import styles from "./FiltersBar.module.css";
+import styles from "./BarraFiltros.module.css";
 import { FiSearch, FiX } from "react-icons/fi";
 import { useState, useRef } from "react";
 import { useProductsData } from "../../context/ProductsDataContext";

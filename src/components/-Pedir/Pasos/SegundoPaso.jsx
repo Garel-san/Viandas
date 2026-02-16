@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from "react";
-import { useCheckout } from "../../context/CheckoutContext";
-import styles from "./DeliverySection.module.css";
+import { useCheckout } from "../../../context/CheckoutContext";
+import styles from "./SegundoPaso.module.css";
 
 const WEEK_DAYS = ["lu", "ma", "mi", "ju", "vi", "sá", "do"];
 

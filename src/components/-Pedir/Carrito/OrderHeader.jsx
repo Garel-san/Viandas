@@ -1,5 +1,5 @@
 import styles from "./OrderHeader.module.css";
-import { useOrder } from "../../context/OrderDataContext";
+import { useOrder } from "../../../context/OrderDataContext";
 
 export default function OrderHeader({ variant = "bar", totalViandas }) {
   const { openOrder, closeOrder } = useOrder();

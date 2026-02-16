@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import styles from "./SuccessSummary.module.css";
+import styles from "./ResumenCompra.module.css";
 
 export default function SuccessSummary({
   guest,

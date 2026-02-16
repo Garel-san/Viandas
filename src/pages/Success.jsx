@@ -3,8 +3,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useCheckout } from "../context/CheckoutContext";
 import { useOrder } from "../context/OrderDataContext";
 
-import PedirBreadcrumb from "../components/Pedir/PedirBreadcrumb";
-import SuccessSummary from "../components/SuccessSummary";
+import PedirBreadcrumb from "../components/-Pedir/PedirStepper";
+import SuccessSummary from "../components/-Succes/ResumenCompra";
 
 import styles from "./Success.module.css";
 

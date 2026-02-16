@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-import Layout from "../components/Layout";
-import Banner1 from "../components/Banners/Banner1";
-import Carrousel from "../components/Home/Carrousel";
-import Banner2 from "../components/Banners/Banner2";
-import Reviews from "../components/Home/Reviews";
-import DietSelector from "../components/Home/DietSelector";
-import FaqAccordion from "../components/Home/FaqAccordion";
-import Banner3 from "../components/Banners/Banner3";
-import Footer from "../components/Home/Footer";
+import Layout from "../components/-Home/Layout";
+import Banner1 from "../components/-Home/Banners/Banner1";
+import Carrousel from "../components/-Home/Carrousel";
+import Banner2 from "../components/-Home/Banners/Banner2";
+import Reviews from "../components/-Home/Reviews";
+import DietSelector from "../components/-Home/Dietas";
+import FaqAccordion from "../components/-Home/PreguntasFrecuentes";
+import Banner3 from "../components/-Home/Banners/Banner3";
+import Footer from "../components/-Home/Footer";
 
 import styles from "./Home.module.css";
 

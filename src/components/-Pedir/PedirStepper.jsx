@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../../context/CheckoutContext";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import styles from "./PedirBreadcrumb.module.css";
+import styles from "./PedirStepper.module.css";
 
 export default function PedirBreadcrumb() {
   const navigate = useNavigate();

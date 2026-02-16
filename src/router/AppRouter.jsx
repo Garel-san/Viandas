@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
-import CheckoutLayout from "../pages/CheckoutLayout";
+import CheckoutLayout from "../pages/Pedir";
 import Success from "../pages/Success";
 import Suscribirse from "../pages/Suscribirse";
 

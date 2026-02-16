@@ -1,6 +1,6 @@
-import PedirBreadcrumb from "../components/Pedir/PedirBreadcrumb";
-import FaqAccordionSub from "../components/Suscribirse/FaqAccordion-Sub";
-import PlanSelector from "../components/Suscribirse/PlanSelector";
+import PedirBreadcrumb from "../components/-Pedir/PedirStepper";
+import FaqAccordionSub from "../components/-Suscribirse/PreguntasFrecuentesSub";
+import PlanSelector from "../components/-Suscribirse/PlanesDeSuscripcion";
 
 import styles from "./Suscribirse.module.css";
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./PlanSelector.module.css";
+import styles from "./PlanesDeSuscripcion.module.css";
 import AuthModal from "../Auth/AuthModal";
 
 export default function PlanSelector() {

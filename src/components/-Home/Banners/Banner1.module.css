@@ -8,32 +8,29 @@
 
 /* ======================
    CONTENEDOR GRANDE (DESKTOP)
-   - Evita superposición antes del breakpoint
 ====================== */
 
 .primercajaHijo {
   box-sizing: border-box;
   border: 2px solid #dddbdb;
-  border-radius: 33px;
+  border-radius: 36px;
 
-  width: 95%;
-  max-width: 1400px;
-  height: 330px;
+  width: 100%;
+  max-width: 1920px;
+  height: 360px;
 
   background-color: #ffffff;
 
-  margin-top: -90px;
-  margin-bottom: 30px;
+  margin-top: -95px;
+  margin-bottom: 34px;
 
-  /* ✅ en vez de flex "space-evenly" (que rompe al achicar),
-     usamos GRID 3 columnas fluidas */
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 40px);
+  gap: clamp(22px, 2.2vw, 46px);
 
   align-items: start;
 
-  padding: 25px clamp(18px, 2vw, 28px);
+  padding: clamp(40px, 3.4vw, 62px) clamp(60px, 5vw, 110px);
 }
 
 /* ======================
@@ -41,18 +38,16 @@
 ====================== */
 
 .tarjeta {
-  /* ✅ clave para que el texto NO empuje el layout */
   min-width: 0;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
 .tarjeta img {
-  width: clamp(64px, 5vw, 80px);
+  width: clamp(72px, 5.3vw, 92px);
   height: auto;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   flex: 0 0 auto;
 }
 
@@ -64,23 +59,18 @@
   font-family: MarkPro;
   font-weight: 700;
 
-  /* ✅ escala suave y evita “crecer de más” */
-  font-size: clamp(18px, 1.7vw, 25px);
+  font-size: clamp(20px, 1.85vw, 28px);
   line-height: 1.15;
 
-  margin: 0 0 12px;
-
-  /* ✅ sin altura fija */
+  margin: 0 0 14px;
   height: auto;
 
   text-shadow: 0px 0px 1px #000000;
 
-  /* ✅ nunca se sale ni se superpone */
   max-width: 100%;
   overflow: hidden;
   overflow-wrap: anywhere;
 
-  /* ✅ si querés que siempre se vea prolijo */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -94,16 +84,12 @@
   font-family: MarkPro;
   font-weight: 500;
 
-  font-size: clamp(14px, 1.2vw, 17px);
-  line-height: 1.35;
+  font-size: clamp(15px, 1.3vw, 18.5px);
+  line-height: 1.4;
 
   margin: 0;
+  width: 90%;
 
-  /* ✅ anula el max-width 350 que te despareja en anchos chicos */
-  max-width: 100%;
-  width: 100%;
-
-  /* ✅ evita que “invada” a otras columnas */
   overflow: hidden;
   overflow-wrap: anywhere;
 
@@ -113,28 +99,28 @@
 }
 
 /* =========================================================
-   PASO A 3 CARDS SEPARADAS (antes lo hacías en 1024)
-   ✅ lo adelantamos para que NO exista el tramo “se rompe”
+   PASO A 3 CARDS SEPARADAS
 ========================================================= */
 @media (max-width: 1120px) {
   .primercajaHijo {
     height: auto;
-    width: 95%;
+    width: 96%;
     max-width: none;
 
     display: flex;
     align-items: stretch;
-
     justify-content: space-between;
+
     gap: 16px;
 
     background: transparent;
     border: none;
     border-radius: 0;
 
-    padding: 0 22px;
-    margin-top: -90px;
-    margin-bottom: 30px;
+    padding: 0 clamp(26px, 3.5vw, 48px);
+
+    margin-top: -95px;
+    margin-bottom: 34px;
   }
 
   .tarjeta {
@@ -146,35 +132,41 @@
     border: 1px solid #e0e0e0;
     border-radius: 18px;
 
-    padding: 26px 20px;
-    min-height: 300px;
-
+    padding: 28px 18px;
+    min-height: 260px;
     justify-content: flex-start;
   }
 
   .tarjeta img {
-    width: 78px;
-    margin-bottom: 18px;
+    width: 68px;
+    margin-bottom: 14px;
   }
 
-  /* en este modo conviene NO clamp duro el header */
   .tarjetaHeader {
     display: block;
     -webkit-line-clamp: unset;
     overflow: visible;
-    min-height: calc(1.15em * 2); /* 2 líneas exactas */
+
+    font-size: 20px;
+    line-height: 22px;
+
+    margin-bottom: 10px;
+    min-height: calc(1.15em * 2);
   }
 
   .tarjetaSlogan {
     display: block;
     -webkit-line-clamp: unset;
     overflow: visible;
+
+    font-size: 15.5px;
+    line-height: 20px;
   }
 }
 
 /* =========================================================
    TABLET 768 x ~1063
-   - 3 cards iguales
+   ↓↓↓ AJUSTE REAL ↓↓↓
 ========================================================= */
 @media (max-width: 768px) and (min-height: 900px) {
   .bannerWrapper,
@@ -192,62 +184,63 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    gap: 18px;
+    gap: 14px;
 
     background: transparent;
     border: none;
     border-radius: 0;
 
-    padding: 0 18px;
+    /* ↓ CASI full width */
+    padding: 0 12px;
+
     box-sizing: border-box;
 
-    margin-top: -90px;
-    margin-bottom: 28px;
+    margin-top: -95px;
+    margin-bottom: 32px;
   }
 
   .tarjeta {
     flex: 1 1 0;
     min-width: 0;
 
-    border-radius: 22px;
-    padding: 30px 22px;
+    border-radius: 20px;
 
-    height: 360px; /* mismas 3 */
+    /* ↓ MUCHO menos padding */
+    padding: 26px 16px;
+
+    height: auto;
+    min-height: 220px;
   }
 
+  /* ↓ Imagen más chica */
   .tarjeta img {
-    width: 92px;
-    margin-bottom: 22px;
+    width: 62px;
+    margin-bottom: 12px;
   }
 
+  /* ↓ Texto más chico */
   .tarjetaHeader {
-    font-size: 22px;
-    line-height: 24px;
-    margin-bottom: 14px;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 8px;
 
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
   }
 
   .tarjetaSlogan {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14.5px;
+    line-height: 19px;
 
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-
-    flex: 1;
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
   }
 }
 
 /* =========================================================
-   <= 650px (650x1063 y hacia abajo)
-   ✅ 3 cards en COLUMNA y MÁS angostas (como original)
-   (pisando 1120/768 sin romperlos)
+   <= 650px
 ========================================================= */
 @media (max-width: 650px) {
   .primercajaHijo {
@@ -259,30 +252,31 @@
     width: 100%;
     height: auto;
 
-    gap: 22px;
-    padding: 0 18px;
+    gap: 24px;
+
+    padding: 0 clamp(8px, 3vw, 18px); /* ← más ancho */
+
     box-sizing: border-box;
 
     background: transparent;
     border: none;
     border-radius: 0;
 
-    margin-top: -90px;
-    margin-bottom: 28px;
+    margin-top: -95px;
+    margin-bottom: 30px;
   }
-
   .tarjeta {
     flex: 0 0 auto;
 
-    /* 🔑 MÁS ANGOSTAS (como referencia real) */
-    width: min(54vw, 240px);
-    max-width: 240px;
+    width: min(90vw, 420px);
+    max-width: 320px;
 
     align-self: center;
     box-sizing: border-box;
 
-    border-radius: 18px;
-    padding: 30px 20px;
+    border-radius: 20px;
+
+    padding: 40px 22px;
 
     height: auto;
     min-height: 0;
@@ -292,13 +286,15 @@
 
   .tarjeta img {
     width: 80px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
 
   .tarjetaHeader {
-    font-size: 19px;
-    line-height: 22px;
-    margin-bottom: 12px;
+    font-size: 21px;
+    line-height: 40px; /* ↓ más compacto */
+    margin-bottom: 4px; /* ↓ separación controlada */
+
+    min-height: unset; /* ← ESTA ES LA CLAVE */
 
     display: block;
     overflow: visible;
@@ -306,8 +302,9 @@
   }
 
   .tarjetaSlogan {
-    font-size: 17.5px; /* 🔑 TEXTO MÁS GRANDE */
-    line-height: 24px;
+    font-size: 15.2px;
+    line-height: 22px; /* ↓ también un poco más compacto */
+    margin-top: 0px;
 
     display: block;
     overflow: visible;

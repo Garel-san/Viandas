@@ -1,7 +1,7 @@
 import styles from "./OrderItemCard.module.css";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
-import { useProductsData } from "../../context/ProductsDataContext";
+import { useProductsData } from "../../../context/ProductsDataContext";
 
 export default function OrderItemCard({
   item,

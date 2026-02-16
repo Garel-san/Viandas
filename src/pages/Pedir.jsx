@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 
-import PedirBreadcrumb from "../components/Pedir/PedirBreadcrumb";
-import FiltersBar from "../components/Pedir/FiltersBar";
-import ProductsGrid from "../components/Product/ProductsGrid";
-import OrderSummary from "../components/Order/OrderSummary";
-import OrderHeader from "../components/Order/OrderHeader";
-import OrderOverlay from "../components/Order/OrderOverlay";
-import CheckoutFlow from "../components/Steps/CheckoutFlow";
+import PedirBreadcrumb from "../components/-Pedir/PedirStepper";
+import FiltersBar from "../components/-Pedir/BarraFiltros";
+import ProductsGrid from "../components/-Pedir/Product/ProductsContainer";
+import OrderSummary from "../components/-Pedir/Carrito/OrderSummary";
+import OrderHeader from "../components/-Pedir/Carrito/OrderHeader";
+import OrderOverlay from "../components/-Pedir/Carrito/OrderMovil";
+import CheckoutFlow from "../components/-Pedir/Pasos/PanelPasos";
 
 import { useCheckout } from "../context/CheckoutContext";
 import { useOrder } from "../context/OrderDataContext";
-import styles from "./CheckoutLayout.module.css";
+import styles from "./Pedir.module.css";
 
 /* ==========================
    TEXTOS LOADER

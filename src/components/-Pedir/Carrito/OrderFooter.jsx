@@ -1,5 +1,5 @@
 import styles from "./OrderFooter.module.css";
-import { useCheckout } from "../../context/CheckoutContext";
+import { useCheckout } from "../../../context/CheckoutContext";
 
 export default function OrderFooter({
   totalPedido,

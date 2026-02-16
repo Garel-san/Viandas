@@ -1,7 +1,7 @@
 import styles from "./OrderSummary.module.css";
 
-import { useOrder } from "../../context/OrderDataContext";
-import { useCheckout } from "../../context/CheckoutContext";
+import { useOrder } from "../../../context/OrderDataContext";
+import { useCheckout } from "../../../context/CheckoutContext";
 
 import OrderHeader from "./OrderHeader";
 import OrderItemsList from "./OrderItemsList";

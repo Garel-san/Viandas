@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import styles from "./ProductConfigurator.module.css";
-import { useOrder } from "../../context/OrderDataContext";
+import { useOrder } from "../../../context/OrderDataContext";
 import { FiChevronDown, FiCheck, FiX } from "react-icons/fi";
 
 export default function ProductConfigurator({ product, onCancel }) {

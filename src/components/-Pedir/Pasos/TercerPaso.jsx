@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import { useCheckout } from "../../context/CheckoutContext";
-import { useOrder } from "../../context/OrderDataContext";
+import { useCheckout } from "../../../context/CheckoutContext";
+import { useOrder } from "../../../context/OrderDataContext";
 
-import styles from "./PaymentSection.module.css";
+import styles from "./TercerPaso.module.css";
 
 export default function PaymentSection() {
   const navigate = useNavigate();

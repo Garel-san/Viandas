@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import styles from "./FaqAccordion-Sub.module.css";
+import styles from "./PreguntasFrecuentesSub.module.css";
 
 const FAQS = [
   {
